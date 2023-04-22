@@ -344,7 +344,7 @@ button {
     scale: 1.1;
 }
 .battle-chip-label-text {
-    margin-top: 4px;
+    margin-top: 6px;
     font-weight: 700;
     font-size: 7.5px;
     text-align: center;
@@ -420,4 +420,8 @@ button {
 
 .battle-chip-modal-body {
     font-size: 0.75rem;
+}
+
+.battle-chip-modal-info {
+    margin-left: 0.5rem;
 }
