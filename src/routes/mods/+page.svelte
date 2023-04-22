@@ -4,7 +4,7 @@
     import { writable } from "svelte/store";
     import BattleChip from "../../components/BattleChip.svelte";
     import Modal from "../../components/Modal.svelte";
-    import modList from "../../stores";
+    import { modList } from "../../stores";
 
     const isLoading = writable(true);
     const endpoint = "https://www.keristero.xyz";
