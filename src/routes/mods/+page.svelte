@@ -41,7 +41,7 @@
             <Grid.Col xs={11} md={3} xl={2} override={{ flex: "0 0 33%" }}>
                 <BattleChip
                     mod={modList[modName]}
-                    on:contextmenu={(ev) => {
+                    on:click={(ev) => {
                         ev.preventDefault();
                         selectedMod.set(modList[modName]);
                         opened.set(true);
