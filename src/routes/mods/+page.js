@@ -11,6 +11,8 @@ export async function load({ fetch, params }) {
         const data = await response.json();
 
         if (data) modList.set(data);
+
+        return data;
     }
 
     return mod_list;
