@@ -10,6 +10,7 @@
     const endpoint = "https://www.keristero.xyz";
 
     onMount(async () => {
+        console.log(Object.keys(modList), Object.keys(modList).length);
         if (Object.keys(modList).length === 0) {
             const response = await fetch(`${endpoint}/mod_list`);
             const data = await response.json();
