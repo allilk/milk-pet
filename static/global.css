@@ -295,7 +295,7 @@ button {
         100% 100%,
         0 100%
     );
-    margin: 1rem;
+    margin: 0.15rem;
     border-radius: 4px;
     display: flex;
     justify-content: center;

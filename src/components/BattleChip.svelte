@@ -8,7 +8,7 @@
     export let chipTitle =
         mod?.data?.detail?.props?.shortname ||
         mod?.data?.name ||
-        mod?.attachment_data?.author_name ||
+        mod?.attachment_data?.thread_name.match(/(?:\[.+\]) *(.+)$/)[1] ||
         "Roll";
 
     export let chipNumber = "000";
