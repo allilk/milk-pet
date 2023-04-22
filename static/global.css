@@ -318,9 +318,9 @@ button {
 
 .battle-chip-inner-label {
     background: black;
-    height: 84px;
+    height: 90px;
     width: 70px;
-    margin-top: 0.5rem;
+    margin-top: 0.25rem;
     clip-path: polygon(
         3.84% 0px,
         95% 0px,
