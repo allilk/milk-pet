@@ -318,34 +318,35 @@ button {
 
 .battle-chip-inner-label {
     background: black;
-    height: 86px;
-    width: 64px;
+    height: 84px;
+    width: 70px;
     margin-top: 0.5rem;
     clip-path: polygon(
-        9% 0,
-        90% 0,
-        100% 9%,
-        100% 91%,
-        90% 100%,
-        10% 100%,
-        0 91%,
-        0 9%
+        3.84% 0px,
+        95% 0px,
+        100% 3.84%,
+        100% 95%,
+        95% 100%,
+        3.84% 100%,
+        0px 95%,
+        0px 3.84%
     );
     position: relative;
 }
 .battle-chip-inner-label > img {
     position: absolute;
-    top: 48%;
-    left: 50%;
+    top: 52%;
+    left: 54%;
     transform: translate(-50%, -50%);
     object-fit: contain;
     width: 56px;
     height: 48px;
+    scale: 1.1;
 }
 .battle-chip-label-text {
-    margin-top: 8px;
+    margin-top: 4px;
     font-weight: 700;
-    font-size: 6.5px;
+    font-size: 7.5px;
     text-align: center;
     color: yellow;
 }
@@ -368,13 +369,13 @@ button {
 .battle-chip-label-title {
     font-weight: 600;
     position: absolute;
-    bottom: 0;
+    bottom: -2px;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 10px;
     font-size: clamp(2px, 8px, 10px);
     height: 11px;
-    width: 56px;
+    width: 60px;
     white-space: nowrap;
     text-align: center;
 }
