@@ -3,17 +3,23 @@ import { modList } from "../../stores";
 import { get } from "svelte/store";
 const endpoint = "https://www.keristero.xyz";
 
-export async function load({ fetch, params }) {
-    const mod_list = get(modList);
+export const load = async ({ fetch }) =>
+    new Promise(async (resolve, reject) => {
+        try {
+            const mod_list = get(modList);
 
-    if (Object.keys(mod_list).length === 0) {
-        const response = await fetch(`${endpoint}/mod_list`);
-        const data = await response.json();
+            if (Object.keys(mod_list).length === 0) {
+                const response = await fetch(`${endpoint}/mod_list`);
 
-        if (data) modList.set(data);
+                const data = await response.json();
 
-        return data;
-    }
+                if (data) modList.set(data);
 
-    return mod_list;
-}
+                return resolve(data);
+            }
+
+            return resolve(mod_list);
+        } catch (err) {
+            return reject(err);
+        }
+    });
