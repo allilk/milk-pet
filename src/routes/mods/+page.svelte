@@ -4,16 +4,19 @@
     import { writable } from "svelte/store";
     import BattleChip from "../../components/BattleChip.svelte";
     import Modal from "../../components/Modal.svelte";
+    import modList from "../../stores";
 
     const isLoading = writable(true);
-    const modList = writable({});
     const endpoint = "https://www.keristero.xyz";
 
     onMount(async () => {
-        const response = await fetch(`${endpoint}/mod_list`);
-        const data = await response.json();
+        if (Object.keys(modList).length === 0) {
+            const response = await fetch(`${endpoint}/mod_list`);
+            const data = await response.json();
 
-        if (data) modList.set(data);
+            if (data) modList.set(data);
+        }
+
         isLoading.set(false);
     });
 
