@@ -1,5 +1,5 @@
 <script>
-    import { ShellSection, Stack } from "@svelteuidev/core";
+    import { Stack } from "@svelteuidev/core";
     import { ActionIcon } from "@svelteuidev/core";
     import Icon from "svelte-icons-pack/Icon.svelte";
     import IoMail from "svelte-icons-pack/io/IoMail";
@@ -23,7 +23,7 @@
     <ActionIcon class="sidebar-icon">
         <Icon src={IoPerson} color="white" size="16" />
     </ActionIcon>
-    <ActionIcon class="sidebar-icon">
+    <ActionIcon class="sidebar-icon" on:click={() => goto("/chip-library")}>
         <Icon src={IoBookOutline} color="white" size="16" />
     </ActionIcon>
 </Stack>

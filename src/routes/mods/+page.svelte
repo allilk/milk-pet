@@ -1,19 +1,21 @@
 <script>
-    import { Box, Grid, Loader } from "@svelteuidev/core";
+    import { Box, Center, Container, Grid, Loader } from "@svelteuidev/core";
     import { writable } from "svelte/store";
     import BattleChip from "../../components/BattleChip.svelte";
     import Modal from "../../components/Modal.svelte";
 
-    export let data;
+    export let data = {};
 
     const opened = writable(false);
     const selectedMod = writable({});
 </script>
 
+<Container class="page-header">ONB Mods</Container>
+
 {#await data}
     <Loader />
 {:then modList}
-    <Modal {opened}>
+    <Modal {opened} title="battlechip">
         <Box css={{ display: "flex" }}>
             <BattleChip mod={$selectedMod} />
             <div class="battle-chip-modal-info">
@@ -39,7 +41,8 @@
             <Grid.Col xs={11} md={3} xl={2} override={{ flex: "0 0 33%" }}>
                 <BattleChip
                     mod={modList[modName]}
-                    on:click={() => {
+                    on:contextmenu={(ev) => {
+                        ev.preventDefault();
                         selectedMod.set(modList[modName]);
                         opened.set(true);
                     }}

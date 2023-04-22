@@ -4,7 +4,7 @@
 
     export let src = mod?.data?.detail?.preview
         ? `${endpoint}/${mod?.data?.detail?.preview}`
-        : "test_battlechip_image.png";
+        : "nodata.png";
     export let chipTitle =
         mod?.data?.detail?.props?.shortname ||
         mod?.data?.name ||
@@ -15,7 +15,7 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="battle-chip" on:click>
+<div class="battle-chip" on:click on:contextmenu>
     <div class="battle-chip-label">
         <div class="battle-chip-inner-label">
             <div class="battle-chip-label-text"><i>BATTLE CHIP</i></div>

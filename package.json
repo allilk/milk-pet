@@ -22,6 +22,8 @@
         "@svelteuidev/dates": "^0.11.1",
         "@svelteuidev/motion": "^0.11.1",
         "dayjs": "^1.11.7",
+        "mongodb": "^5.3.0",
+        "mongoose": "^7.0.4",
         "svelte-icons-pack": "^2.1.0"
     }
 }

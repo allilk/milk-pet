@@ -12,6 +12,7 @@
     import HeadContent from "../components/HeadContent.svelte";
     import RightSidebarContent from "../components/RightSidebarContent.svelte";
     import LeftSidebarContent from "../components/LeftSidebarContent.svelte";
+    import FooterContent from "../components/FooterContent.svelte";
 </script>
 
 <SvelteUIProvider>
@@ -31,5 +32,6 @@
         >
         <LeftSidebarContent />
         <RightSidebarContent />
+        <FooterContent />
     </AppShell>
 </SvelteUIProvider>
