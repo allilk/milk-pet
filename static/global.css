@@ -266,6 +266,7 @@ button {
 .battle-chip {
     background: #365c9a;
     min-width: 105px;
+    width: 105px;
     height: 162.5px;
     clip-path: polygon(
         0 90%,
