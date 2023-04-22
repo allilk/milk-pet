@@ -7,6 +7,7 @@
 
     const isLoading = writable(true);
     const modList = writable({});
+    const endpoint = "https://www.keristero.xyz";
 
     onMount(async () => {
         const response = await fetch(`${endpoint}/mod_list`);
