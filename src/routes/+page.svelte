@@ -18,8 +18,8 @@
 
 <Button on:click={() => opened.set(true)}>test button</Button>
 
-<Container override={{ display: "flex" }}>
+<!-- <Container override={{ display: "flex" }}>
     <BattleChip />
     <BattleChip />
     <BattleChip />
-</Container>
+</Container> -->

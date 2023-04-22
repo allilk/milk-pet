@@ -44,7 +44,6 @@
     <Grid
         cols={22}
         override={{
-            px: "1rem",
             overflowY: "scroll",
             h: "82vh",
             overflowX: "hidden",

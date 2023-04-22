@@ -89,8 +89,12 @@ button {
 @media screen and (min-width: 750px) {
     .topbar {
         margin-right: 2rem;
+        padding: 1rem;
+        margin-left: 0;
     }
-
+    .topbar-container {
+        font-size: 1rem !important;
+    }
     .left-sidebar-container {
         left: -0.75rem;
         top: 5rem;
@@ -100,10 +104,14 @@ button {
         right: -2rem;
     }
     .body-container > * {
-        padding: 4rem 8rem 4rem 4rem !important;
+        padding: 4rem 8rem 4rem 6rem !important;
+    }
+    .header-container {
+        margin-left: 0;
     }
 }
 .header-container {
+    margin-left: 0.25rem;
     border: 0 !important;
     width: 100% !important;
     height: 50px !important;
@@ -125,10 +133,12 @@ button {
         0px 100%,
         0px 0px
     );
+    font-size: 0.75rem;
 }
 
 .topbar {
-    padding: 1rem;
+    padding: 1rem 0rem;
+    margin-left: -0.65rem !important;
 }
 
 .parent-container {
@@ -151,7 +161,7 @@ button {
 }
 
 .body-container > * {
-    padding: 3rem 1rem;
+    padding: 3rem 0.25rem;
 }
 
 .error-text {
