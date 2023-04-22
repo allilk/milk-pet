@@ -6,27 +6,29 @@
     import Modal from "../../components/Modal.svelte";
     import { modList } from "../../stores";
 
-    const isLoading = writable(true);
-    const endpoint = "https://www.keristero.xyz";
+    // const isLoading = writable(true);
+    // const endpoint = "https://www.keristero.xyz";
 
-    onMount(async () => {
-        if (Object.keys($modList).length === 0) {
-            const response = await fetch(`${endpoint}/mod_list`);
-            const data = await response.json();
+    // onMount(async () => {
+    //     if (Object.keys($modList).length === 0) {
+    //         const response = await fetch(`${endpoint}/mod_list`);
+    //         const data = await response.json();
 
-            if (data) modList.set(data);
-        }
+    //         if (data) modList.set(data);
+    //     }
 
-        isLoading.set(false);
-    });
+    //     isLoading.set(false);
+    // });
+
+    export let data;
 
     const opened = writable(false);
     const selectedMod = writable({});
 </script>
 
-{#if $isLoading}
+{#await data}
     <Loader />
-{:else}
+{:then modList}
     <Modal {opened}>
         <Box css={{ display: "flex" }}>
             <BattleChip mod={$selectedMod} />
@@ -49,16 +51,18 @@
             overflowX: "hidden",
         }}
     >
-        {#each Object.keys($modList) as modName}
+        {#each Object.keys(modList) as modName}
             <Grid.Col xs={10} lg={2}>
                 <BattleChip
-                    mod={$modList[modName]}
+                    mod={modList[modName]}
                     on:click={() => {
-                        selectedMod.set($modList[modName]);
+                        selectedMod.set(modList[modName]);
                         opened.set(true);
                     }}
                 /></Grid.Col
             >
         {/each}
     </Grid>
-{/if}
+{:catch error}
+    <p style="color: red">{error.message}</p>
+{/await}
