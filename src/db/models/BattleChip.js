@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
-const battleChipSchema = new Schema({
+export const battleChipSchema = new Schema({
     id: {
         type: String,
         required: true,
@@ -18,5 +18,3 @@ const battleChipSchema = new Schema({
         default: "",
     },
 });
-
-mongoose.model("Chip", battleChipSchema);
