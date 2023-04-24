@@ -5,7 +5,6 @@
     import Modal from "../../components/Modal.svelte";
 
     export let data = {};
-
     const opened = writable(false);
     const selectedMod = writable({});
 </script>
@@ -40,9 +39,10 @@
         {#each Object.keys(modList) as modName}
             <Grid.Col
                 xs={11}
+                sm={4}
                 md={3}
                 xl={2}
-                override={{ flex: "0 0 33%", padding: "0" }}
+                override={{ flex: "1 1 0", padding: "0" }}
             >
                 <BattleChip
                     mod={modList[modName]}
