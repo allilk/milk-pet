@@ -42,7 +42,7 @@
                 sm={4}
                 md={3}
                 xl={2}
-                override={{ flex: "1 1 0", padding: "0" }}
+                override={{ flex: "none", padding: "0" }}
             >
                 <BattleChip
                     mod={modList[modName]}
