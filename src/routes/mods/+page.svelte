@@ -38,7 +38,12 @@
         }}
     >
         {#each Object.keys(modList) as modName}
-            <Grid.Col xs={11} md={3} xl={2} override={{ flex: "0 0 33%" }}>
+            <Grid.Col
+                xs={11}
+                md={3}
+                xl={2}
+                override={{ flex: "0 0 33%", padding: "0" }}
+            >
                 <BattleChip
                     mod={modList[modName]}
                     on:click={(ev) => {

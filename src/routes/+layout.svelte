@@ -25,8 +25,9 @@
         <Header slot="header" class="header-container">
             <HeadContent />
         </Header>
-        <Container fluid class="body-container"
-            ><div>
+        <Container fluid class="body-container">
+            <div class="body-background">&nbsp;</div>
+            <div>
                 <slot />
             </div></Container
         >
