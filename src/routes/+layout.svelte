@@ -31,7 +31,13 @@
             </div></Container
         >
         <LeftSidebarContent />
+        <div class="top-left-overlay-detail-container">
+            <div class="top-left-overlay-detail">&nbsp;</div>
+        </div>
         <RightSidebarContent />
         <FooterContent />
+        <div class="bottom-right-screen-detail-container">
+            <div class="bottom-right-screen-detail">&nbsp;</div>
+        </div>
     </AppShell>
 </SvelteUIProvider>

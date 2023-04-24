@@ -13,6 +13,11 @@
     font-weight: 500;
     src: url("/fonts/Orbitron-VariableFont_wght.ttf");
 }
+html,
+body {
+    padding: 0;
+    margin: 0;
+}
 
 body {
     background-color: #9ee7e4;
@@ -23,9 +28,12 @@ body {
     background-size: 15px 15px;
     background-position: -19px -19px;
     color: white;
-    overflow: hidden;
     display: flex;
     justify-content: center;
+    /* border: 2px solid white;
+    border-radius: 6px; */
+    height: 100vh;
+    width: 100%;
 }
 
 button {
@@ -86,30 +94,6 @@ button {
     top: 5rem;
 }
 
-@media screen and (min-width: 750px) {
-    .topbar {
-        margin-right: 2rem;
-        padding: 1rem;
-        margin-left: 0;
-    }
-    .topbar-container {
-        font-size: 1rem !important;
-    }
-    .left-sidebar-container {
-        left: -0.75rem;
-        top: 5rem;
-        display: initial;
-    }
-    .body-container {
-        right: -2rem;
-    }
-    .body-container > * {
-        padding: 4rem 8rem 4rem 6rem !important;
-    }
-    .header-container {
-        margin-left: 0;
-    }
-}
 .header-container {
     margin-left: 0.25rem;
     border: 0 !important;
@@ -145,10 +129,18 @@ button {
 }
 
 .parent-container {
-    height: 100vh;
+    /* height: 100vh;
+    max-height: 100vh;
     max-width: 1600px;
-    position: relative;
+    position: relative; */
     z-index: 10;
+    max-width: 1600px;
+    height: 100%;
+    min-height: 100%;
+    box-sizing: border-box !important;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    padding: 8px;
 }
 
 .body-container {
@@ -361,7 +353,7 @@ button {
 .battle-chip-label-text {
     margin-top: 6px;
     font-weight: 700;
-    font-size: 7.5px;
+    font-size: 7px;
     text-align: center;
     color: yellow;
     white-space: nowrap;
@@ -493,4 +485,99 @@ button {
     width: 100%;
     height: 100%;
     object-fit: contain;
+}
+@keyframes scroll-left {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+.marquee-message {
+    height: 50px;
+    overflow: hidden;
+    position: relative;
+}
+
+.marquee-message p {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    line-height: 50px;
+    text-align: center;
+    transform: translateX(100%);
+    animation: scroll-left 20s linear infinite;
+}
+
+.bottom-right-screen-detail-container {
+    position: absolute;
+    bottom: 1.5rem;
+    right: -2rem;
+    display: none;
+    filter: drop-shadow(5px 9px 5px rgba(23, 126, 145, 1));
+}
+
+.bottom-right-screen-detail {
+    background: var(--OverlayLightBlue);
+    height: 200px;
+    width: 300px;
+    clip-path: polygon(
+        52% 26%,
+        73% 0,
+        100% 0,
+        100% 100%,
+        75% 100%,
+        50% 100%,
+        0 100%,
+        38% 42%,
+        49% 69%,
+        64% 54%
+    );
+}
+
+.top-left-overlay-detail-container {
+    position: absolute;
+    top: 45%;
+    left: 0;
+    transform: translateY(-50%);
+    z-index: 10;
+    filter: drop-shadow(13px 19px 25px white);
+    display: none;
+}
+
+.top-left-overlay-detail {
+    background: white;
+    height: 300px;
+    width: 100px;
+    clip-path: polygon(0 0, 4% 0, 5% 76%, 20% 84%, 20% 100%, 0 100%);
+}
+@media screen and (min-width: 750px) {
+    .topbar {
+        margin-right: 2rem;
+        padding: 1rem;
+        margin-left: 0;
+    }
+    .topbar-container {
+        font-size: 1rem !important;
+    }
+    .left-sidebar-container {
+        left: -0.75rem;
+        top: 5rem;
+        display: initial;
+    }
+    .body-container {
+        right: -2rem;
+    }
+    .body-container > * {
+        padding: 4rem 8rem 4rem 6rem !important;
+    }
+    .header-container {
+        margin-left: 0;
+    }
+    .bottom-right-screen-detail-container,
+    .top-left-overlay-detail-container {
+        display: initial;
+    }
 }
