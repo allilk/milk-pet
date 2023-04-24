@@ -3,6 +3,9 @@ import { modList } from "../../stores";
 import { get } from "svelte/store";
 const endpoint = "https://www.keristero.xyz";
 
+export const prerender = true;
+export const ssr = true;
+
 export const load = async ({ fetch }) =>
     new Promise(async (resolve, reject) => {
         try {
