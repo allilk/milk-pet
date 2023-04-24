@@ -3,6 +3,7 @@
     import { writable } from "svelte/store";
     import BattleChip from "../../components/BattleChip.svelte";
     import Modal from "../../components/Modal.svelte";
+    import VisibilityGuard from "../../components/VisibilityGuard.svelte";
 
     export let data = {};
     const opened = writable(false);
@@ -44,14 +45,17 @@
                 xl={2}
                 override={{ flex: "none", padding: "0" }}
             >
-                <BattleChip
-                    mod={modList[modName]}
-                    on:click={(ev) => {
-                        ev.preventDefault();
-                        selectedMod.set(modList[modName]);
-                        opened.set(true);
-                    }}
-                /></Grid.Col
+                <VisibilityGuard let:hasBeenVisible>
+                    <BattleChip
+                        mod={modList[modName]}
+                        {hasBeenVisible}
+                        on:click={(ev) => {
+                            ev.preventDefault();
+                            selectedMod.set(modList[modName]);
+                            opened.set(true);
+                        }}
+                    />
+                </VisibilityGuard></Grid.Col
             >
         {/each}
     </Grid>
