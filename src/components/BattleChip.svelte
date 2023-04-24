@@ -2,7 +2,6 @@
     export let mod = {};
     const endpoint = "https://www.keristero.xyz";
 
-    export let hasBeenVisible = false;
     export let src = mod?.data?.detail?.preview
         ? `${endpoint}/${mod?.data?.detail?.preview}`
         : "nodata.png";
@@ -20,7 +19,7 @@
     <div class="battle-chip-label">
         <div class="battle-chip-inner-label">
             <div class="battle-chip-label-text"><i>BATTLE CHIP</i></div>
-            <img src={hasBeenVisible ? src : null} alt="loading..." />
+            <img {src} alt="" />
             <div class="battle-chip-label-title">
                 <i>
                     {chipTitle}

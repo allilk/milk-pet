@@ -8,7 +8,6 @@
 
     onMount(() => {
         const observer = new IntersectionObserver((entries) => {
-            console.log("entry", entries[0]);
             visible = entries[0].isIntersecting;
             hasBeenVisible = hasBeenVisible || visible;
         });

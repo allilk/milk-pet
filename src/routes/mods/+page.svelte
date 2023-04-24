@@ -46,15 +46,19 @@
                 override={{ flex: "none", padding: "0" }}
             >
                 <VisibilityGuard let:hasBeenVisible>
-                    <BattleChip
-                        mod={modList[modName]}
-                        {hasBeenVisible}
-                        on:click={(ev) => {
-                            ev.preventDefault();
-                            selectedMod.set(modList[modName]);
-                            opened.set(true);
-                        }}
-                    />
+                    {#if hasBeenVisible}
+                        <BattleChip
+                            mod={modList[modName]}
+                            {hasBeenVisible}
+                            on:click={(ev) => {
+                                ev.preventDefault();
+                                selectedMod.set(modList[modName]);
+                                opened.set(true);
+                            }}
+                        />
+                    {:else}
+                        &nbsp;
+                    {/if}
                 </VisibilityGuard></Grid.Col
             >
         {/each}

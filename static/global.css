@@ -560,6 +560,7 @@ button {
     width: 100px;
     clip-path: polygon(0 0, 4% 0, 5% 76%, 20% 84%, 20% 100%, 0 100%);
 }
+
 @media screen and (min-width: 750px) {
     .topbar {
         margin-right: 2rem;
