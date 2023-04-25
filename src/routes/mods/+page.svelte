@@ -1,13 +1,27 @@
 <script>
+    import { MasonryInfiniteGrid } from "@egjs/svelte-infinitegrid";
     import { Box, Center, Container, Grid, Loader } from "@svelteuidev/core";
     import { writable } from "svelte/store";
     import BattleChip from "../../components/BattleChip.svelte";
     import Modal from "../../components/Modal.svelte";
-    import VisibilityGuard from "../../components/VisibilityGuard.svelte";
+    import { onMount } from "svelte";
 
     export let data = {};
     const opened = writable(false);
     const selectedMod = writable({});
+
+    let items = getItems(0, 75);
+
+    function getItems(nextGroupKey, count) {
+        const nextItems = [];
+
+        for (let i = 0; i < count; ++i) {
+            const nextKey = nextGroupKey * count + i;
+
+            nextItems.push({ groupKey: nextGroupKey, key: nextKey });
+        }
+        return nextItems;
+    }
 </script>
 
 <Container class="page-header">ONB Mods</Container>
@@ -32,40 +46,36 @@
         </Box>
     </Modal>
 
-    <Grid
-        cols={22}
-        override={{
-            overflowY: "scroll",
-            h: "82vh",
-            overflowX: "hidden",
-        }}
-    >
-        {#each Object.keys(modList) as modName}
-            <Grid.Col
-                xs={11}
-                sm={4}
-                md={3}
-                xl={2}
-                override={{ flex: "none", padding: "0" }}
-            >
-                <VisibilityGuard let:hasBeenVisible>
-                    {#if hasBeenVisible}
-                        <BattleChip
-                            mod={modList[modName]}
-                            {hasBeenVisible}
-                            on:click={(ev) => {
-                                ev.preventDefault();
-                                selectedMod.set(modList[modName]);
-                                opened.set(true);
-                            }}
-                        />
-                    {:else}
-                        &nbsp;
-                    {/if}
-                </VisibilityGuard></Grid.Col
-            >
-        {/each}
-    </Grid>
+    <div id="scroll-container">
+        <MasonryInfiniteGrid
+            class="container"
+            gap={3}
+            {items}
+            isConstantSize
+            scrollContainer="#scroll-container"
+            on:requestAppend={({ detail: e }) => {
+                const nextGroupKey = (+e.groupKey || 0) + 1;
+                const nextGroupOfItems = getItems(nextGroupKey, 75);
+
+                const filteredGroupOfItems = nextGroupOfItems.filter(
+                    (itemKey) =>
+                        itemKey.key <= Object.values(modList).length - 1
+                );
+
+                // if (nextGroupOfItems[0].key > Object.values(modList).length)
+                //     return;
+
+                items = [...items, ...filteredGroupOfItems];
+            }}
+            let:visibleItems
+        >
+            {#each visibleItems as item (item.key)}
+                <div class="item">
+                    <BattleChip mod={Object.values(modList)[item.key]} />
+                </div>
+            {/each}
+        </MasonryInfiniteGrid>
+    </div>
 {:catch error}
     <p style="color: red">{error.message}</p>
 {/await}

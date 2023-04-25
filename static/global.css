@@ -601,3 +601,8 @@ button {
         display: initial;
     }
 }
+
+#scroll-container {
+    height: 84vh !important;
+    overflow-y: scroll;
+}

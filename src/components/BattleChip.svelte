@@ -12,6 +12,7 @@
         "Roll";
 
     export let chipNumber = "000";
+    console.log(mod);
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
