@@ -23,7 +23,9 @@
                     {$selectedMod?.attachment_data?.original_filename || ""}
                 </div>
                 <div class="battle-chip-modal-body">
-                    {$selectedMod?.data?.detail?.props?.long_description || ""}
+                    {$selectedMod?.data?.detail?.props?.long_description ||
+                        $selectedMod?.data?.detail?.props?.description ||
+                        ""}
                 </div>
             </div>
         </Box>
