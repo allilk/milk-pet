@@ -4,7 +4,6 @@
     import { writable } from "svelte/store";
     import BattleChip from "../../components/BattleChip.svelte";
     import Modal from "../../components/Modal.svelte";
-    import { onMount } from "svelte";
 
     export let data = {};
     const opened = writable(false);
@@ -62,16 +61,20 @@
                         itemKey.key <= Object.values(modList).length - 1
                 );
 
-                // if (nextGroupOfItems[0].key > Object.values(modList).length)
-                //     return;
-
                 items = [...items, ...filteredGroupOfItems];
             }}
             let:visibleItems
         >
             {#each visibleItems as item (item.key)}
                 <div class="item">
-                    <BattleChip mod={Object.values(modList)[item.key]} />
+                    <BattleChip
+                        mod={Object.values(modList)[item.key]}
+                        on:click={(ev) => {
+                            ev.preventDefault();
+                            selectedMod.set(Object.values(modList)[item.key]);
+                            opened.set(true);
+                        }}
+                    />
                 </div>
             {/each}
         </MasonryInfiniteGrid>
