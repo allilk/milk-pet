@@ -93,6 +93,7 @@ button {
     right: -1rem;
     filter: drop-shadow(9px 4px 3px rgba(23, 126, 145, 1));
     top: 5rem;
+    padding-left: 1rem !important;
 }
 
 .header-container {
