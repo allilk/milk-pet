@@ -162,8 +162,15 @@ button {
     margin-top: -2rem;
 }
 
-.body-container > * {
-    padding: 3rem 0.25rem;
+.body-container > .body-background {
+    padding: 3rem 0.25rem !important;
+}
+
+.body-container > div {
+    padding: 3rem 1rem;
+    position: absolute;
+    right: 5rem;
+    width: 89%;
 }
 
 .error-text {
@@ -578,7 +585,7 @@ button {
     .body-container {
         right: -2rem;
     }
-    .body-container > * {
+    .body-container > .body-background {
         padding: 4rem 5rem 5.5rem 6rem !important;
     }
     .body-background {
