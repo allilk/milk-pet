@@ -605,4 +605,5 @@ button {
 #scroll-container {
     height: 84vh !important;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
