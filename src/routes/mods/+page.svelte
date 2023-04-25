@@ -25,6 +25,7 @@
                 <div class="battle-chip-modal-body">
                     {$selectedMod?.data?.detail?.props?.long_description ||
                         $selectedMod?.data?.detail?.props?.description ||
+                        $selectedMod?.data?.description ||
                         ""}
                 </div>
             </div>
