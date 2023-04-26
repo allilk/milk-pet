@@ -355,7 +355,7 @@ button {
     );
     position: relative;
 }
-.battle-chip-inner-label > img {
+.battle-chip-inner-label > .img-container {
     position: absolute;
     top: 52%;
     left: 54%;

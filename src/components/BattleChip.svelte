@@ -27,9 +27,9 @@
                 .getColorAsync(src, {
                     ignoredColor: [
                         [255, 255, 255, 255],
-                        [0, 0, 0, 255, 25],
+                        [0, 0, 0, 255, 15],
                     ],
-                    algorithm: "simple",
+                    algorithm: "dominant",
                 })
                 .then((color) => {
                     imgTag.style.backgroundColor = color.rgb;
@@ -44,7 +44,9 @@
             <div class="battle-chip-label-text">
                 <i>{chipType === "players" ? "NAVI" : "BATTLE"} CHIP</i>
             </div>
-            <img {src} alt="" bind:this={imgTag} />
+            <div class="img-container" bind:this={imgTag}>
+                <img {src} alt="" />
+            </div>
             <div class="battle-chip-label-title">
                 <i>
                     {chipTitle}
