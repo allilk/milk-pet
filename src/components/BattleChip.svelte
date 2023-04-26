@@ -44,7 +44,7 @@
             <div class="battle-chip-label-text">
                 <i>{chipType === "players" ? "NAVI" : "BATTLE"} CHIP</i>
             </div>
-            <div class="img-container" bind:this={imgTag}>
+            <div class={"img-container"} bind:this={imgTag}>
                 <img {src} alt="" />
             </div>
             <div class="battle-chip-label-title">

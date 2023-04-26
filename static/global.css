@@ -360,11 +360,19 @@ button {
     top: 52%;
     left: 54%;
     transform: translate(-50%, -50%);
-    object-fit: contain;
+
     width: 56px;
     height: 48px;
     scale: 1.1;
 }
+
+.img-container img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+
 .battle-chip-label-text {
     margin-top: 6px;
     font-weight: 700;
