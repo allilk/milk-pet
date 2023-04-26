@@ -170,7 +170,7 @@ button {
 .body-container > div {
     padding: 3rem 1rem;
     position: absolute;
-    right: 5rem;
+    right: 0;
     width: 89%;
 }
 
@@ -589,6 +589,9 @@ button {
     .body-container > .body-background {
         padding: 4rem 5rem 5.5rem 6rem !important;
     }
+    .body-container > div {
+        right: 5rem;
+    }
     .body-background {
         left: 2rem;
         bottom: initial;
@@ -602,7 +605,7 @@ button {
     }
 }
 
-#scroll-container {
+.scroll-container {
     height: 84vh !important;
     overflow-y: scroll;
     overflow-x: hidden;

@@ -1,24 +1,46 @@
 <script>
+    import { FastAverageColor } from "fast-average-color";
+    import { onMount } from "svelte";
+
     export let mod = {};
     const endpoint = "https://www.keristero.xyz";
 
-    export let src = mod?.data?.detail?.preview
+    const src = mod?.data?.detail?.preview
         ? `${endpoint}/${mod?.data?.detail?.preview}`
         : "nodata.png";
-    export let chipTitle =
+    const chipTitle =
         mod?.data?.detail?.props?.shortname ||
         mod?.data?.name ||
         mod?.attachment_data?.thread_name.match(/(?:\[.+\]) *(.+)$/)[1] ||
         "Roll";
+    const chipType = mod?.data?.type;
+    const chipNumber = "000";
 
-    export let chipNumber = "000";
+    let imgContainer;
+
+    const fac = new FastAverageColor();
+
+    onMount(() => {
+        src !== "nodata.png" && chipType === "players";
+        fac.getColorAsync(src, {
+            ignoredColor: [
+                [255, 255, 255, 255],
+                [0, 0, 0, 255, 25],
+            ],
+            algorithm: "simple",
+        }).then((color) => {
+            imgContainer.style.backgroundColor = color.rgb;
+        });
+    });
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="battle-chip" on:click on:contextmenu>
     <div class="battle-chip-label">
-        <div class="battle-chip-inner-label">
-            <div class="battle-chip-label-text"><i>BATTLE CHIP</i></div>
+        <div class="battle-chip-inner-label" bind:this={imgContainer}>
+            <div class="battle-chip-label-text">
+                <i>{chipType === "players" ? "NAVI" : "BATTLE"} CHIP</i>
+            </div>
             <img {src} alt="" />
             <div class="battle-chip-label-title">
                 <i>
