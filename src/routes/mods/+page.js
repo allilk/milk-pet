@@ -14,7 +14,7 @@ export const load = async ({ fetch }) =>
                 const data = await response.json();
 
                 if (data) {
-                    data.sort((a, b) => (b?.data?.type ? 1 : -1));
+                    data.sort((a, b) => (b?.data?.type === "players" ? 1 : -1));
                     modList.set(data);
                 }
 
