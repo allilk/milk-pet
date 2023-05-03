@@ -6,7 +6,6 @@
     import ChipFolder from "../../components/ChipFolder.svelte";
 
     export let data = {};
-
     const toNotDownloadChips = writable(
         Object.values(data).map((mod) => ({
             ...mod,
@@ -43,7 +42,9 @@
 {:then modList}
     <div class="scroll-container">
         <ChipsDndContainer
-            items={modList}
+            items={modList.sort((a, b) =>
+                b?.data?.type === "players" ? 1 : -1
+            )}
             otherItems={$toDownloadChips}
             {manuallyAddToFolder}
             {updateChipArrays}

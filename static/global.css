@@ -335,7 +335,6 @@ button {
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
     box-shadow: inset 0px -4px 22px -20px black;
-
     outline: rgba(0, 0, 0, 0.2) 2px solid;
     border-top: 0;
 }
