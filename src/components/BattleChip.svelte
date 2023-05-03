@@ -17,6 +17,7 @@
     const chipNumber = "000";
 
     let battleChipContainer;
+    let imgTag;
 
     const fac = new FastAverageColor();
 
@@ -29,9 +30,11 @@
                         [255, 255, 255, 255],
                         [0, 0, 0, 255, 15],
                     ],
+                    algorithm: "dominant",
                 })
                 .then((color) => {
                     battleChipContainer.style.backgroundColor = color.rgb;
+                    imgTag.style.backgroundColor = color.rgb;
                 });
     });
 </script>
@@ -48,7 +51,7 @@
             <div class="battle-chip-label-text">
                 <i>{chipType === "players" ? "NAVI" : "BATTLE"} CHIP</i>
             </div>
-            <div class={"img-container"}>
+            <div class={"img-container"} bind:this={imgTag}>
                 <img {src} alt="" />
             </div>
             <div class="battle-chip-label-title">
