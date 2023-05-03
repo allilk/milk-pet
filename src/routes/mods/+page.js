@@ -13,7 +13,8 @@ export const load = async ({ fetch }) =>
 
                 const data = await response.json();
 
-                if (data) modList.set(data);
+                if (data)
+                    modList.set(data.sort((a, b) => (b?.data?.type ? 1 : -1)));
 
                 return resolve(data);
             }
