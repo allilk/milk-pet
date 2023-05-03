@@ -28,7 +28,7 @@
                 .getColorAsync(src, {
                     ignoredColor: [
                         [255, 255, 255, 255],
-                        [0, 0, 0, 255, 15],
+                        [0, 0, 0, 0, 15],
                     ],
                     algorithm: "dominant",
                 })
