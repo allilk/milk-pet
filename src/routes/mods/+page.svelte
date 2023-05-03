@@ -1,52 +1,58 @@
 <script>
-    import { Box, Center, Container, Loader } from "@svelteuidev/core";
+    import { Container, Loader } from "@svelteuidev/core";
     import { writable } from "svelte/store";
-    import BattleChip from "../../components/BattleChip.svelte";
-    import Modal from "../../components/Modal.svelte";
-    import Grid from "svelte-grid-responsive";
 
-    export let data = {}
-    const opened = writable(false);
-    const selectedMod = writable({});
+    import ChipsDndContainer from "../../components/ChipsDNDContainer.svelte";
+    import ChipFolder from "../../components/ChipFolder.svelte";
+
+    export let data = {};
+
+    const toNotDownloadChips = writable(
+        Object.values(data).map((mod) => ({
+            ...mod,
+            id: mod.attachment_data.attachment_id,
+        }))
+    );
+    const toDownloadChips = writable([]);
+
+    const manuallyAddToFolder = (newItem) => {
+        toDownloadChips.set([
+            ...$toDownloadChips.filter((chip) => chip.id !== newItem.id),
+            newItem,
+        ]);
+    };
+    const updateChipArrays = (
+        toNotDownload = undefined,
+        toDownload = undefined
+    ) => {
+        toDownload && toDownloadChips.set(toDownload);
+        toNotDownload && toNotDownloadChips.set(toNotDownload);
+    };
+
+    const manuallyRemoveFromFolder = (newItem) =>
+        toNotDownloadChips.set([
+            ...$toNotDownloadChips.filter((chip) => chip.id !== newItem.id),
+            newItem,
+        ]);
 </script>
 
 <Container class="page-header">ONB Mods</Container>
 
-{#await data}
+{#await $toNotDownloadChips}
     <Loader />
 {:then modList}
-    <Modal {opened} title="battlechip">
-        <Box css={{ display: "flex" }}>
-            <BattleChip mod={$selectedMod} />
-            <div class="battle-chip-modal-info">
-                <div class="battle-chip-modal-title">
-                    {$selectedMod?.attachment_data?.original_filename || ""}
-                </div>
-                <div class="battle-chip-modal-body">
-                    {$selectedMod?.data?.detail?.props?.long_description ||
-                        $selectedMod?.data?.detail?.props?.description ||
-                        $selectedMod?.data?.description ||
-                        ""}
-                </div>
-            </div>
-        </Box>
-    </Modal>
-
     <div class="scroll-container">
-        <Grid container columns={24}>
-            {#each Object.values(modList) as item}
-                <Grid xs={12} sm={4} lg={3} xl={2}>
-                    <BattleChip
-                        mod={item}
-                        on:click={(ev) => {
-                            ev.preventDefault();
-                            selectedMod.set(item);
-                            opened.set(true);
-                        }}
-                    />
-                </Grid>
-            {/each}
-        </Grid>
+        <ChipsDndContainer
+            items={modList}
+            otherItems={$toDownloadChips}
+            {manuallyAddToFolder}
+            {updateChipArrays}
+        />
+        <ChipFolder
+            items={$toDownloadChips}
+            {manuallyRemoveFromFolder}
+            {updateChipArrays}
+        />
     </div>
 {:catch error}
     <p style="color: red">{error.message}</p>

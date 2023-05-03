@@ -16,7 +16,7 @@
     const chipType = mod?.data?.type;
     const chipNumber = "000";
 
-    let imgTag;
+    let battleChipContainer;
 
     const fac = new FastAverageColor();
 
@@ -31,19 +31,24 @@
                     ],
                 })
                 .then((color) => {
-                    imgTag.style.backgroundColor = color.rgb;
+                    battleChipContainer.style.backgroundColor = color.rgb;
                 });
     });
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="battle-chip" on:click on:contextmenu>
+<div
+    class="battle-chip"
+    on:click
+    on:contextmenu
+    bind:this={battleChipContainer}
+>
     <div class="battle-chip-label">
         <div class="battle-chip-inner-label">
             <div class="battle-chip-label-text">
                 <i>{chipType === "players" ? "NAVI" : "BATTLE"} CHIP</i>
             </div>
-            <div class={"img-container"} bind:this={imgTag}>
+            <div class={"img-container"}>
                 <img {src} alt="" />
             </div>
             <div class="battle-chip-label-title">

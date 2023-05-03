@@ -67,7 +67,7 @@ button {
 }
 
 .left-sidebar {
-    width: 100px;
+    width: 75px;
     height: 80vh;
     background: var(--OverlayLightBlue);
     clip-path: polygon(
@@ -87,6 +87,7 @@ button {
     display: none;
     position: absolute;
     filter: drop-shadow(5px 9px 5px rgba(23, 126, 145, 1));
+    padding-right: 0 !important;
 }
 .right-sidebar-container {
     position: absolute;
@@ -171,7 +172,7 @@ button {
     padding: 3rem 1rem;
     position: absolute;
     right: 0;
-    width: 89%;
+    width: 90%;
 }
 
 .error-text {
@@ -334,7 +335,8 @@ button {
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
     box-shadow: inset 0px -4px 22px -20px black;
-    border: #234987 2px solid;
+
+    outline: rgba(0, 0, 0, 0.2) 2px solid;
     border-top: 0;
 }
 
@@ -411,7 +413,7 @@ button {
     text-align: center;
 }
 .battle-chip-left-detail {
-    border: #234987 2px solid;
+    outline: rgba(0, 0, 0, 0.2) 2px solid;
     border-left: 0;
     height: 45px;
     width: 8px;
@@ -428,7 +430,7 @@ button {
     background: #745039;
     color: #ffe373;
     border-radius: 3px;
-    border: #234987 2px solid;
+    outline: rgba(0, 0, 0, 0.2) 2px solid;
     padding: 1px;
 }
 
@@ -439,7 +441,7 @@ button {
     position: absolute;
     top: 1rem;
     left: 0.2rem;
-    border: #234987 2px solid;
+    outline: rgba(0, 0, 0, 0.2) 2px solid;
 }
 
 .battle-chip-modal-title {
@@ -540,6 +542,7 @@ button {
     right: -2rem;
     display: none;
     filter: drop-shadow(5px 9px 5px rgba(23, 126, 145, 1));
+    user-select: none;
 }
 
 .bottom-right-screen-detail {
@@ -558,6 +561,7 @@ button {
         49% 69%,
         64% 54%
     );
+    user-select: none;
 }
 
 .top-left-overlay-detail-container {
@@ -568,13 +572,15 @@ button {
     z-index: 10;
     filter: drop-shadow(13px 19px 25px white);
     display: none;
+    user-select: none;
 }
 
 .top-left-overlay-detail {
     background: white;
     height: 300px;
-    width: 100px;
+    width: 75px;
     clip-path: polygon(0 0, 4% 0, 5% 76%, 20% 84%, 20% 100%, 0 100%);
+    user-select: none;
 }
 
 @media screen and (min-width: 750px) {
@@ -598,7 +604,7 @@ button {
         padding: 4rem 5rem 5.5rem 6rem !important;
     }
     .body-container > div {
-        right: 5rem;
+        right: 4rem;
     }
     .body-background {
         left: 2rem;
