@@ -171,7 +171,7 @@ button {
 .body-container > div {
     padding: 3rem 1rem;
     position: absolute;
-    right: 0;
+    right: 0.75rem;
     width: 90%;
 }
 
@@ -356,7 +356,7 @@ button {
     );
     position: relative;
 }
-.battle-chip-inner-label > .img-container {
+.battle-chip-inner-label .img-container {
     position: absolute;
     top: 52%;
     left: 54%;
@@ -372,6 +372,7 @@ button {
     width: 100%;
     object-fit: cover;
     object-position: top;
+    user-select: none;
 }
 
 .battle-chip-label-text {
@@ -381,6 +382,14 @@ button {
     text-align: center;
     color: yellow;
     white-space: nowrap;
+    user-select: none;
+    position: relative;
+}
+
+.battle-chip.default .battle-chip-label-text i {
+    position: absolute;
+    top: 4px;
+    left: 6px;
 }
 
 .battle-chip-contacts {
@@ -396,6 +405,7 @@ button {
     );
     position: absolute;
     bottom: 2px;
+    user-select: none;
 }
 
 .battle-chip-label-title {
@@ -413,13 +423,13 @@ button {
 }
 .battle-chip-left-detail {
     outline: rgba(0, 0, 0, 0.2) 2px solid;
-    border-left: 0;
     height: 45px;
     width: 8px;
     position: absolute;
     left: -2px;
     top: 2.5rem;
     border-radius: 3px;
+    user-select: none;
 }
 .battle-chip-bottom-detail {
     font-size: 6.5px;
@@ -431,6 +441,7 @@ button {
     border-radius: 3px;
     outline: rgba(0, 0, 0, 0.2) 2px solid;
     padding: 1px;
+    user-select: none;
 }
 
 .battle-chip-top-left-detail {
@@ -441,6 +452,7 @@ button {
     top: 1rem;
     left: 0.2rem;
     outline: rgba(0, 0, 0, 0.2) 2px solid;
+    user-select: none;
 }
 
 .battle-chip-modal-title {
@@ -486,17 +498,43 @@ button {
 .page-header {
     text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.47);
     position: absolute !important;
-    top: 4rem;
+    top: 2rem;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
-.custom-paragraph {
+.custom-paragraph,
+.custom-header {
     background: var(--OverlayLightBlue) !important;
     filter: drop-shadow(9px 4px 3px rgba(23, 126, 145, 1));
     padding: 1rem 2rem !important;
     border: 1px solid white;
     border-radius: 3px;
+}
+
+.custom-header {
+    letter-spacing: 1px;
+}
+.custom-paragraph .svelteui-InputWrapper-label,
+.custom-input .svelteui-InputWrapper-label {
+    font-size: 0.85rem !important;
+}
+.custom-select > div {
+    width: 50% !important;
+}
+
+.custom-input {
+    width: 75%;
+    margin: -1rem 0 0.5rem 0;
+}
+
+.custom-paragraph {
+    font-variation-settings: "wght" 300;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding: 1.5rem 2rem !important;
+    height: 100%;
+    width: 100%;
 }
 
 .test-navi {
@@ -604,6 +642,7 @@ button {
     }
     .body-container > div {
         right: 4rem;
+        height: 65%;
     }
     .body-background {
         left: 2rem;
@@ -616,10 +655,160 @@ button {
     .top-left-overlay-detail-container {
         display: initial;
     }
+    .custom-input {
+        margin: -1rem 2rem 0.5rem 2rem;
+    }
+    .custom-paragraph {
+        width: 65%;
+        margin-top: 2rem;
+    }
 }
 
 .scroll-container {
-    height: 84vh !important;
+    height: 79vh !important;
     overflow-y: scroll;
     overflow-x: hidden;
+}
+
+.battle-chip.progress {
+    clip-path: polygon(
+        0px 0px,
+        8.72% 0px,
+        11% 3%,
+        17% 3%,
+        19% 0px,
+        100% 0px,
+        100% 100%,
+        43.75% 100%,
+        34.48% 86%,
+        19% 86%,
+        17% 83%,
+        11% 83%,
+        8.72% 86%,
+        0px 86.11%
+    );
+    min-width: 130px;
+    width: 130px;
+    height: 90px;
+    scale: 1.1;
+    position: relative;
+    margin: 0.5rem 0.75rem;
+    background: #303030;
+}
+
+.battle-chip.progress .battle-chip-label {
+    height: 75px;
+    width: 80px;
+    position: absolute;
+    right: 0rem;
+    top: 0.65rem;
+    clip-path: polygon(100% 0px, 100% 100%, 12% 100%, 0px 87.67%, 0px 0px);
+    background: #d2b640;
+}
+
+.battle-chip.progress .battle-chip-label-text {
+    writing-mode: vertical-lr;
+    transform: scale(-1, -1);
+    color: white;
+    margin-top: 2px;
+    margin-left: 1.5px;
+}
+
+.battle-chip.progress .battle-chip-label-text i {
+    font-style: normal;
+    font-size: 6px;
+    font-variation-settings: "wght" 850;
+}
+
+.battle-chip.progress .battle-chip-inner-label {
+    clip-path: none;
+    height: 55px;
+    width: 78px;
+    margin-top: 0.2rem;
+    margin-right: -4px;
+    background: none;
+}
+
+.battle-chip.progress .battle-chip-label-title {
+    bottom: -1.15rem;
+}
+
+.battle-chip.progress .battle-chip-label-inner-container {
+    clip-path: polygon(100% 0px, 100% 100%, 12% 100%, 0px 87.67%, 0px 0px);
+    height: 73px;
+    margin-top: -3px;
+    background: black;
+    margin-left: -1px;
+}
+
+.battle-chip.progress .battle-chip-label-inner-container > div {
+    background: #d2b640;
+    clip-path: polygon(100% 0px, 100% 100%, 12% 100%, 0px 87.67%, 0px 0px);
+    height: 71px;
+    margin-left: 2px;
+    position: relative;
+    z-index: 5;
+}
+
+.battle-chip.progress .battle-chip-label-inner-container > div > div {
+    background: black;
+    position: absolute;
+    top: 4px;
+    z-index: 10;
+    width: 100%;
+    height: 75%;
+    border: white solid 1px;
+    border-left: none;
+    border-right: none;
+}
+
+.battle-chip.progress .battle-chip-bottom-detail {
+    writing-mode: vertical-lr;
+    transform: scale(-1, -1);
+    bottom: 1.1rem;
+    right: initial;
+    left: 1.95rem;
+}
+
+.battle-chip.progress .img-container {
+    scale: 0.95;
+    top: 5%;
+    left: 18%;
+    transform: none;
+}
+
+.battle-chip.progress .battle-chip-left-detail {
+    height: 48px;
+    width: 8px;
+    left: 1.9rem;
+    top: 0rem;
+    border-radius: 0 0 2px 2px;
+    border: rgba(0, 0, 0, 0.2) 2px solid;
+    border-top: 0;
+    outline: none;
+}
+
+.battle-chip.progress .battle-chip-top-left-detail {
+    height: 3px;
+    width: 20px;
+    border-radius: 1px;
+    top: 0.25rem;
+    right: 0.45rem;
+    left: initial;
+}
+
+.battle-chip.progress .battle-chip-contacts {
+    transform: rotate(90deg);
+    scale: 0.625;
+    top: 1.16rem;
+    left: -2.525rem;
+    bottom: initial;
+}
+
+.svelteui-InputWrapper-label {
+    color: white !important;
+}
+
+.folder-buttons.progress {
+    bottom: -7.5rem !important;
 }

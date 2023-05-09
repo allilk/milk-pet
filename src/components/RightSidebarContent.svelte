@@ -20,7 +20,7 @@
     <ActionIcon class="sidebar-icon">
         <Icon src={BsUsbPlugFill} color="white" size="16" />
     </ActionIcon>
-    <ActionIcon class="sidebar-icon">
+    <ActionIcon class="sidebar-icon" on:click={() => goto("/settings")}>
         <Icon src={IoPerson} color="white" size="16" />
     </ActionIcon>
     <ActionIcon class="sidebar-icon" on:click={() => goto("/chip-library")}>

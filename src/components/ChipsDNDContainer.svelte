@@ -4,12 +4,14 @@
     import { Box } from "@svelteuidev/core";
 
     import Modal from "./Modal.svelte";
+    import IntersectionObserver from "./IntersectionObserver.svelte";
     import BattleChip from "./BattleChip.svelte";
     import { writable } from "svelte/store";
 
     export let items;
     export let manuallyAddToFolder;
     export let updateChipArrays;
+    export let chipDesign;
 
     const opened = writable(false);
     const selectedMod = writable({});
@@ -26,7 +28,7 @@
 
 <Modal {opened} title="battlechip">
     <Box css={{ display: "flex" }}>
-        <BattleChip mod={$selectedMod} />
+        <BattleChip mod={$selectedMod} displayChipType={chipDesign} />
         <div class="battle-chip-modal-info">
             <div class="battle-chip-modal-title">
                 {$selectedMod?.attachment_data?.original_filename || ""}
@@ -55,6 +57,7 @@
             }}
         >
             <BattleChip
+                displayChipType={chipDesign}
                 mod={item}
                 on:contextmenu={(ev) => {
                     ev.preventDefault();
@@ -69,13 +72,9 @@
 <style>
     section {
         width: 100%;
-        height: 100%;
         display: flex;
         flex-wrap: wrap;
         align-content: flex-start;
-    }
-
-    div {
-        width: 110px;
+        padding-bottom: 10rem;
     }
 </style>

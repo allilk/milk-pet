@@ -3,6 +3,7 @@
     import { onMount } from "svelte";
 
     export let mod = {};
+    export let displayChipType = "";
     const endpoint = "https://www.keristero.xyz";
 
     const src = mod?.data?.detail?.preview
@@ -42,23 +43,35 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
-    class="battle-chip"
+    class={`battle-chip ${displayChipType}`}
     on:click
     on:contextmenu
     bind:this={battleChipContainer}
 >
     <div class="battle-chip-label">
-        <div class="battle-chip-inner-label">
-            <div class="battle-chip-label-text">
-                <i>{chipType === "players" ? "NAVI" : "BATTLE"} CHIP</i>
-            </div>
-            <div class={"img-container"} bind:this={imgTag}>
-                <img {src} alt="" />
-            </div>
-            <div class="battle-chip-label-title">
-                <i>
-                    {chipTitle}
-                </i>
+        <div>
+            <div class="battle-chip-inner-label">
+                <div class="battle-chip-label-inner-container">
+                    <div>
+                        <div>
+                            <div class="battle-chip-label-text">
+                                <i
+                                    >{chipType === "players"
+                                        ? "NAVI"
+                                        : "BATTLE"} CHIP</i
+                                >
+                            </div>
+                            <div class={"img-container"} bind:this={imgTag}>
+                                <img {src} alt="" />
+                            </div>
+                            <div class="battle-chip-label-title">
+                                <i>
+                                    {chipTitle}
+                                </i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

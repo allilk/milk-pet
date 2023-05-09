@@ -3,11 +3,11 @@
     import BattleChip from "../components/BattleChip.svelte";
 </script>
 
-<!-- <Container override={{ display: "flex" }}>
+<Container override={{ display: "flex" }}>
     <BattleChip />
     <BattleChip />
     <BattleChip />
-</Container> -->
+</Container>
 
 <Container class="custom-paragraph" override={{ width: "75%" }}>
     <h3>What is <i>MILK-PET</i> ?</h3>
