@@ -9,7 +9,6 @@ export function dndVirtualization(node) {
                 );
             },
             {
-                threshold: 0.5,
                 root: node.parentElement,
             }
         );
