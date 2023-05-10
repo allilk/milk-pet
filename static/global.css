@@ -379,7 +379,7 @@ button {
 .battle-chip-label-text {
     margin-top: 6px;
     font-weight: 700;
-    font-size: 7px;
+    font-size: 6px;
     text-align: center;
     color: yellow;
     white-space: nowrap;
@@ -423,7 +423,7 @@ button {
     text-align: center;
 }
 .battle-chip-left-detail {
-    outline: rgba(0, 0, 0, 0.2) 2px solid;
+    border: rgba(0, 0, 0, 0.2) 2px solid;
     height: 45px;
     width: 8px;
     position: absolute;
@@ -440,7 +440,7 @@ button {
     background: #745039;
     color: #ffe373;
     border-radius: 3px;
-    outline: rgba(0, 0, 0, 0.2) 2px solid;
+    border: rgba(0, 0, 0, 0.2) 2px solid;
     padding: 1px;
     user-select: none;
 }
@@ -452,7 +452,7 @@ button {
     position: absolute;
     top: 1rem;
     left: 0.2rem;
-    outline: rgba(0, 0, 0, 0.2) 2px solid;
+    border: rgba(0, 0, 0, 0.2) 2px solid;
     user-select: none;
 }
 
@@ -662,6 +662,9 @@ button {
     .custom-paragraph {
         width: 65%;
         margin-top: 2rem;
+    }
+    .battle-chip-label-text {
+        font-size: 7px;
     }
 }
 

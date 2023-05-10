@@ -2,6 +2,7 @@
     import { flip } from "svelte/animate";
     import { dndzone } from "svelte-dnd-action";
     import { Box } from "@svelteuidev/core";
+    import Device from "svelte-device-info";
 
     import Modal from "./Modal.svelte";
     import BattleChip from "./BattleChip.svelte";
@@ -43,7 +44,7 @@
 </Modal>
 
 <section
-    use:dndzone={{ items, flipDurationMs }}
+    use:dndzone={{ items, flipDurationMs, dragDisabled: Device.isMobile }}
     on:consider={handleDndConsider}
     on:finalize={handleDndFinalize}
 >
