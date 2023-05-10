@@ -1,6 +1,7 @@
 <script>
     import { FastAverageColor } from "fast-average-color";
     import { onMount } from "svelte";
+    import { lazyLoad } from "../helpers/lazyLoad";
 
     export let mod = {};
     export let displayChipType = "";
@@ -62,7 +63,7 @@
                                 >
                             </div>
                             <div class={"img-container"} bind:this={imgTag}>
-                                <img {src} alt="" />
+                                <img use:lazyLoad={src} alt="" />
                             </div>
                             <div class="battle-chip-label-title">
                                 <i>
