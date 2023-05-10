@@ -1,8 +1,10 @@
 import { MONGO_URL } from "$env/static/private";
 import mongoose from "mongoose";
 import { battleChipSchema } from "./models/BattleChip";
+import { modchipSchema } from "./models/ModChip";
 
-mongoose.model("Chip", battleChipSchema);
+export const Chip = mongoose.model("Chip", battleChipSchema);
+export const ModChip = mongoose.model("ModChip", modchipSchema);
 
 export function start_mongo() {
     console.log("Starting mongo connection...");

@@ -812,3 +812,11 @@ button {
 .folder-buttons.progress {
     bottom: -7.5rem !important;
 }
+
+.marquee-text {
+    position: absolute;
+    bottom: 16rem;
+    margin: 0 !important;
+    z-index: -1;
+    color: rgba(255, 255, 255, 0.3);
+}

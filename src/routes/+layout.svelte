@@ -1,11 +1,7 @@
 <script>
     import {
         AppShell,
-        Navbar,
         Header,
-        Aside,
-        Footer,
-        ShellSection,
         Container,
         SvelteUIProvider,
     } from "@svelteuidev/core";
@@ -13,6 +9,7 @@
     import RightSidebarContent from "../components/RightSidebarContent.svelte";
     import LeftSidebarContent from "../components/LeftSidebarContent.svelte";
     import FooterContent from "../components/FooterContent.svelte";
+    import MarqueeTextWidget from "svelte-marquee-text-widget";
 </script>
 
 <SvelteUIProvider>
@@ -39,6 +36,11 @@
         <FooterContent />
         <div class="bottom-right-screen-detail-container">
             <div class="bottom-right-screen-detail">&nbsp;</div>
+        </div>
+        <div class="marquee-text">
+            <MarqueeTextWidget duration={1} repeat={30}
+                >return&nbsp;&nbsp;&nbsp;</MarqueeTextWidget
+            >
         </div>
     </AppShell>
 </SvelteUIProvider>
