@@ -10,8 +10,37 @@
     import LeftSidebarContent from "../components/LeftSidebarContent.svelte";
     import FooterContent from "../components/FooterContent.svelte";
     import MarqueeTextWidget from "svelte-marquee-text-widget";
+
+    import { onMount } from "svelte";
+    import { partytownSnippet } from "@builder.io/partytown/integration";
+
+    // Add the Partytown script to the DOM head
+    let scriptEl;
+    onMount(() => {
+        if (scriptEl) {
+            scriptEl.textContent = partytownSnippet();
+        }
+    });
 </script>
 
+<svelte:head>
+    <title>MILK-PET</title>
+    <meta
+        name="description"
+        content="MILK-PET is a fan site that visually mimics the PET from the MegaMan NT Warrior and Battle Network series."
+    />
+    <script>
+        // Forward the necessary functions to the web worker layer
+        partytown = {
+            forward: ["dataLayer.push"],
+        };
+    </script>
+
+    <!-- `partytownSnippet` is inserted here -->
+    <!-- `partytownSnippet` is inserted here -->
+    <!-- `partytownSnippet` is inserted here -->
+    <script bind:this={scriptEl}></script>
+</svelte:head>
 <SvelteUIProvider>
     <AppShell
         class="parent-container"
@@ -19,13 +48,6 @@
             position: "relative",
         }}
     >
-        <head>
-            <title>MILK-PET</title>
-            <meta
-                name="description"
-                content="MILK-PET is a fan site that visually mimics the PET from the MegaMan NT Warrior and Battle Network series."
-            />
-        </head>
         <Header slot="header" class="header-container">
             <HeadContent />
         </Header>

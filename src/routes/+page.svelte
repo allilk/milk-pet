@@ -1,6 +1,5 @@
 <script>
-    import { Button, Container } from "@svelteuidev/core";
-    import { getFile } from "../helpers/getFile";
+    import { Container } from "@svelteuidev/core";
 </script>
 
 <Container
@@ -14,15 +13,6 @@
         assets such as mods for Open Net Battle. We do not host roms or anything
         illegal.
     </p>
-
-    <!-- <div class="marquee-message">
-        <p>
-            return return return return return return return return return
-            return return return return return return return return return
-            return return return return return return return return return
-            return return return return return return return return
-        </p>
-    </div> -->
 </Container>
 
 <!-- <div class="test-navi"><img src="mm-testnavi.png" alt="" /></div> -->

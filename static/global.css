@@ -299,6 +299,7 @@ button {
 }
 
 .battle-chip {
+    content-visibility: auto;
     background: #365c9a;
     min-width: 105px;
     width: 105px;
