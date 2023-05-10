@@ -4,7 +4,6 @@
     import { Box } from "@svelteuidev/core";
 
     import Modal from "./Modal.svelte";
-    import IntersectionObserver from "./IntersectionObserver.svelte";
     import BattleChip from "./BattleChip.svelte";
     import { writable } from "svelte/store";
 

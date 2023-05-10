@@ -2,6 +2,7 @@
     import { FastAverageColor } from "fast-average-color";
     import { onMount } from "svelte";
     import { lazyLoad } from "../helpers/lazyLoad";
+    import { dndVirtualization } from "../helpers/dndVirtualization";
 
     export let mod = {};
     export let displayChipType = "";
@@ -40,6 +41,10 @@
                     imgTag.style.backgroundColor = color.rgb;
                 });
     });
+
+    let isVisible = false;
+
+    $: console.log({ isVisible });
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -48,36 +53,40 @@
     on:click
     on:contextmenu
     bind:this={battleChipContainer}
+    on:dndVirtualization={(event) => (isVisible = event.detail)}
+    use:dndVirtualization
 >
-    <div class="battle-chip-label">
-        <div>
-            <div class="battle-chip-inner-label">
-                <div class="battle-chip-label-inner-container">
-                    <div>
+    {#if isVisible}
+        <div class="battle-chip-label">
+            <div>
+                <div class="battle-chip-inner-label">
+                    <div class="battle-chip-label-inner-container">
                         <div>
-                            <div class="battle-chip-label-text">
-                                <i
-                                    >{chipType === "players"
-                                        ? "NAVI"
-                                        : "BATTLE"} CHIP</i
-                                >
-                            </div>
-                            <div class={"img-container"} bind:this={imgTag}>
-                                <img use:lazyLoad={src} alt="" />
-                            </div>
-                            <div class="battle-chip-label-title">
-                                <i>
-                                    {chipTitle}
-                                </i>
+                            <div>
+                                <div class="battle-chip-label-text">
+                                    <i
+                                        >{chipType === "players"
+                                            ? "NAVI"
+                                            : "BATTLE"} CHIP</i
+                                    >
+                                </div>
+                                <div class={"img-container"} bind:this={imgTag}>
+                                    <img use:lazyLoad={src} alt="" />
+                                </div>
+                                <div class="battle-chip-label-title">
+                                    <i>
+                                        {chipTitle}
+                                    </i>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="battle-chip-left-detail">&nbsp;</div>
-    <div class="battle-chip-top-left-detail">&nbsp;</div>
-    <div class="battle-chip-bottom-detail">{chipNumber}</div>
-    <div class="battle-chip-contacts">&nbsp;</div>
+        <div class="battle-chip-left-detail">&nbsp;</div>
+        <div class="battle-chip-top-left-detail">&nbsp;</div>
+        <div class="battle-chip-bottom-detail">{chipNumber}</div>
+        <div class="battle-chip-contacts">&nbsp;</div>
+    {/if}
 </div>

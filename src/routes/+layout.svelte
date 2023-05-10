@@ -19,6 +19,13 @@
             position: "relative",
         }}
     >
+        <head>
+            <title>MILK-PET</title>
+            <meta
+                name="description"
+                content="MILK-PET is a fan site that visually mimics the PET from the MegaMan NT Warrior and Battle Network series."
+            />
+        </head>
         <Header slot="header" class="header-container">
             <HeadContent />
         </Header>
