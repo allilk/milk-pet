@@ -10,6 +10,8 @@
     import LeftSidebarContent from "../components/LeftSidebarContent.svelte";
     import FooterContent from "../components/FooterContent.svelte";
     import MarqueeTextWidget from "svelte-marquee-text-widget";
+
+    import { bottomScreenDetails } from "../stores";
 </script>
 
 <svelte:head>
@@ -41,9 +43,11 @@
         </div>
         <RightSidebarContent />
         <FooterContent />
-        <div class="bottom-right-screen-detail-container">
-            <div class="bottom-right-screen-detail">&nbsp;</div>
-        </div>
+        {#if $bottomScreenDetails}
+            <div class="bottom-right-screen-detail-container">
+                <div class="bottom-right-screen-detail">&nbsp;</div>
+            </div>
+        {/if}
         <div class="marquee-text">
             <MarqueeTextWidget duration={1} repeat={30}
                 >return&nbsp;&nbsp;&nbsp;</MarqueeTextWidget

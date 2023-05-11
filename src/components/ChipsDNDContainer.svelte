@@ -7,6 +7,7 @@
     import Modal from "./Modal.svelte";
     import BattleChip from "./BattleChip.svelte";
     import { writable } from "svelte/store";
+    import { animations } from "../stores";
 
     export let items;
     export let manuallyAddToFolder;
@@ -43,12 +44,20 @@
 </Modal>
 
 <section
-    use:dndzone={{ items, dragDisabled: Device.isMobile }}
+    use:dndzone={{
+        items,
+        dragDisabled: Device.isMobile,
+        flipDurationMs: $animations ? flipDurationMs : undefined,
+    }}
     on:consider={handleDndConsider}
     on:finalize={handleDndFinalize}
 >
     {#each items as item (item.id)}
         <div
+            class:no-animation={!$animations}
+            animate:flip={{
+                duration: flipDurationMs,
+            }}
             on:dblclick={(e) => {
                 items = items.filter((itm) => itm.id !== item.id);
                 manuallyAddToFolder(item);
@@ -74,5 +83,9 @@
         flex-wrap: wrap;
         align-content: flex-start;
         padding-bottom: 10rem;
+    }
+
+    .no-animation {
+        animation: none !important;
     }
 </style>

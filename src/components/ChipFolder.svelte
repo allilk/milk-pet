@@ -6,6 +6,7 @@
     import FaSolidDownload from "svelte-icons-pack/fa/FaSolidDownload";
     import BsXLg from "svelte-icons-pack/bs/BsXLg";
     import Icon from "svelte-icons-pack";
+    import { animations } from "../stores";
 
     export let items;
     export let manuallyRemoveFromFolder;
@@ -30,6 +31,7 @@
 >
     {#each items as item (item.id)}
         <div
+            class:no-animation={!$animations}
             animate:flip={{ duration: flipDurationMs }}
             on:dblclick={() => {
                 items = items.filter((itm) => itm.id !== item.id);
@@ -62,7 +64,7 @@
     section {
         padding: 0.3em;
         border-radius: 6px;
-        overflow: scroll;
+        overflow-y: hidden;
         width: 98%;
         position: absolute;
         bottom: -9rem;
@@ -82,5 +84,8 @@
         right: 2rem;
         bottom: -3.5rem;
         z-index: 11;
+    }
+    .no-animation {
+        animation: none !important;
     }
 </style>

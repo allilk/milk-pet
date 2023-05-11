@@ -3,11 +3,12 @@
         Box,
         Button,
         Center,
+        Checkbox,
         Container,
         NativeSelect,
     } from "@svelteuidev/core";
 
-    import { chipDesign } from "../../stores";
+    import { chipDesign, animations, bottomScreenDetails } from "../../stores";
 
     let layoutOptions = ["default", "progress"];
 </script>
@@ -18,7 +19,7 @@
 <br />
 <Center override={{ height: "80%", position: "relative" }}>
     <Box class="custom-paragraph">
-        <div>
+        <Box css={{ marginBottom: "1rem" }}>
             <NativeSelect
                 data={layoutOptions}
                 placeholder="Select one.."
@@ -32,6 +33,31 @@
                     fontSize: "0.85rem",
                 }}
             />
-        </div>
+        </Box>
+        <Box
+            css={{
+                display: "flex",
+                justifyContent: "space-between",
+                fontSize: "0.85rem",
+                marginBottom: "1rem",
+            }}
+        >
+            <div>Animations :</div>
+            <Checkbox color="indigo" size="xs" bind:checked={$animations} />
+        </Box>
+        <Box
+            css={{
+                display: "flex",
+                justifyContent: "space-between",
+                fontSize: "0.85rem",
+            }}
+        >
+            <div>Bottom Of Screen Details :</div>
+            <Checkbox
+                color="indigo"
+                size="xs"
+                bind:checked={$bottomScreenDetails}
+            />
+        </Box>
     </Box>
 </Center>
