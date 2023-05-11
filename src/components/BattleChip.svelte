@@ -64,9 +64,13 @@
                                 </div>
                                 <div class={"img-container"} bind:this={imgTag}>
                                     <img
-                                        use:lazyLoad={src}
+                                        use:lazyLoad={`${src}?w=56&format=webp&srcset`}
                                         alt=""
                                         draggable="false"
+                                        decoding="async"
+                                        type="image/webp"
+                                        on:error={(e) =>
+                                            (e.target.src = "nodata.png")}
                                     />
                                 </div>
                                 <div class="battle-chip-label-title">
