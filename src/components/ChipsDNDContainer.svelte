@@ -31,12 +31,11 @@
         <BattleChip mod={$selectedMod} displayChipType={chipDesign} />
         <div class="battle-chip-modal-info">
             <div class="battle-chip-modal-title">
-                {$selectedMod?.attachment_data?.original_filename || ""}
+                {$selectedMod?.shortname || ""}
             </div>
             <div class="battle-chip-modal-body">
-                {$selectedMod?.data?.detail?.props?.long_description ||
-                    $selectedMod?.data?.detail?.props?.description ||
-                    $selectedMod?.data?.description ||
+                {$selectedMod?.longDescription ||
+                    $selectedMod?.description ||
                     ""}
             </div>
         </div>

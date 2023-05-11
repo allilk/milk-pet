@@ -1,5 +1,5 @@
 <script>
-    import { Container } from "@svelteuidev/core";
+    import { Button, Container } from "@svelteuidev/core";
 </script>
 
 <Container

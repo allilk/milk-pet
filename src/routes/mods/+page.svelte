@@ -14,9 +14,9 @@
 
     export let data = {};
     const toNotDownloadChips = writable(
-        Object.values(data).map((mod) => ({
+        Object.values(data.data).map((mod) => ({
             ...mod,
-            id: mod.attachment_data.attachment_id,
+            id: mod._id,
         }))
     );
     const toDownloadChips = writable([]);
@@ -49,6 +49,8 @@
         toDownload && toDownloadChips.set(toDownload);
         toNotDownload && toNotDownloadChips.set(toNotDownload);
     };
+
+    $: console.log(data);
 </script>
 
 <Box css={{ display: "flex" }}>

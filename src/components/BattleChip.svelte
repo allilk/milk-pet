@@ -6,17 +6,10 @@
 
     export let mod = {};
     export let displayChipType = "";
-    const endpoint = "https://www.keristero.xyz";
 
-    const src = mod?.data?.detail?.preview
-        ? `${endpoint}/${mod?.data?.detail?.preview}`
-        : "nodata.png";
-    const chipTitle =
-        mod?.data?.detail?.props?.shortname ||
-        mod?.data?.name ||
-        mod?.attachment_data?.thread_name.match(/(?:\[.+\]) *(.+)$/)[1] ||
-        "Roll";
-    const chipType = mod?.data?.type;
+    const src = mod?.filePaths?.preview || "nodata.png";
+    const chipTitle = mod?.shortname || mod?.name;
+    const chipType = mod?.type;
     const chipNumber = "000";
 
     let battleChipContainer;
@@ -39,7 +32,8 @@
                 .then((color) => {
                     battleChipContainer.style.backgroundColor = color.rgb;
                     imgTag.style.backgroundColor = color.rgb;
-                });
+                })
+                .catch(() => {});
     });
 
     let isVisible = false;
