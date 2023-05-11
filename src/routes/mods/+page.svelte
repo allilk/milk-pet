@@ -2,20 +2,25 @@
     import { Box, Loader, NativeSelect, TextInput } from "@svelteuidev/core";
     import { writable } from "svelte/store";
     import { chipDesign } from "../../stores";
+    import debounce from "lodash/debounce";
 
     import ChipsDndContainer from "../../components/ChipsDNDContainer.svelte";
     import ChipFolder from "../../components/ChipFolder.svelte";
 
     export let data = {};
+
     const toNotDownloadChips = writable(
-        Object.values(data.data).map((mod) => ({
+        data.data.map((mod) => ({
             ...mod,
             id: mod._id,
         }))
     );
+
+    let displayedData = $toNotDownloadChips || [];
+    toNotDownloadChips.subscribe((value) => (displayedData = value));
+
     const toDownloadChips = writable([]);
     const sortBy = writable("Name");
-    const searchBy = writable("");
 
     const manuallyAddToFolder = (newItem) => {
         toNotDownloadChips.set(
@@ -43,6 +48,16 @@
         toDownload && toDownloadChips.set(toDownload);
         toNotDownload && toNotDownloadChips.set(toNotDownload);
     };
+
+    let searchBy = "";
+
+    const onChangeSearchBy = debounce((e) => {
+        searchBy = e.target.value;
+    }, 300);
+
+    $: displayedData = $toNotDownloadChips.filter((elem) =>
+        elem.name.toLowerCase().includes(searchBy.toLowerCase())
+    );
 </script>
 
 <Box css={{ display: "flex" }}>
@@ -51,7 +66,7 @@
         label="Chip Name"
         size="xs"
         class="custom-input no-select"
-        bind:value={$searchBy}
+        on:input={onChangeSearchBy}
         override={{ fontSize: "0.85rem", width: "25%" }}
     />
     <NativeSelect
@@ -64,7 +79,7 @@
         override={{ fontSize: "0.85rem", width: "15%" }}
     />
 </Box>
-{#await $toNotDownloadChips}
+{#await displayedData}
     <Loader />
 {:then modList}
     <div class="scroll-container">
