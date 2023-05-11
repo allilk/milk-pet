@@ -50,7 +50,7 @@
         placeholder="Chip Name"
         label="Chip Name"
         size="xs"
-        class="custom-input"
+        class="custom-input no-select"
         bind:value={$searchBy}
         override={{ fontSize: "0.85rem", width: "25%" }}
     />
@@ -59,7 +59,7 @@
         placeholder="Sort By"
         label="Sort By"
         size="xs"
-        class="custom-input"
+        class="custom-input no-select"
         bind:value={$sortBy}
         override={{ fontSize: "0.85rem", width: "15%" }}
     />

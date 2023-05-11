@@ -12,8 +12,6 @@ export const animations = writable(
 );
 
 const bottomScrnDetail = browser && localStorage.getItem("bottomScreenDetails");
-browser &&
-    console.log(bottomScrnDetail === "true" && bottomScrnDetail !== null);
 
 export const bottomScreenDetails = writable(
     bottomScrnDetail === "true" || bottomScrnDetail === null ? true : false

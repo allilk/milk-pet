@@ -299,6 +299,7 @@ button {
 }
 
 .battle-chip {
+    content-visibility: auto;
     background: #365c9a;
     min-width: 105px;
     width: 105px;
@@ -818,4 +819,8 @@ button {
     margin: 0 !important;
     z-index: -1;
     color: rgba(255, 255, 255, 0.3);
+}
+
+.no-select {
+    user-select: none !important;
 }

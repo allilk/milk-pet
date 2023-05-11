@@ -63,7 +63,11 @@
                                     >
                                 </div>
                                 <div class={"img-container"} bind:this={imgTag}>
-                                    <img use:lazyLoad={src} alt="" />
+                                    <img
+                                        use:lazyLoad={src}
+                                        alt=""
+                                        draggable="false"
+                                    />
                                 </div>
                                 <div class="battle-chip-label-title">
                                     <i>

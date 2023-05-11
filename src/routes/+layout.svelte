@@ -48,7 +48,7 @@
                 <div class="bottom-right-screen-detail">&nbsp;</div>
             </div>
         {/if}
-        <div class="marquee-text">
+        <div class="marquee-text no-select">
             <MarqueeTextWidget duration={1} repeat={30}
                 >return&nbsp;&nbsp;&nbsp;</MarqueeTextWidget
             >
