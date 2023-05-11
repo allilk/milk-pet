@@ -76,7 +76,6 @@
     <div class="scroll-container">
         <ChipsDndContainer
             items={modList}
-            otherItems={$toDownloadChips}
             {manuallyAddToFolder}
             {updateChipArrays}
             chipDesign={$chipDesign}

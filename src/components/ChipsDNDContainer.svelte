@@ -43,13 +43,12 @@
 </Modal>
 
 <section
-    use:dndzone={{ items, flipDurationMs, dragDisabled: Device.isMobile }}
+    use:dndzone={{ items, dragDisabled: Device.isMobile }}
     on:consider={handleDndConsider}
     on:finalize={handleDndFinalize}
 >
     {#each items as item (item.id)}
         <div
-            animate:flip={{ duration: flipDurationMs }}
             on:dblclick={(e) => {
                 items = items.filter((itm) => itm.id !== item.id);
                 manuallyAddToFolder(item);

@@ -299,7 +299,6 @@ button {
 }
 
 .battle-chip {
-    content-visibility: auto;
     background: #365c9a;
     min-width: 105px;
     width: 105px;
@@ -361,11 +360,9 @@ button {
     position: absolute;
     top: 52%;
     left: 54%;
-    transform: translate(-50%, -50%);
-
+    transform: scale(1.1) translate(-50%, -50%);
     width: 56px;
     height: 48px;
-    scale: 1.1;
 }
 
 .img-container img {
@@ -694,7 +691,7 @@ button {
     min-width: 130px;
     width: 130px;
     height: 90px;
-    scale: 1.1;
+    transform: scale(1.1);
     position: relative;
     margin: 0.5rem 0.75rem;
     background: #303030;
@@ -775,10 +772,9 @@ button {
 }
 
 .battle-chip.progress .img-container {
-    scale: 0.95;
+    transform: scale(0.95);
     top: 5%;
     left: 18%;
-    transform: none;
 }
 
 .battle-chip.progress .battle-chip-left-detail {
@@ -802,8 +798,7 @@ button {
 }
 
 .battle-chip.progress .battle-chip-contacts {
-    transform: rotate(90deg);
-    scale: 0.625;
+    transform: rotate(90deg) scale(0.625);
     top: 1.16rem;
     left: -2.525rem;
     bottom: initial;
