@@ -49,8 +49,6 @@
         toDownload && toDownloadChips.set(toDownload);
         toNotDownload && toNotDownloadChips.set(toNotDownload);
     };
-
-    $: console.log(data);
 </script>
 
 <Box css={{ display: "flex" }}>
