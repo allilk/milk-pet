@@ -1,11 +1,5 @@
 <script>
-    import {
-        Box,
-        Container,
-        Loader,
-        NativeSelect,
-        TextInput,
-    } from "@svelteuidev/core";
+    import { Box, Loader, NativeSelect, TextInput } from "@svelteuidev/core";
     import { writable } from "svelte/store";
     import { chipDesign } from "../../stores";
 
