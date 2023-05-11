@@ -11,8 +11,12 @@ export const animations = writable(
     (browser && localStorage.getItem("animations")) === "true" || false
 );
 
+const bottomScrnDetail = browser && localStorage.getItem("bottomScreenDetails");
+browser &&
+    console.log(bottomScrnDetail === "true" && bottomScrnDetail !== null);
+
 export const bottomScreenDetails = writable(
-    (browser && localStorage.getItem("bottomScreenDetails")) === "true"
+    bottomScrnDetail === "true" || bottomScrnDetail === null ? true : false
 );
 
 chipDesign.subscribe((value) => {
