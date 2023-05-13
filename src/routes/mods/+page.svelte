@@ -59,18 +59,17 @@
         Math.random().toString(20).substring(2, length);
     const zipAndDownloadMods = () => {
         openedModal.set(true);
-        const paths = $toDownloadChips.map((elem) => elem.filePaths.mod);
-        paths.forEach((path, i) => {
-            const filename = path.split("/")[3];
+        $toDownloadChips.forEach((elem, i) => {
+            const filename = `${elem.type}/${elem.filePaths.mod.split("/")[3]}`;
             // loading a file and add it in a zip file
-            JSZipUtils.getBinaryContent(path, (err, data) => {
+            JSZipUtils.getBinaryContent(elem.filePaths.mod, (err, data) => {
                 if (err) {
                     throw err; // or handle the error
                 }
 
                 zip.file(filename, data, { binary: true });
 
-                if (i === paths.length - 1) {
+                if (i === $toDownloadChips.length - 1) {
                     zip.generateAsync({ type: "blob" }, (metadata) => {
                         downloadProgress = metadata.percent;
                     }).then(function (content) {
