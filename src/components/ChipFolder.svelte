@@ -13,6 +13,7 @@
     export let updateChipArrays;
     export let chipDesign;
     export let removeAllChipsFromFolder;
+    export let zipAndDownloadMods;
 
     const flipDurationMs = 300;
     function handleDndConsider(e) {
@@ -49,6 +50,7 @@
             filter: "none",
             marginBottom: "0.5rem",
         }}
+        on:click={zipAndDownloadMods}
     >
         <Icon src={FaSolidDownload} color="white" size="16" />
     </Button>

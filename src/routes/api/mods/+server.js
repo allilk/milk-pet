@@ -11,10 +11,25 @@
 //     // const blob = await saveFile.blob();
 
 //     // const buffer = Buffer.from(await blob.arrayBuffer());
-//     // fs.writeFileSync(`static/mods/images/${fileName}`, buffer);
+//     // if (fs.existsSync(`static/mods/images/${fileName}`))
+//     //     fs.writeFileSync(`static/mods/images/${fileName}`, buffer);
 //     // console.log(`LOG: Downloading Complete`);
 
 //     return `/mods/images/${fileName}`;
+// };
+
+// const downloadFile = (fileURL) => {
+//     const fileName = fileURL.split("/")[6];
+//     // console.log(`LOG: Downloading "${fileName}"...`);
+
+//     // const saveFile = await fetch(fileURL);
+//     // const blob = await saveFile.blob();
+
+//     // const buffer = Buffer.from(await blob.arrayBuffer());
+//     // fs.writeFileSync(`static/mods/files/${fileName}`, buffer);
+//     // console.log(`LOG: Downloading Complete`);
+
+//     return `/mods/files/${fileName}`;
 // };
 
 // const mapData = (data) =>
@@ -36,7 +51,7 @@
 //             : undefined,
 //         discordDownloadLink: mod.attachment_data.discord_url,
 //         filePaths: {
-//             mod: "",
+//             mod: downloadFile(mod.attachment_data.discord_url),
 //             preview: mod?.data?.detail?.preview
 //                 ? downloadImage(
 //                       `${endpoint}/${mod?.data?.detail?.preview.replace(
@@ -82,28 +97,29 @@
 //     }));
 
 // export async function GET() {
-//     const data = await ModChip.find({});
-//     const mappedData = JSON.parse(JSON.stringify(data)).map((elem) => ({
-//         ...elem,
-//         filePaths: JSON.parse(elem.filePaths),
-//         author: elem?.author ? JSON.parse(elem.author) : undefined,
-//         chipInformation: elem?.chipInformation
-//             ? JSON.parse(elem.chipInformation)
-//             : undefined,
-//     }));
+//     // const data = await ModChip.find({});
+//     // const mappedData = JSON.parse(JSON.stringify(data)).map((elem) => ({
+//     //     ...elem,
+//     //     filePaths: JSON.parse(elem.filePaths),
+//     //     author: elem?.author ? JSON.parse(elem.author) : undefined,
+//     //     chipInformation: elem?.chipInformation
+//     //         ? JSON.parse(elem.chipInformation)
+//     //         : undefined,
+//     // }));
 
 //     // return mods - need to add query parameters, filtering, limits, etc.
 
-//     // const mappedData = mapData(data).map((elem) => ({
-//     //     ...elem,
-//     //     filePaths: JSON.stringify(elem.filePaths),
-//     //     chipInformation: JSON.stringify(elem.chipInformation),
-//     //     author: JSON.stringify(elem.author),
-//     // }));
+   
+//     const mappedData = mapData(data).map((elem) => ({
+//         ...elem,
+//         filePaths: JSON.stringify(elem.filePaths),
+//         chipInformation: JSON.stringify(elem.chipInformation),
+//         author: JSON.stringify(elem.author),
+//     }));
 
-//     // await ModChip.insertMany(mappedData);
+//     await ModChip.insertMany(mappedData);
 
-//     //     console.log("complete");
+//     console.log("done!");
 
 //     return new Response(
 //         JSON.stringify({ total: mappedData.length, data: mappedData }),
@@ -115,51 +131,51 @@
 //     );
 // }
 
-// // export async function PUT({ request }) {
-// //     const newMod = await request.json();
-// //     // Add new mod
-// //     try {
-// //         const data = new ModChip({
-// //             ...newMod,
-// //             author: newMod?.author ? JSON.stringify(newMod.author) : undefined,
-// //             chipInformation: newMod?.chipInformation
-// //                 ? JSON.stringify(newMod.chipInformation)
-// //                 : undefined,
-// //         });
+// // // export async function PUT({ request }) {
+// // //     const newMod = await request.json();
+// // //     // Add new mod
+// // //     try {
+// // //         const data = new ModChip({
+// // //             ...newMod,
+// // //             author: newMod?.author ? JSON.stringify(newMod.author) : undefined,
+// // //             chipInformation: newMod?.chipInformation
+// // //                 ? JSON.stringify(newMod.chipInformation)
+// // //                 : undefined,
+// // //         });
 
-// // const saveFile = await fetch(newMod?.discordDownloadLink);
+// // // const saveFile = await fetch(newMod?.discordDownloadLink);
 
-// // const fileName = newMod?.discordDownloadLink.split("/")[6];
-// // const blob = await saveFile.blob();
+// // // const fileName = newMod?.discordDownloadLink.split("/")[6];
+// // // const blob = await saveFile.blob();
 
-// // console.log(`LOG: Downloading mod "${fileName}"...`);
-// // const buffer = Buffer.from(await blob.arrayBuffer());
-// // fs.writeFileSync(`static/mods/${fileName}`, buffer);
+// // // console.log(`LOG: Downloading mod "${fileName}"...`);
+// // // const buffer = Buffer.from(await blob.arrayBuffer());
+// // // fs.writeFileSync(`static/mods/${fileName}`, buffer);
 
-// //         console.log(`LOG: Downloading completed, saving mod to database...`);
-// //         await data.save();
-// //         console.log(`LOG: Mod succesfully downloaded and saved to database.`);
+// // //         console.log(`LOG: Downloading completed, saving mod to database...`);
+// // //         await data.save();
+// // //         console.log(`LOG: Mod succesfully downloaded and saved to database.`);
 
-// //         return new Response(JSON.stringify(newMod), {
-// //             headers: {
-// //                 "Content-Type": "application/json",
-// //             },
-// //         });
-// //     } catch (err) {
-// //         return new Response(
-// //             JSON.stringify({ message: err.toString() || "Error saving mod" })
-// //         );
-// //     }
-// // }
+// // //         return new Response(JSON.stringify(newMod), {
+// // //             headers: {
+// // //                 "Content-Type": "application/json",
+// // //             },
+// // //         });
+// // //     } catch (err) {
+// // //         return new Response(
+// // //             JSON.stringify({ message: err.toString() || "Error saving mod" })
+// // //         );
+// // //     }
+// // // }
 
-// // export function DELETE() {
-// //     const modToDelete = {};
+// // // export function DELETE() {
+// // //     const modToDelete = {};
 
-// //     // Delete mod
+// // //     // Delete mod
 
-// //     return new Response(JSON.stringify({ modToDelete }), {
-// //         headers: {
-// //             "Content-Type": "application/json",
-// //         },
-// //     });
-// // }
+// // //     return new Response(JSON.stringify({ modToDelete }), {
+// // //         headers: {
+// // //             "Content-Type": "application/json",
+// // //         },
+// // //     });
+// // // }
