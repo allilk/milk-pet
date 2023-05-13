@@ -11,6 +11,7 @@
     const chipTitle = mod?.shortname || mod?.name;
     const chipType = mod?.type;
     const chipNumber = "000";
+    const chipElement = mod?.chipInformation?.element?.toLowerCase() || "none";
 
     let battleChipContainer;
     let imgTag;
@@ -41,7 +42,7 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
-    class={`battle-chip ${displayChipType}`}
+    class={`battle-chip ${displayChipType} ${chipType}`}
     on:click
     on:contextmenu
     bind:this={battleChipContainer}
@@ -74,6 +75,14 @@
                                     />
                                 </div>
                                 <div class="battle-chip-label-title">
+                                    {#if chipType !== "players"}
+                                        <img
+                                            src={`/mods/element_icons/${chipElement}.png`}
+                                            alt=""
+                                            width="11px"
+                                            height="11px"
+                                        />
+                                    {/if}
                                     <i>
                                         {chipTitle}
                                     </i>
@@ -90,3 +99,16 @@
         <div class="battle-chip-contacts">&nbsp;</div>
     {/if}
 </div>
+
+<style>
+    .players .battle-chip-label-title {
+        text-align: center;
+    }
+
+    img {
+        image-rendering: crisp-edges;
+    }
+    .players img {
+        image-rendering: initial;
+    }
+</style>

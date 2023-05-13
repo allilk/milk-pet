@@ -428,10 +428,22 @@ small > span {
     font-size: 10px;
     font-size: clamp(2px, 8px, 10px);
     height: 11px;
-    width: 60px;
+    width: 62px;
     white-space: nowrap;
-    text-align: center;
+    text-align: left;
 }
+
+.battle-chip-label-title img {
+    float: left;
+    filter: contrast(120%);
+    image-rendering: pixelated;
+}
+
+.battle-chip-label-title i {
+    vertical-align: sub;
+    margin-left: 2px;
+}
+
 .battle-chip-left-detail {
     border: rgba(0, 0, 0, 0.2) 2px solid;
     height: 45px;
@@ -775,7 +787,7 @@ small > span {
 }
 
 .battle-chip.progress .battle-chip-label-title {
-    bottom: -1.15rem;
+    bottom: -1.125rem;
     font-size: clamp(2px, 7px, 9px);
 }
 

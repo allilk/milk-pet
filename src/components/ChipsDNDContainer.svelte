@@ -64,7 +64,8 @@
             animate:flip={{
                 duration: flipDurationMs,
             }}
-            on:dblclick={(e) => {
+            on:dblclick={(ev) => {
+                ev.preventDefault();
                 if (!Device.isMobile) {
                     items = items.filter((itm) => itm.id !== item.id);
                     manuallyAddToFolder(item);
