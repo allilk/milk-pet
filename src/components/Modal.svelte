@@ -1,5 +1,6 @@
 <script>
     import { Modal } from "@svelteuidev/core";
+    import Device from "svelte-device-info";
 
     export let opened;
     export let title = "";
@@ -14,7 +15,7 @@
     class="custom-modal"
     withCloseButton={false}
     centered
-    size="sm"
+    size={"lg"}
 >
     <div class="modal-second-inner">
         <slot />

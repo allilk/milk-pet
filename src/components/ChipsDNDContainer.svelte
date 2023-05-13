@@ -32,8 +32,14 @@
         <BattleChip mod={$selectedMod} displayChipType={chipDesign} />
         <div class="battle-chip-modal-info">
             <div class="battle-chip-modal-title">
-                {$selectedMod?.shortname || ""}
+                {$selectedMod?.shortname || $selectedMod?.name || ""}
+                <small
+                    >created by: <span>
+                        {$selectedMod?.author?.authorName}
+                    </span></small
+                >
             </div>
+            <hr />
             <div class="battle-chip-modal-body">
                 {$selectedMod?.longDescription ||
                     $selectedMod?.description ||
@@ -59,19 +65,23 @@
                 duration: flipDurationMs,
             }}
             on:dblclick={(e) => {
-                items = items.filter((itm) => itm.id !== item.id);
-                manuallyAddToFolder(item);
-            }}
-        >
-            <BattleChip
-                displayChipType={chipDesign}
-                mod={item}
-                on:contextmenu={(ev) => {
-                    ev.preventDefault();
+                if (!Device.isMobile) {
+                    items = items.filter((itm) => itm.id !== item.id);
+                    manuallyAddToFolder(item);
+                } else {
                     selectedMod.set(item);
                     opened.set(true);
-                }}
-            />
+                }
+            }}
+            on:contextmenu={(ev) => {
+                ev.preventDefault();
+                if (!Device.isMobile) {
+                    selectedMod.set(item);
+                    opened.set(true);
+                }
+            }}
+        >
+            <BattleChip displayChipType={chipDesign} mod={item} />
         </div>
     {/each}
 </section>

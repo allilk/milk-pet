@@ -43,6 +43,15 @@ button {
     filter: drop-shadow(9px 4px 3px rgba(23, 126, 145, 1));
 }
 
+small {
+    font-size: 0.7rem;
+    font-variation-settings: "wght" 300;
+}
+
+small > span {
+    font-variation-settings: "wght" 500;
+}
+
 .sidebar-icon {
     background: var(--OverlayLightBlue) !important;
     color: white !important;
@@ -103,7 +112,7 @@ button {
     width: 100% !important;
     height: 50px !important;
     background: none !important;
-
+    transform: translateZ(0);
     filter: drop-shadow(5px 9px 5px rgba(23, 126, 145, 1));
 }
 
@@ -172,7 +181,6 @@ button {
     padding: 3rem 1rem;
     position: absolute;
     right: 0.75rem;
-    width: 90%;
 }
 
 .error-text {
@@ -184,8 +192,10 @@ button {
 .svelteui-Modal-modal {
     background: var(--ModalBackground) !important;
     backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.47);
     color: white !important;
+    width: calc(100vw - 54px) !important;
     /* filter: drop-shadow(0px 17px 3px rgba(23, 126, 145, 1)); */
 }
 
@@ -243,9 +253,11 @@ button {
 @keyframes blur {
     0% {
         backdrop-filter: blur(0);
+        -webkit-backdrop-filter: blur(0);
     }
     100% {
         backdrop-filter: blur(1px);
+        -webkit-backdrop-filter: blur(1px);
     }
 }
 
@@ -343,7 +355,7 @@ button {
 .battle-chip-inner-label {
     background: black;
     height: 90px;
-    width: 70px;
+    width: 71px;
     margin-top: 0.25rem;
     clip-path: polygon(
         3.84% 0px,
@@ -457,16 +469,20 @@ button {
 .battle-chip-modal-title {
     white-space: nowrap;
     margin-bottom: 0.5rem;
-    border-bottom: 1px solid white;
-    padding-bottom: 0.25rem;
 }
 
 .battle-chip-modal-body {
     font-size: 0.75rem;
+    font-variation-settings: "wght" 300;
 }
 
 .battle-chip-modal-info {
     margin-left: 0.5rem;
+    width: 100%;
+}
+
+.battle-chip-modal-info hr {
+    color: white;
 }
 
 .footer {
@@ -476,6 +492,7 @@ button {
     transform: translate(-50%, -50%);
     text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.47);
     font-size: 0.75rem;
+    cursor: pointer;
 }
 
 .svelteui-Modal-header {
@@ -619,6 +636,18 @@ button {
     user-select: none;
 }
 
+.scroll-container {
+    height: 75vh !important;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.chip-name-search {
+    width: 55% !important;
+}
+.sort-by-dropdown {
+    width: 25% !important;
+    margin-left: 0.5rem;
+}
 @media screen and (min-width: 750px) {
     .topbar {
         margin-right: 2rem;
@@ -641,7 +670,8 @@ button {
     }
     .body-container > div {
         right: 4rem;
-        height: 65%;
+        height: 78%;
+        width: 90%;
     }
     .body-background {
         left: 2rem;
@@ -664,14 +694,23 @@ button {
     .battle-chip-label-text {
         font-size: 7px;
     }
+    .svelteui-Modal-modal {
+        width: 620px !important;
+    }
+    .scroll-container {
+        height: 100% !important;
+    }
+    .battle-chip.progress .battle-chip-label-text i {
+        font-size: 6px !important;
+    }
+    .chip-name-search {
+        width: 25% !important;
+    }
+    .sort-by-dropdown {
+        width: 15% !important;
+        margin-left: initial;
+    }
 }
-
-.scroll-container {
-    height: 79vh !important;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-
 .battle-chip.progress {
     clip-path: polygon(
         0px 0px,
@@ -713,12 +752,13 @@ button {
     transform: scale(-1, -1);
     color: white;
     margin-top: 2px;
-    margin-left: 1.5px;
+    margin-left: -3px;
+    font-size: initial !important;
 }
 
 .battle-chip.progress .battle-chip-label-text i {
     font-style: normal;
-    font-size: 6px;
+    font-size: 5px;
     font-variation-settings: "wght" 850;
 }
 
@@ -733,6 +773,7 @@ button {
 
 .battle-chip.progress .battle-chip-label-title {
     bottom: -1.15rem;
+    font-size: clamp(2px, 7px, 9px);
 }
 
 .battle-chip.progress .battle-chip-label-inner-container {
@@ -776,6 +817,7 @@ button {
     transform: scale(0.95);
     top: 5%;
     left: 18%;
+    user-select: none;
 }
 
 .battle-chip.progress .battle-chip-left-detail {
@@ -793,7 +835,7 @@ button {
     height: 3px;
     width: 20px;
     border-radius: 1px;
-    top: 0.25rem;
+    top: 0.125rem;
     right: 0.45rem;
     left: initial;
 }
@@ -810,7 +852,7 @@ button {
 }
 
 .folder-buttons.progress {
-    bottom: -7.5rem !important;
+    bottom: -0.25rem !important;
 }
 
 .marquee-text {

@@ -67,7 +67,7 @@
         overflow-y: hidden;
         width: 98%;
         position: absolute;
-        bottom: -9rem;
+        bottom: -2rem;
         display: flex;
         flex-wrap: nowrap;
         background: var(--OverlayLightBlue);
@@ -82,7 +82,7 @@
     .folder-buttons {
         position: absolute;
         right: 2rem;
-        bottom: -3.5rem;
+        bottom: 3.5rem;
         z-index: 11;
     }
     .no-animation {

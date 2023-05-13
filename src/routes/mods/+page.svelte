@@ -65,18 +65,18 @@
         placeholder="Chip Name"
         label="Chip Name"
         size="xs"
-        class="custom-input no-select"
+        class="custom-input chip-name-search no-select"
         on:input={onChangeSearchBy}
-        override={{ fontSize: "0.85rem", width: "25%" }}
+        override={{ fontSize: "0.85rem" }}
     />
     <NativeSelect
         data={["Name", "Date Uploaded", "Damage"]}
         placeholder="Sort By"
         label="Sort By"
         size="xs"
-        class="custom-input no-select"
+        class="custom-input sort-by-dropdown no-select"
         bind:value={$sortBy}
-        override={{ fontSize: "0.85rem", width: "15%" }}
+        override={{ fontSize: "0.85rem" }}
     />
 </Box>
 {#await displayedData}
