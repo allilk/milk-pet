@@ -55,14 +55,15 @@
     const openedModal = writable(false);
     let downloadProgress = 0;
 
+    const generateRandomString = (length = 6) =>
+        Math.random().toString(20).substring(2, length);
     const zipAndDownloadMods = () => {
         openedModal.set(true);
         const paths = $toDownloadChips.map((elem) => elem.filePaths.mod);
         paths.forEach((path, i) => {
             const filename = path.split("/")[3];
-            console.log(filename);
             // loading a file and add it in a zip file
-            JSZipUtils.getBinaryContent(path, function (err, data) {
+            JSZipUtils.getBinaryContent(path, (err, data) => {
                 if (err) {
                     throw err; // or handle the error
                 }
@@ -75,7 +76,10 @@
                     }).then(function (content) {
                         downloadProgress = 0;
                         openedModal.set(false);
-                        FileSaver.saveAs(content, "test.zip");
+                        FileSaver.saveAs(
+                            content,
+                            `MyMods-${generateRandomString(10)}`
+                        );
                     });
                 }
             });
