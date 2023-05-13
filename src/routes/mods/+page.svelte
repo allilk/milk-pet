@@ -59,7 +59,8 @@
         Math.random().toString(20).substring(2, length);
     const zipAndDownloadMods = () => {
         openedModal.set(true);
-        $toDownloadChips.forEach((elem, i) => {
+        for (let i = 0; i < $toDownloadChips.length; i++) {
+            const elem = $toDownloadChips[i];
             const filename = `${elem.type}/${elem.filePaths.mod.split("/")[3]}`;
             // loading a file and add it in a zip file
             JSZipUtils.getBinaryContent(elem.filePaths.mod, (err, data) => {
@@ -82,7 +83,7 @@
                     });
                 }
             });
-        });
+        }
     };
 
     const updateChipArrays = (
