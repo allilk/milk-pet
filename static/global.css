@@ -673,6 +673,9 @@ small > span {
         height: 78%;
         width: 90%;
     }
+    .body-container > .body-background {
+        height: initial !important;
+    }
     .body-background {
         left: 2rem;
         bottom: initial;
@@ -698,7 +701,7 @@ small > span {
         width: 620px !important;
     }
     .scroll-container {
-        height: 100% !important;
+        height: 78vh !important;
     }
     .battle-chip.progress .battle-chip-label-text i {
         font-size: 6px !important;
