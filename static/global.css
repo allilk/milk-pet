@@ -440,8 +440,8 @@ small > span {
 }
 
 .battle-chip-label-title i {
-    vertical-align: sub;
-    margin-left: 2px;
+    vertical-align: top;
+    margin-left: 3px;
 }
 
 .battle-chip-left-detail {
@@ -724,6 +724,10 @@ small > span {
     .sort-by-dropdown {
         width: 15% !important;
         margin-left: initial;
+    }
+    .battle-chip-label-title i {
+        vertical-align: sub;
+        margin-left: 2px;
     }
 }
 .battle-chip.progress {
