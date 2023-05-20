@@ -27,24 +27,42 @@
     }
 </script>
 
-<Modal {opened} title="battlechip">
+<Modal
+    {opened}
+    title={$selectedMod?.type === "players" ? "navichip" : "battlechip"}
+>
     <Box css={{ display: "flex" }}>
         <BattleChip mod={$selectedMod} displayChipType={chipDesign} />
         <div class="battle-chip-modal-info">
             <div class="battle-chip-modal-title">
                 {$selectedMod?.shortname || $selectedMod?.name || ""}
-                <small
-                    >created by: <span>
-                        {$selectedMod?.author?.authorName}
-                    </span></small
-                >
             </div>
             <hr />
             <div class="battle-chip-modal-body">
                 {$selectedMod?.longDescription ||
                     $selectedMod?.description ||
                     ""}
+                <div class="battle-chip-modal-body-footer">
+                    {#if $selectedMod?.chipInformation?.damage}
+                        dmg: <span> {$selectedMod.chipInformation.damage}</span>
+                    {/if}
+                    &nbsp;
+                    {#if $selectedMod?.chipInformation?.codes}
+                        codes: <span>
+                            {$selectedMod.chipInformation.codes.join(" ")}</span
+                        >
+                    {/if}
+                </div>
             </div>
+            <hr class="bottom-hr" />
+        </div>
+
+        <div class="battle-chip-modal-footer">
+            <small
+                >created by: <span>
+                    {$selectedMod?.author?.authorName}
+                </span></small
+            >
         </div>
     </Box>
 </Modal>

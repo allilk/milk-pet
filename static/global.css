@@ -14,6 +14,13 @@
     src: url("/fonts/Orbitron-VariableFont_wght.ttf");
     font-display: swap;
 }
+@font-face {
+    font-family: "Oswald";
+    font-style: normal;
+    font-weight: 500;
+    src: url("/fonts/Oswald-VariableFont_wght.ttf");
+    font-display: swap;
+}
 html,
 body {
     padding: 0;
@@ -49,7 +56,7 @@ small {
 }
 
 small > span {
-    font-variation-settings: "wght" 500;
+    font-variation-settings: "wght" 600;
 }
 
 .sidebar-icon {
@@ -196,7 +203,22 @@ small > span {
     text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.47);
     color: white !important;
     width: calc(100vw - 54px) !important;
+    padding: 8px !important;
     /* filter: drop-shadow(0px 17px 3px rgba(23, 126, 145, 1)); */
+}
+
+.svelteui-Modal-modal .battle-chip {
+    transform: scale(0.9);
+}
+
+.modal-second-inner > div {
+    position: relative;
+}
+
+.battle-chip-modal-footer {
+    position: absolute;
+    bottom: -0.25rem;
+    right: 0.75rem;
 }
 
 .svelteui-Modal-modal::before {
@@ -399,8 +421,9 @@ small > span {
 
 .battle-chip.default .battle-chip-label-text i {
     position: absolute;
-    top: 4px;
-    left: 6px;
+    top: 9px;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .battle-chip-contacts {
@@ -479,6 +502,7 @@ small > span {
 }
 
 .battle-chip-modal-title {
+    font-size: 0.9rem;
     white-space: nowrap;
     margin-bottom: 0.5rem;
 }
@@ -486,15 +510,34 @@ small > span {
 .battle-chip-modal-body {
     font-size: 0.75rem;
     font-variation-settings: "wght" 300;
+    height: 250px;
+    position: relative;
+}
+
+.battle-chip-modal-body-footer {
+    font-size: 0.7rem;
+    position: absolute;
+    bottom: 0;
+    right: 0.75rem;
+}
+
+.battle-chip-modal-body-footer span {
+    color: #ffe373;
+    font-size: 0.85rem;
+    font-variation-settings: "wght" 700;
 }
 
 .battle-chip-modal-info {
-    margin-left: 0.5rem;
+    margin-top: 0.5rem;
     width: 100%;
 }
 
 .battle-chip-modal-info hr {
     color: white;
+}
+
+.battle-chip-modal-info .bottom-hr {
+    margin-bottom: 1rem;
 }
 
 .footer {
@@ -717,7 +760,7 @@ small > span {
         height: 78vh !important;
     }
     .battle-chip.progress .battle-chip-label-text i {
-        font-size: 6px !important;
+        font-size: 8px !important;
     }
     .chip-name-search {
         width: 25% !important;
@@ -729,6 +772,9 @@ small > span {
     .battle-chip-label-title i {
         vertical-align: sub;
         margin-left: 2px;
+    }
+    .battle-chip-modal-info {
+        margin-left: 0.5rem;
     }
 }
 .battle-chip.progress {
@@ -755,6 +801,7 @@ small > span {
     position: relative;
     margin: 0.5rem 0.75rem;
     background: #303030;
+    font-family: Oswald;
 }
 
 .battle-chip.progress .battle-chip-label {
@@ -771,14 +818,17 @@ small > span {
     writing-mode: vertical-lr;
     transform: scale(-1, -1);
     color: white;
-    margin-top: 2px;
+    margin-top: 4px;
     margin-left: -3px;
     font-size: initial !important;
+}
+.battle-chip.progress.players .battle-chip-label-text {
+    margin-top: 8px;
 }
 
 .battle-chip.progress .battle-chip-label-text i {
     font-style: normal;
-    font-size: 5px;
+    font-size: 8px;
     font-variation-settings: "wght" 850;
 }
 
@@ -794,6 +844,22 @@ small > span {
 .battle-chip.progress .battle-chip-label-title {
     bottom: -1.125rem;
     font-size: clamp(2px, 7px, 9px);
+    font-weight: none !important;
+}
+
+.battle-chip.progress .battle-chip-label-title i {
+    font-size: 0.625rem;
+    font-style: initial;
+    text-shadow: none !important;
+    color: black;
+    font-variation-settings: "wght" 350;
+    position: absolute;
+    top: -2px;
+}
+
+.battle-chip.progress.players .battle-chip-label-title i {
+    transform: translateX(-50%);
+    left: 50%;
 }
 
 .battle-chip.progress .battle-chip-label-inner-container {
