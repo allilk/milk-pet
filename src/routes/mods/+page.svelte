@@ -1,6 +1,7 @@
 <script>
     import {
         Box,
+        Button,
         Loader,
         NativeSelect,
         Progress,
@@ -16,6 +17,10 @@
     import ChipsDndContainer from "../../components/ChipsDNDContainer.svelte";
     import ChipFolder from "../../components/ChipFolder.svelte";
     import Modal from "../../components/Modal.svelte";
+    import Icon from "svelte-icons-pack";
+    import TiArrowSortedDown from "svelte-icons-pack/ti/TiArrowSortedDown";
+    import TiArrowSortedUp from "svelte-icons-pack/ti/TiArrowSortedUp";
+    import { onMount } from "svelte";
 
     export let data = {};
     const zip = new JSZip();
@@ -31,7 +36,6 @@
     toNotDownloadChips.subscribe((value) => (displayedData = value));
 
     const toDownloadChips = writable([]);
-    const sortBy = writable("Name");
 
     const manuallyAddToFolder = (newItem) => {
         toNotDownloadChips.set(
@@ -103,6 +107,54 @@
     $: displayedData = $toNotDownloadChips.filter((elem) =>
         elem.name.toLowerCase().includes(searchBy.toLowerCase())
     );
+
+    let sortDirection = "down";
+    let sortBy = "Name";
+
+    const getSortEquation = (method, sortDirection, a, b) => {
+        switch (method) {
+            case "Name":
+                a = a.name.toLowerCase();
+                b = b.name.toLowerCase();
+
+                return sortDirection === "down"
+                    ? a < b
+                        ? -1
+                        : a > b
+                        ? 1
+                        : 0
+                    : a > b
+                    ? -1
+                    : a < b
+                    ? 1
+                    : 0;
+            case "Date Uploaded":
+                return sortDirection === "down"
+                    ? a.uploadedAt < b.uploadedAt
+                        ? -1
+                        : a.uploadedAt > b.uploadedAt
+                        ? 1
+                        : 0
+                    : a.uploadedAt > b.uploadedAt
+                    ? -1
+                    : a.uploadedAt < b.uploadedAt
+                    ? 1
+                    : 0;
+            case "Damage":
+                a = a?.chipInformation?.damage || 0;
+                b = b?.chipInformation?.damage || 0;
+
+                return sortDirection === "down" ? b - a : a - b;
+        }
+    };
+
+    const onChangeSortBy = () => {
+        displayedData = displayedData.sort((a, b) =>
+            getSortEquation(sortBy, sortDirection, a, b)
+        );
+    };
+
+    onMount(onChangeSortBy);
 </script>
 
 <Modal opened={openedModal} title="download">
@@ -133,9 +185,25 @@
         label="Sort By"
         size="xs"
         class="custom-input sort-by-dropdown no-select"
-        bind:value={$sortBy}
-        override={{ fontSize: "0.85rem" }}
+        bind:value={sortBy}
+        on:change={onChangeSortBy}
+        override={{ fontSize: "0.85rem", marginRight: "0" }}
     />
+    <Button
+        size="xs"
+        on:click={() => {
+            sortDirection = sortDirection === "down" ? "up" : "down";
+
+            onChangeSortBy();
+        }}
+        override={{ marginTop: "0.55rem" }}
+    >
+        <Icon
+            src={sortDirection === "down" ? TiArrowSortedDown : TiArrowSortedUp}
+            color="white"
+            size="16"
+        />
+    </Button>
 </Box>
 {#await displayedData}
     <Loader />
