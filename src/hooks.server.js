@@ -8,6 +8,7 @@ import { DISCORD_CLIENT_ID, DISCORD_SECRET } from "$env/static/private";
 export const prisma = new PrismaClient();
 
 export const handle = SvelteKitAuth({
+    trustHost: true,
     providers: [
         Discord({ clientId: DISCORD_CLIENT_ID, clientSecret: DISCORD_SECRET }),
     ],
