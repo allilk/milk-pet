@@ -1,11 +1,11 @@
 /** @type {import('./$types').PageLoad} */
-import { ModChip } from "../../db/mongo";
+import { prisma } from "../../hooks.server";
 import { modList } from "../../stores";
 
 export const load = async ({ fetch }) =>
     new Promise(async (resolve, reject) => {
         try {
-            const data = await ModChip.find({});
+            const data = await prisma.modChip.findMany();
             const mappedData = JSON.parse(JSON.stringify(data)).map((elem) => ({
                 ...elem,
                 filePaths: JSON.parse(elem.filePaths),

@@ -1,9 +1,15 @@
-import { start_mongo } from "./db/mongo";
+import { SvelteKitAuth } from "@auth/sveltekit";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { PrismaClient } from "@prisma/client";
 
-start_mongo()
-    .then(() => {
-        console.log("Started Mongo Connection..");
-    })
-    .catch((e) => {
-        console.error(e);
-    });
+import Discord from "@auth/core/providers/discord";
+import { DISCORD_CLIENT_ID, DISCORD_SECRET } from "$env/static/private";
+
+export const prisma = new PrismaClient();
+
+export const handle = SvelteKitAuth({
+    providers: [
+        Discord({ clientId: DISCORD_CLIENT_ID, clientSecret: DISCORD_SECRET }),
+    ],
+    adapter: PrismaAdapter(prisma),
+});

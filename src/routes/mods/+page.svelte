@@ -25,15 +25,10 @@
     export let data = {};
     const zip = new JSZip();
 
-    const toNotDownloadChips = writable(
-        data.data.map((mod) => ({
-            ...mod,
-            id: mod._id,
-        }))
-    );
+    const toNotDownloadChips = writable(data.data);
 
     let displayedData = $toNotDownloadChips || [];
-    toNotDownloadChips.subscribe((value) => (displayedData = value));
+    // toNotDownloadChips.subscribe((value) => (displayedData = value));
 
     const toDownloadChips = writable([]);
 
@@ -98,14 +93,12 @@
         toNotDownload && toNotDownloadChips.set(toNotDownload);
     };
 
-    let searchBy = "";
-
-    const onChangeSearchBy = debounce((e) => {
-        searchBy = e.target.value;
-    }, 300);
-
-    $: displayedData = $toNotDownloadChips.filter((elem) =>
-        elem.name.toLowerCase().includes(searchBy.toLowerCase())
+    const onChangeSearchBy = debounce(
+        (e) =>
+            (displayedData = $toNotDownloadChips.filter((elem) =>
+                elem.name.toLowerCase().includes(e.target.value.toLowerCase())
+            )),
+        300
     );
 
     let sortDirection = "down";
