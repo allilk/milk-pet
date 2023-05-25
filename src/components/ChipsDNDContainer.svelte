@@ -1,18 +1,22 @@
 <script>
     import { flip } from "svelte/animate";
     import { dndzone } from "svelte-dnd-action";
-    import { Box } from "@svelteuidev/core";
+    import { Box, Button } from "@svelteuidev/core";
     import Device from "svelte-device-info";
 
     import Modal from "./Modal.svelte";
     import BattleChip from "./BattleChip.svelte";
     import { writable } from "svelte/store";
-    import { animations } from "../stores";
+    import { animations, toNotDownloadChips } from "../stores";
+    import { page } from "$app/stores";
 
     export let items;
     export let manuallyAddToFolder;
     export let updateChipArrays;
     export let chipDesign;
+    export let likeMod;
+
+    const loggedInUser = $page.data.session.user;
 
     const opened = writable(false);
     const selectedMod = writable({});
@@ -32,7 +36,19 @@
     title={$selectedMod?.type === "players" ? "navichip" : "battlechip"}
 >
     <Box css={{ display: "flex" }}>
-        <BattleChip mod={$selectedMod} displayChipType={chipDesign} />
+        <Box css={{ display: "flex", flexDirection: "column" }}>
+            <BattleChip mod={$selectedMod} displayChipType={chipDesign} />
+            {#if loggedInUser}
+                <Button
+                    size="xs"
+                    override={{ marginTop: "0.25rem" }}
+                    on:click={() =>
+                        likeMod(loggedInUser.id, $selectedMod.id).then(
+                            (updatedMod) => selectedMod.set(updatedMod)
+                        )}>Like</Button
+                >
+            {/if}
+        </Box>
         <div class="battle-chip-modal-info">
             <div class="battle-chip-modal-title">
                 {$selectedMod?.shortname || $selectedMod?.name || ""}
@@ -43,6 +59,8 @@
                     $selectedMod?.description ||
                     ""}
                 <div class="battle-chip-modal-body-footer">
+                    Likes: <span>{$selectedMod?.likes.length || 0}</span>
+                    &nbsp;
                     {#if $selectedMod?.chipInformation?.damage}
                         dmg: <span> {$selectedMod.chipInformation.damage}</span>
                     {/if}

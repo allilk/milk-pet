@@ -45,6 +45,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  likes         Like[]
 
   @@map("users")
 }
@@ -60,7 +61,7 @@ model VerificationToken {
 }
 
 model ModChip {
-  id         String    @id @default(cuid()) @map("_id")
+  id         String    @id @default(cuid()) @map("_id") @db.ObjectId
   type       String    
   name       String
   shortname  String?
@@ -71,7 +72,18 @@ model ModChip {
   filePaths  String
   author     String    @default("{}")
   chipInformation String  @default("{}")
-  uploadedAt  DateTime  @default(now())
+  uploadedAt DateTime  @default(now())
+  likes      Like[]
 
   @@map("modchips")
+}
+
+model Like {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String   @db.ObjectId
+  user       User     @relation(fields: [userId], references: [id])
+  modId      String   @db.ObjectId
+  mod        ModChip  @relation(fields: [modId], references: [id])
+
+  @@map("likes")
 }

@@ -8,7 +8,7 @@
         TextInput,
     } from "@svelteuidev/core";
     import { writable } from "svelte/store";
-    import { chipDesign } from "../../stores";
+    import { chipDesign, toNotDownloadChips } from "../../stores";
     import debounce from "lodash/debounce";
     import JSZip from "jszip";
     import JSZipUtils from "jszip-utils";
@@ -22,13 +22,12 @@
     import TiArrowSortedUp from "svelte-icons-pack/ti/TiArrowSortedUp";
     import { onMount } from "svelte";
 
-    export let data = {};
     const zip = new JSZip();
 
-    const toNotDownloadChips = writable(data.data);
+    export let data = {};
+    toNotDownloadChips.set(data.data);
 
     let displayedData = $toNotDownloadChips || [];
-    // toNotDownloadChips.subscribe((value) => (displayedData = value));
 
     const toDownloadChips = writable([]);
 
@@ -148,6 +147,36 @@
     };
 
     onMount(onChangeSortBy);
+
+    const likeMod = (userId, modId) =>
+        fetch("/api/mods/like", {
+            method: "POST",
+            body: JSON.stringify({
+                userId,
+                modId,
+            }),
+        }).then(async (res) => {
+            const { mod: newMod } = await res.json();
+
+            toNotDownloadChips.set(
+                $toNotDownloadChips.map((mod) =>
+                    mod.id === modId ? { ...mod, likes: newMod.likes } : mod
+                )
+            );
+
+            displayedData = displayedData.map((mod) =>
+                mod.id === modId ? { ...mod, likes: newMod.likes } : mod
+            );
+
+            return {
+                ...newMod,
+                filePaths: JSON.parse(newMod.filePaths),
+                author: newMod?.author ? JSON.parse(newMod.author) : undefined,
+                chipInformation: newMod?.chipInformation
+                    ? JSON.parse(newMod.chipInformation)
+                    : undefined,
+            };
+        });
 </script>
 
 <Modal opened={openedModal} title="download">
@@ -204,6 +233,7 @@
     <div class="scroll-container">
         <ChipsDndContainer
             items={modList}
+            {likeMod}
             {manuallyAddToFolder}
             {updateChipArrays}
             chipDesign={$chipDesign}

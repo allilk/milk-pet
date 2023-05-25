@@ -6,8 +6,6 @@
     import { page } from "$app/stores";
 
     export let opened;
-
-    $: console.log($page.data.session);
 </script>
 
 <Modal {opened} title="login">
