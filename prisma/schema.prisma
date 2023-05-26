@@ -62,7 +62,7 @@ model VerificationToken {
 }
 
 model ModChip {
-  id         String    @id @default(cuid()) @map("_id") @db.ObjectId
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
   type       String    
   name       String
   shortname  String?
