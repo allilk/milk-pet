@@ -1,3 +1,4 @@
+import AdmZip from 'adm-zip';
 import { prisma } from '../../../hooks.server';
 
 import crypto from 'crypto';
@@ -6,6 +7,8 @@ import path from 'path';
 
 // fsPromises.stat annoyingly throws if the file doesn't exist.
 const fileExists = async (path) => !!(await fs.stat(path).catch((e) => false));
+
+const IMAGE_PATH = 'static/mods/images';
 
 async function downloadImpl(url, folder) {
     const fileName = path.basename(url);
@@ -37,22 +40,41 @@ async function downloadImage(url) {
     if (!url) {
         return null;
     }
-    return '/mods/images/' + (await downloadImpl(url, 'static/mods/images'));
+    return '/mods/images/' + (await downloadImpl(url, IMAGE_PATH));
 }
 
 async function downloadFile(url) {
     return '/mods/files/' + (await downloadImpl(url, 'static/mods/files'));
 }
 
+async function getImageFromZip(zipFile, file) {
+    const zipFileName = path.basename(zipFile);
+    const zip = new AdmZip(zipFile);
+
+    const entry = zip.getEntry(file);
+    if (!entry) {
+        return null;
+    }
+
+    const outputFile = `${zipFileName.substr(
+        0,
+        zipFileName.lastIndexOf('.'),
+    )}-${file}`;
+    console.log(`LOG: Extracting ${file} from ${zipFile} to ${outputFile}`);
+
+    await fs.writeFile(`${IMAGE_PATH}/${outputFile}`, entry.getData());
+
+    return '/mods/images/' + outputFile;
+}
+
 export async function GET() {
     // TODO: need to add query parameters, filtering, limits, etc.
-    const mods = (await prisma.modChip.findMany())
-        .map(mod => ({
-          ...mod,
-          author: JSON.parse(mod.author),
-          chipInformation: JSON.parse(mod.chipInformation),
-          filePaths: JSON.parse(mod.filePaths),
-        }));
+    const mods = (await prisma.modChip.findMany()).map((mod) => ({
+        ...mod,
+        author: JSON.parse(mod.author),
+        chipInformation: JSON.parse(mod.chipInformation),
+        filePaths: JSON.parse(mod.filePaths),
+    }));
     return new Response(JSON.stringify({ mods }), {
         headers: {
             'Content-Type': 'application/json',
@@ -105,12 +127,26 @@ export async function PUT({ request }) {
             uploadedAt: new Date(),
         };
 
-        const [downloadPath, previewImagePath, iconImagePath] =
-            await Promise.all([
+        let [downloadPath, previewImagePath, iconImagePath] = await Promise.all(
+            [
                 downloadFile(input.discordDownloadLink),
                 downloadImage(input.previewImageURL),
                 downloadImage(input.iconImageURL),
-            ]);
+            ],
+        );
+
+        if (!previewImagePath) {
+            previewImagePath = await getImageFromZip(
+                'static' + downloadPath,
+                'preview.png',
+            );
+        }
+        if (!iconImagePath) {
+            iconImagePath = await getImageFromZip(
+                'static' + downloadPath,
+                'icon.png',
+            );
+        }
 
         data.filePaths = JSON.stringify({
             mod: downloadPath,
