@@ -5,7 +5,7 @@ export async function POST({ request }) {
     try {
         // Restrict to only same site.
         if (process.env.HOST !== request.headers.get("origin"))
-            throw new Error("Bad Host");
+            return json({ message: "Bad Host" });
 
         const { modId, userId } = await request.json();
 
