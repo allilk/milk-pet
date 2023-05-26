@@ -31,6 +31,6 @@ export async function POST({ request }) {
             mod,
         });
     } catch (err) {
-        return json({ message: err.toString() || "Error liking mod" });
+        return json({ message: "Error liking mod" });
     }
 }
