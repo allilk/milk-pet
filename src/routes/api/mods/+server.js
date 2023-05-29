@@ -112,7 +112,7 @@ export async function PUT({ request }) {
         }
     }
 
-    let existingMod = input.id
+    const existingMod = input.id
         ? await prisma.modChip.findUniqueOrThrow({ where: { id: input.id } })
         : null;
 
