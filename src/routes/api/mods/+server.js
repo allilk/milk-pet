@@ -1,21 +1,21 @@
-import AdmZip from 'adm-zip';
-import { prisma } from '../../../hooks.server';
+import AdmZip from "adm-zip";
+import { prisma } from "../../../hooks.server";
 
-import crypto from 'crypto';
-import fs from 'fs/promises';
-import path from 'path';
+import crypto from "crypto";
+import fs from "fs/promises";
+import path from "path";
 
 // fsPromises.stat annoyingly throws if the file doesn't exist.
 const fileExists = async (path) => !!(await fs.stat(path).catch((e) => false));
 
-const IMAGE_PATH = 'static/mods/images';
+const IMAGE_PATH = "static/mods/images";
 
 async function downloadImpl(url, folder) {
     const fileName = path.basename(url);
     // Use a hash of the URL to avoid collisions.
     const outputFile =
-        crypto.createHash('md5').update(url).digest('hex') +
-        fileName.substr(fileName.lastIndexOf('.'));
+        crypto.createHash("md5").update(url).digest("hex") +
+        fileName.substring(fileName.lastIndexOf("."));
 
     if (await fileExists(`${folder}/${outputFile}`)) {
         console.log(`LOG: ${url} already exists as ${folder}/${outputFile}`);
@@ -30,7 +30,7 @@ async function downloadImpl(url, folder) {
 
     await fs.writeFile(`${folder}/${outputFile}`, blob.stream());
     console.log(
-        `LOG: Downloading Complete. Written to ${folder}/${outputFile}.`,
+        `LOG: Downloading Complete. Written to ${folder}/${outputFile}.`
     );
 
     return outputFile;
@@ -40,11 +40,11 @@ async function downloadImage(url) {
     if (!url) {
         return null;
     }
-    return '/mods/images/' + (await downloadImpl(url, IMAGE_PATH));
+    return "/mods/images/" + (await downloadImpl(url, IMAGE_PATH));
 }
 
 async function downloadFile(url) {
-    return '/mods/files/' + (await downloadImpl(url, 'static/mods/files'));
+    return "/mods/files/" + (await downloadImpl(url, "static/mods/files"));
 }
 
 async function getImageFromZip(zipFile, file) {
@@ -56,15 +56,15 @@ async function getImageFromZip(zipFile, file) {
         return null;
     }
 
-    const outputFile = `${zipFileName.substr(
+    const outputFile = `${zipFileName.substring(
         0,
-        zipFileName.lastIndexOf('.'),
+        zipFileName.lastIndexOf(".")
     )}-${file}`;
     console.log(`LOG: Extracting ${file} from ${zipFile} to ${outputFile}`);
 
     await fs.writeFile(`${IMAGE_PATH}/${outputFile}`, entry.getData());
 
-    return '/mods/images/' + outputFile;
+    return "/mods/images/" + outputFile;
 }
 
 export async function GET() {
@@ -77,7 +77,7 @@ export async function GET() {
     }));
     return new Response(JSON.stringify({ mods }), {
         headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
         },
     });
 }
@@ -90,24 +90,24 @@ export async function PUT({ request }) {
     const input = await request.json();
 
     if (!input) {
-        return new Response(JSON.stringify({ message: 'Missing input data' }), {
+        return new Response(JSON.stringify({ message: "Missing input data" }), {
             status: 400,
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
         });
     }
 
-    for (let key of ['type', 'name', 'discordDownloadLink', 'author']) {
+    for (let key of ["type", "name", "discordDownloadLink", "author"]) {
         if (!key in input) {
             return new Response(
                 JSON.stringify({ message: `Missing required key "${key}"` }),
                 {
                     status: 400,
                     headers: {
-                        'Content-Type': 'application/json',
+                        "Content-Type": "application/json",
                     },
-                },
+                }
             );
         }
     }
@@ -132,19 +132,19 @@ export async function PUT({ request }) {
                 downloadFile(input.discordDownloadLink),
                 downloadImage(input.previewImageURL),
                 downloadImage(input.iconImageURL),
-            ],
+            ]
         );
 
         if (!previewImagePath) {
             previewImagePath = await getImageFromZip(
-                'static' + downloadPath,
-                'preview.png',
+                "static" + downloadPath,
+                "preview.png"
             );
         }
         if (!iconImagePath) {
             iconImagePath = await getImageFromZip(
-                'static' + downloadPath,
-                'icon.png',
+                "static" + downloadPath,
+                "icon.png"
             );
         }
 
@@ -165,32 +165,32 @@ export async function PUT({ request }) {
             });
         }
         console.log(
-            `LOG: Mod ${mod.id} successfully downloaded and saved to database.`,
+            `LOG: Mod ${mod.id} successfully downloaded and saved to database.`
         );
 
         return new Response(
             JSON.stringify(
                 {
-                    message: `${existingMod ? 'Updated' : 'Created'} mod.`,
+                    message: `${existingMod ? "Updated" : "Created"} mod.`,
                     data: mod,
                 },
                 {
                     headers: {
-                        'Content-Type': 'application/json',
+                        "Content-Type": "application/json",
                     },
-                },
-            ),
+                }
+            )
         );
     } catch (err) {
-        console.error('Failed to handle mod PUT for input', input, err);
+        console.error("Failed to handle mod PUT for input", input, err);
         return new Response(
-            JSON.stringify({ message: err.toString() || 'Error saving mod' }),
+            JSON.stringify({ message: err.toString() || "Error saving mod" }),
             {
                 status: 500,
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 },
-            },
+            }
         );
     }
 }
@@ -206,9 +206,9 @@ export async function DELETE({ request }) {
             {
                 status: 400,
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 },
-            },
+            }
         );
     }
 
@@ -219,18 +219,18 @@ export async function DELETE({ request }) {
                 { message: `Deleted mod.`, data: mod },
                 {
                     headers: {
-                        'Content-Type': 'application/json',
+                        "Content-Type": "application/json",
                     },
-                },
-            ),
+                }
+            )
         );
     } catch (err) {
         // Record not found.
-        if (err.code === 'P2025') {
-            return new Response(JSON.stringify({ message: 'Mod not found' }), {
+        if (err.code === "P2025") {
+            return new Response(JSON.stringify({ message: "Mod not found" }), {
                 status: 404,
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 },
             });
         }
