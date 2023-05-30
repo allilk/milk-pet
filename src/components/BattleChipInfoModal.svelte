@@ -5,7 +5,7 @@
     import BattleChip from "./BattleChip.svelte";
     import { chipDesign } from "../stores";
 
-    const loggedInUser = $page.data.session.user;
+    const loggedInUser = $page.data.session?.user;
 
     export let selectedMod;
     export let opened;
