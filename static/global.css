@@ -948,3 +948,36 @@ small > span {
 .no-select {
     user-select: none !important;
 }
+
+.card-section-collection > .battle-chip {
+    transform: scale(0.9);
+    color: white !important;
+}
+
+.card-section-collection > .battle-chip:first-child {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.card-section-collection > .battle-chip:nth-child(2) {
+    position: absolute;
+    top: 1rem;
+    left: 2.75rem;
+}
+.card-section-collection > .battle-chip:nth-child(3) {
+    position: absolute;
+    top: 2rem;
+    left: 5.5rem;
+}
+
+.card-section-bottom {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 2.75rem;
+    display: flex !important;
+    justify-content: center;
+    flex-direction: column;
+    height: 65%;
+    color: white;
+}

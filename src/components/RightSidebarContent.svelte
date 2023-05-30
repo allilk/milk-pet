@@ -20,7 +20,7 @@
     <ActionIcon class="sidebar-icon" on:click={() => goto("/mods")}>
         <Icon src={IoCube} color="white" size="16" />
     </ActionIcon>
-    <ActionIcon class="sidebar-icon" on:click={() => goto("/chip-library")}>
+    <ActionIcon class="sidebar-icon" on:click={() => goto("/collections")}>
         <Icon src={IoBookOutline} color="white" size="16" />
     </ActionIcon>
     <ActionIcon class="sidebar-icon" on:click={() => goto("/news")}>

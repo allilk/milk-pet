@@ -1,6 +1,5 @@
 /** @type {import('./$types').PageLoad} */
 import { prisma } from "../../hooks.server";
-import { toNotDownloadChips } from "../../stores";
 
 export const load = async ({ fetch }) =>
     new Promise(async (resolve, reject) => {

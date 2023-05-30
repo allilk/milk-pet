@@ -9,8 +9,18 @@ export async function POST({ request }) {
 
         const { modId, userId } = await request.json();
 
-        const newLike = await prisma.like.create({
-            data: {
+        const newLike = await prisma.like.upsert({
+            where: {
+                userId_modId: {
+                    modId,
+                    userId,
+                },
+            },
+            update: {
+                modId,
+                userId,
+            },
+            create: {
                 modId,
                 userId,
             },
@@ -28,9 +38,18 @@ export async function POST({ request }) {
         return json({
             message: "Liked Mod!",
             like: newLike,
-            mod,
+            mod: {
+                ...mod,
+                filePaths: JSON.parse(mod.filePaths),
+                author: mod?.author ? JSON.parse(mod.author) : undefined,
+                chipInformation: mod?.chipInformation
+                    ? JSON.parse(mod.chipInformation)
+                    : undefined,
+            },
         });
     } catch (err) {
+        console.log(err);
+
         return json({ message: "Error liking mod" });
     }
 }

@@ -7,7 +7,7 @@
     export let mod = {};
     export let displayChipType = "";
 
-    const src = mod?.filePaths?.preview || "nodata.png";
+    const src = mod?.filePaths?.preview || "/nodata.png";
     const chipTitle = mod?.shortname || mod?.name;
     const chipType = mod?.type;
     const chipNumber = "000";
@@ -19,7 +19,7 @@
     const fac = new FastAverageColor();
 
     onMount(() => {
-        src !== "nodata.png" &&
+        src !== "/nodata.png" &&
             chipType === "players" &&
             fac
                 .getColorAsync(src, {
@@ -71,8 +71,13 @@
                                         draggable="false"
                                         decoding="async"
                                         type="image/webp"
-                                        on:error={(e) =>
-                                            (e.target.src = "nodata.png")}
+                                        on:error={(e) => {
+                                            if (
+                                                e.target.src !== "/nodata.png"
+                                            ) {
+                                                e.target.src = "/nodata.png";
+                                            }
+                                        }}
                                     />
                                 </div>
                                 <div class="battle-chip-label-title">

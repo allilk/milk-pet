@@ -46,6 +46,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   likes         Like[]
+  collections   Collection[]
 
   @@map("users")
 }
@@ -70,10 +71,12 @@ model ModChip {
   iconImageURL  String?
   discordDownloadLink String
   filePaths  String
-  author     String    @default("{}")
+  author     String     @default("{}")
   chipInformation String  @default("{}")
-  uploadedAt DateTime  @default(now())
-  likes      Like[]
+  uploadedAt DateTime   @default(now())
+  likes                 Like[]
+  collectionIds         String[] @db.ObjectId
+  collections           Collection[] @relation(fields: [collectionIds], references: [id])
 
   @@map("modchips")
 }
@@ -86,4 +89,18 @@ model Like {
   mod        ModChip  @relation(fields: [modId], references: [id])
 
   @@map("likes")
+  @@unique([userId, modId])
+}
+
+model Collection {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  sharingId  String 
+  createdById String  @db.ObjectId
+  createdBy  User     @relation(fields: [createdById], references: [id])
+  modIds     String[] @db.ObjectId
+  mods       ModChip[] @relation(fields: [modIds], references: [id])
+  name       String
+
+  @@map("collections")
+  @@unique([sharingId])
 }

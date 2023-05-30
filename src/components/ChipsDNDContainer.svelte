@@ -1,25 +1,21 @@
 <script>
     import { flip } from "svelte/animate";
     import { dndzone } from "svelte-dnd-action";
-    import { Box, Button } from "@svelteuidev/core";
     import Device from "svelte-device-info";
 
-    import Modal from "./Modal.svelte";
     import BattleChip from "./BattleChip.svelte";
     import { writable } from "svelte/store";
-    import { animations, toNotDownloadChips } from "../stores";
-    import { page } from "$app/stores";
+    import { animations, chipDesign } from "../stores";
+    import BattleChipInfoModal from "./BattleChipInfoModal.svelte";
 
     export let items;
     export let manuallyAddToFolder;
     export let updateChipArrays;
-    export let chipDesign;
     export let likeMod;
+    export let disabledDrag = false;
 
-    const loggedInUser = $page.data.session.user;
-
-    const opened = writable(false);
     const selectedMod = writable({});
+    const opened = writable(false);
 
     const flipDurationMs = 300;
     function handleDndConsider(e) {
@@ -31,68 +27,16 @@
     }
 </script>
 
-<Modal
-    {opened}
-    title={$selectedMod?.type === "players" ? "navichip" : "battlechip"}
->
-    <Box css={{ display: "flex" }}>
-        <Box css={{ display: "flex", flexDirection: "column" }}>
-            <BattleChip mod={$selectedMod} displayChipType={chipDesign} />
-            {#if loggedInUser}
-                <Button
-                    size="xs"
-                    override={{ marginTop: "0.25rem" }}
-                    on:click={() =>
-                        likeMod(loggedInUser.id, $selectedMod.id).then(
-                            (updatedMod) => selectedMod.set(updatedMod)
-                        )}>Like</Button
-                >
-            {/if}
-        </Box>
-        <div class="battle-chip-modal-info">
-            <div class="battle-chip-modal-title">
-                {$selectedMod?.shortname || $selectedMod?.name || ""}
-            </div>
-            <hr />
-            <div class="battle-chip-modal-body">
-                {$selectedMod?.longDescription ||
-                    $selectedMod?.description ||
-                    ""}
-                <div class="battle-chip-modal-body-footer">
-                    Likes: <span>{$selectedMod?.likes.length || 0}</span>
-                    &nbsp;
-                    {#if $selectedMod?.chipInformation?.damage}
-                        dmg: <span> {$selectedMod.chipInformation.damage}</span>
-                    {/if}
-                    &nbsp;
-                    {#if $selectedMod?.chipInformation?.codes}
-                        codes: <span>
-                            {$selectedMod.chipInformation.codes.join(" ")}</span
-                        >
-                    {/if}
-                </div>
-            </div>
-            <hr class="bottom-hr" />
-        </div>
-
-        <div class="battle-chip-modal-footer">
-            <small
-                >created by: <span>
-                    {$selectedMod?.author?.authorName}
-                </span></small
-            >
-        </div>
-    </Box>
-</Modal>
+<BattleChipInfoModal {selectedMod} {opened} {likeMod} />
 
 <section
     use:dndzone={{
         items,
-        dragDisabled: Device.isMobile,
+        dragDisabled: Device.isMobile || disabledDrag,
         flipDurationMs: $animations ? flipDurationMs : undefined,
     }}
-    on:consider={handleDndConsider}
-    on:finalize={handleDndFinalize}
+    on:consider={!disabledDrag ? handleDndConsider : () => {}}
+    on:finalize={!disabledDrag ? handleDndFinalize : () => {}}
 >
     {#each items as item (item.id)}
         <div
@@ -102,7 +46,7 @@
             }}
             on:dblclick={(ev) => {
                 ev.preventDefault();
-                if (!Device.isMobile) {
+                if (!Device.isMobile && !disabledDrag) {
                     items = items.filter((itm) => itm.id !== item.id);
                     manuallyAddToFolder(item);
                 } else {
@@ -118,7 +62,7 @@
                 }
             }}
         >
-            <BattleChip displayChipType={chipDesign} mod={item} />
+            <BattleChip displayChipType={$chipDesign} mod={item} />
         </div>
     {/each}
 </section>

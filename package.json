@@ -34,6 +34,7 @@
         "jszip": "^3.10.1",
         "jszip-utils": "^0.1.0",
         "lodash": "^4.17.21",
+        "randomstring": "^1.2.3",
         "svelte-device-info": "^1.0.0",
         "svelte-icons-pack": "^2.1.0",
         "svelte-marquee-text-widget": "^1.1.0"

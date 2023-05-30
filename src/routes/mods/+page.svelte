@@ -168,14 +168,7 @@
                 mod.id === modId ? { ...mod, likes: newMod.likes } : mod
             );
 
-            return {
-                ...newMod,
-                filePaths: JSON.parse(newMod.filePaths),
-                author: newMod?.author ? JSON.parse(newMod.author) : undefined,
-                chipInformation: newMod?.chipInformation
-                    ? JSON.parse(newMod.chipInformation)
-                    : undefined,
-            };
+            return newMod;
         });
 </script>
 
@@ -236,7 +229,6 @@
             {likeMod}
             {manuallyAddToFolder}
             {updateChipArrays}
-            chipDesign={$chipDesign}
         />
     </div>
     {#if $toDownloadChips.length > 0}

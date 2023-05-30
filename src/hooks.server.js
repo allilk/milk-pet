@@ -21,4 +21,5 @@ export const handle = SvelteKitAuth({
         Discord({ clientId: DISCORD_CLIENT_ID, clientSecret: DISCORD_SECRET }),
     ],
     adapter: PrismaAdapter(prisma),
+    secret: process.env.AUTH_SECRET,
 });
