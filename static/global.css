@@ -973,11 +973,16 @@ small > span {
 
 .card-section-bottom {
     position: absolute;
-    bottom: 1.5rem;
-    left: 2.75rem;
+    bottom: 0.25rem;
     display: flex !important;
     justify-content: center;
     flex-direction: column;
     height: 65%;
+    width: 100%;
     color: white;
+    right: 1rem;
+}
+
+.card-section-bottom button {
+    width: 90% !important;
 }

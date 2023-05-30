@@ -10,9 +10,7 @@
     import { writable } from "svelte/store";
     import { chipDesign, toNotDownloadChips } from "../../stores";
     import debounce from "lodash/debounce";
-    import JSZip from "jszip";
-    import JSZipUtils from "jszip-utils";
-    import FileSaver from "file-saver";
+    import { zipAndDownloadMods } from "../../helpers/zipAndDownloadMods";
 
     import ChipsDndContainer from "../../components/ChipsDNDContainer.svelte";
     import ChipFolder from "../../components/ChipFolder.svelte";
@@ -21,8 +19,6 @@
     import TiArrowSortedDown from "svelte-icons-pack/ti/TiArrowSortedDown";
     import TiArrowSortedUp from "svelte-icons-pack/ti/TiArrowSortedUp";
     import { onMount } from "svelte";
-
-    const zip = new JSZip();
 
     export let data = {};
     toNotDownloadChips.set(data.data);
@@ -51,38 +47,7 @@
     };
 
     const openedModal = writable(false);
-    let downloadProgress = 0;
-
-    const generateRandomString = (length = 6) =>
-        Math.random().toString(20).substring(2, length);
-    const zipAndDownloadMods = () => {
-        openedModal.set(true);
-        for (let i = 0; i < $toDownloadChips.length; i++) {
-            const elem = $toDownloadChips[i];
-            const filename = `${elem.type}/${elem.filePaths.mod.split("/")[3]}`;
-            // loading a file and add it in a zip file
-            JSZipUtils.getBinaryContent(elem.filePaths.mod, (err, data) => {
-                if (err) {
-                    throw err; // or handle the error
-                }
-
-                zip.file(filename, data, { binary: true });
-
-                if (i === $toDownloadChips.length - 1) {
-                    zip.generateAsync({ type: "blob" }, (metadata) => {
-                        downloadProgress = metadata.percent;
-                    }).then(function (content) {
-                        downloadProgress = 0;
-                        openedModal.set(false);
-                        FileSaver.saveAs(
-                            content,
-                            `MyMods-${generateRandomString(10)}`
-                        );
-                    });
-                }
-            });
-        }
-    };
+    const downloadProgress = writable(0);
 
     const updateChipArrays = (
         toNotDownload = undefined,
@@ -176,8 +141,8 @@
     <br />
     <br />
     <Progress
-        value={downloadProgress}
-        label={`${downloadProgress}%`}
+        value={$downloadProgress}
+        label={`${$downloadProgress}%`}
         radius={2}
         size="lg"
     />
@@ -238,7 +203,12 @@
             {manuallyRemoveFromFolder}
             {updateChipArrays}
             {removeAllChipsFromFolder}
-            {zipAndDownloadMods}
+            zipAndDownloadMods={() => {
+                openedModal.set(true);
+                zipAndDownloadMods($toDownloadChips, downloadProgress).then(
+                    () => openedModal.set(false)
+                );
+            }}
         />
     {/if}
 {:catch error}

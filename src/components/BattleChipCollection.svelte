@@ -1,9 +1,10 @@
 <script>
-    import { Box, Button, Card, Space } from "@svelteuidev/core";
+    import { Box, Button, Card } from "@svelteuidev/core";
     import BattleChip from "./BattleChip.svelte";
     import { goto } from "$app/navigation";
 
     export let chipCollection = {};
+    export let downloadAllMods;
 
     const firstThreeMods = chipCollection?.mods?.filter((mod, i) => i < 3);
 </script>
@@ -39,11 +40,22 @@
             <br />
             <small> created by: {chipCollection.createdBy.name}</small>
         </Box>
-        <Button
-            on:click={() => goto(`/collections/${chipCollection?.sharingId}`)}
-            fullSize
+        <Box
+            css={{
+                display: "flex",
+                justifyContent: "center",
+                flexWrap: "wrap",
+            }}
         >
-            View
-        </Button>
+            <Button
+                on:click={() =>
+                    goto(`/collections/${chipCollection?.sharingId}`)}
+                override={{ marginBottom: "0.5rem" }}
+                size="xs"
+            >
+                View
+            </Button>
+            <Button on:click={downloadAllMods} size="xs">Download</Button>
+        </Box>
     </Card.Section>
 </Card>
