@@ -15,10 +15,10 @@
 </script>
 
 <svelte:head>
-    <title>MILK-PET</title>
+    <title>milk.PET</title>
     <meta
         name="description"
-        content="MILK-PET is a fan site that visually mimics the PET from the MegaMan NT Warrior and Battle Network series."
+        content="milk.PET is a fan site that visually mimics the PET from the MegaMan NT Warrior and Battle Network series."
     />
 </svelte:head>
 <SvelteUIProvider>

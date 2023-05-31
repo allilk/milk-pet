@@ -4,6 +4,7 @@
     import { zipAndDownloadMods } from "../../../helpers/zipAndDownloadMods";
     import Modal from "../../../components/Modal.svelte";
     import { writable } from "svelte/store";
+    import { onMount } from "svelte";
 
     export let data;
 
@@ -26,7 +27,27 @@
 
             return newMod;
         });
+
+    const getCountOfModTypes = () => {
+        let occurrences = {};
+
+        data.data.mods.forEach((mod) => {
+            occurrences[mod.type] = occurrences?.[mod.type] + 1 || 1;
+        });
+
+        return Object.entries(occurrences)
+            .map(([key, value]) => `${value} ${key}(s)`)
+            .join(", ");
+    };
+
+    const typeOccurences = getCountOfModTypes();
 </script>
+
+<svelte:head>
+    <title>{data?.data?.name}</title>
+    <meta name="author" content={data?.data?.createdBy.name} />
+    <meta name="description" content={typeOccurences} />
+</svelte:head>
 
 <Container class="page-header">{data?.data?.name}</Container>
 
