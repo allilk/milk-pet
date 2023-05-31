@@ -1,5 +1,7 @@
 import { prisma } from "../../../hooks.server";
 
+export const prerender = "auto";
+
 export const load = async ({ params }) =>
     new Promise(async (resolve, reject) => {
         try {
