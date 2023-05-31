@@ -26,23 +26,25 @@
 
 <Container class="page-header">Collections</Container>
 
-{#await data.data}
-    Loading...
-{:then chipCollections}
-    <section>
-        {#each chipCollections as ction}
-            <BattleChipCollection
-                chipCollection={ction}
-                downloadAllMods={(mods) => {
-                    openedModal.set(true);
-                    zipAndDownloadMods(ction.mods, downloadProgress).then(() =>
-                        openedModal.set(false)
-                    );
-                }}
-            />
-        {/each}
-    </section>
-{/await}
+<div class="scroll-container">
+    {#await data.data}
+        Loading...
+    {:then chipCollections}
+        <section>
+            {#each chipCollections as ction}
+                <BattleChipCollection
+                    chipCollection={ction}
+                    downloadAllMods={(mods) => {
+                        openedModal.set(true);
+                        zipAndDownloadMods(ction.mods, downloadProgress).then(
+                            () => openedModal.set(false)
+                        );
+                    }}
+                />
+            {/each}
+        </section>
+    {/await}
+</div>
 
 <style>
     section {
