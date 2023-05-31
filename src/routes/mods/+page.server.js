@@ -1,7 +1,7 @@
 /** @type {import('./$types').PageLoad} */
 import { prisma } from "../../hooks.server";
 
-export const prerender = true;
+export const prerender = "auto";
 
 export const load = async ({ fetch }) =>
     new Promise(async (resolve, reject) => {
