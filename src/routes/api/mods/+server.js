@@ -1,5 +1,6 @@
 import AdmZip from "adm-zip";
 import { prisma } from "../../../hooks.server";
+import { CWebp } from "cwebp";
 
 import crypto from "crypto";
 import fs from "fs/promises";
@@ -36,13 +37,6 @@ async function downloadImpl(url, folder) {
     return outputFile;
 }
 
-async function downloadImage(url) {
-    if (!url) {
-        return null;
-    }
-    return "/mods/images/" + (await downloadImpl(url, IMAGE_PATH));
-}
-
 async function downloadFile(url) {
     return "/mods/files/" + (await downloadImpl(url, "static/mods/files"));
 }
@@ -59,11 +53,11 @@ async function getImageFromZip(zipFile, file) {
     const outputFile = `${zipFileName.substring(
         0,
         zipFileName.lastIndexOf(".")
-    )}-${file}`;
+    )}-${file.substring(0, file.lastIndexOf("."))}.webp`;
     console.log(`LOG: Extracting ${file} from ${zipFile} to ${outputFile}`);
 
-    await fs.writeFile(`${IMAGE_PATH}/${outputFile}`, entry.getData());
-
+    const encoder = new CWebp(Buffer.from(entry.getData()));
+    await encoder.lossless().write(`${IMAGE_PATH}/${outputFile}`);
     return "/mods/images/" + outputFile;
 }
 
@@ -127,26 +121,12 @@ export async function PUT({ request }) {
             uploadedAt: new Date(),
         };
 
-        let [downloadPath, previewImagePath, iconImagePath] = await Promise.all(
-            [
-                downloadFile(input.discordDownloadLink),
-                downloadImage(input.previewImageURL),
-                downloadImage(input.iconImageURL),
-            ]
-        );
+        const downloadPath = await downloadFile(input.discordDownloadLink);
 
-        if (!previewImagePath) {
-            previewImagePath = await getImageFromZip(
-                "static" + downloadPath,
-                "preview.png"
-            );
-        }
-        if (!iconImagePath) {
-            iconImagePath = await getImageFromZip(
-                "static" + downloadPath,
-                "icon.png"
-            );
-        }
+        const [previewImagePath, iconImagePath] = await Promise.all([
+            getImageFromZip("static" + downloadPath, "preview.png"),
+            getImageFromZip("static" + downloadPath, "icon.png"),
+        ]);
 
         data.filePaths = JSON.stringify({
             mod: downloadPath,
