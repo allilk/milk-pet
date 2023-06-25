@@ -1,6 +1,8 @@
 import JSZip from "jszip";
 import { prisma } from "../../../hooks.server";
 import { CWebp } from "cwebp";
+import { json } from "@sveltejs/kit";
+import { MODS_API_KEY } from "$env/static/private";
 
 import crypto from "crypto";
 import fs from "fs/promises";
@@ -10,6 +12,15 @@ import path from "path";
 const fileExists = async (path) => !!(await fs.stat(path).catch((e) => false));
 
 const IMAGE_PATH = "static/mods/images";
+
+function jsonWithStatus(status, data) {
+    return new Response(JSON.stringify(data), {
+        status,
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+}
 
 async function downloadImpl(url, folder) {
     const fileName = path.basename(url);
@@ -64,6 +75,10 @@ async function getImageFromZip(zipFile, file) {
 }
 
 export async function GET() {
+    if (request.headers.get("authorization") !== "Bearer " + MODS_API_KEY) {
+        return jsonWithStatus(401, { message: "Invalid API key" });
+    }
+
     // TODO: need to add query parameters, filtering, limits, etc.
     const mods = (await prisma.modChip.findMany()).map((mod) => ({
         ...mod,
@@ -71,40 +86,27 @@ export async function GET() {
         chipInformation: JSON.parse(mod.chipInformation),
         filePaths: JSON.parse(mod.filePaths),
     }));
-    return new Response(JSON.stringify({ mods }), {
-        headers: {
-            "Content-Type": "application/json",
-        },
-    });
+    return json({ mods });
 }
 
 export async function PUT({ request }) {
-    // TODO: API key validation.
+    if (request.headers.get("authorization") !== "Bearer " + MODS_API_KEY) {
+        return jsonWithStatus(401, { message: "Invalid API key" });
+    }
 
     // TODO: Should mod names be unique or something?
     // If so, then the filename hashing is unnecessary, since they can just be `files/modname.zip`, `images/modname-preview.zip` etc
     const input = await request.json();
 
     if (!input) {
-        return new Response(JSON.stringify({ message: "Missing input data" }), {
-            status: 400,
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
+        return jsonWithStatus(400, { message: "Missing input data" });
     }
 
     for (let key of ["type", "name", "discordDownloadLink", "author"]) {
         if (!key in input) {
-            return new Response(
-                JSON.stringify({ message: `Missing required key "${key}"` }),
-                {
-                    status: 400,
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            return jsonWithStatus(400, {
+                message: `Missing required key "${key}"`,
+            });
         }
     }
 
@@ -150,71 +152,38 @@ export async function PUT({ request }) {
             `LOG: Mod ${mod.id} successfully downloaded and saved to database.`
         );
 
-        return new Response(
-            JSON.stringify(
-                {
-                    message: `${existingMod ? "Updated" : "Created"} mod.`,
-                    data: mod,
-                },
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                }
-            )
-        );
+        return json({
+            message: `${existingMod ? "Updated" : "Created"} mod.`,
+            data: mod,
+        });
     } catch (err) {
         console.error("Failed to handle mod PUT for input", input, err);
-        return new Response(
-            JSON.stringify({ message: err.toString() || "Error saving mod" }),
-            {
-                status: 500,
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            }
-        );
+        return jsonWithStatus(500, {
+            message: err.toString() || "Error saving mod",
+        });
     }
 }
 
 export async function DELETE({ request }) {
-    // TODO: API key validation.
+    if (request.headers.get("authorization") !== "Bearer " + MODS_API_KEY) {
+        return jsonWithStatus(401, { message: "Invalid API key" });
+    }
 
     const input = await request.json();
 
     if (!input.id) {
-        return new Response(
-            JSON.stringify({ message: 'Missing required input key "id".' }),
-            {
-                status: 400,
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            }
-        );
+        return jsonWithStatus(400, {
+            message: 'Missing required input key "id".',
+        });
     }
 
     try {
         const mod = await prisma.modChip.delete({ where: { id: input.id } });
-        return new Response(
-            JSON.stringify(
-                { message: `Deleted mod.`, data: mod },
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                }
-            )
-        );
+        return json({ message: `Deleted mod.`, data: mod });
     } catch (err) {
         // Record not found.
         if (err.code === "P2025") {
-            return new Response(JSON.stringify({ message: "Mod not found" }), {
-                status: 404,
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
+            return jsonWithStatus(404, { message: "Mod not found" });
         }
         throw err;
     }
