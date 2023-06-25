@@ -1,4 +1,4 @@
-import AdmZip from "adm-zip";
+import JSZip from "jszip";
 import { prisma } from "../../../hooks.server";
 import { CWebp } from "cwebp";
 
@@ -43,9 +43,10 @@ async function downloadFile(url) {
 
 async function getImageFromZip(zipFile, file) {
     const zipFileName = path.basename(zipFile);
-    const zip = new AdmZip(zipFile);
+    const contents = await fs.readFile(zipFile);
+    const zip = await JSZip.loadAsync(contents);
 
-    const entry = zip.getEntry(file);
+    const entry = zip.file(file);
     if (!entry) {
         return null;
     }
@@ -56,7 +57,8 @@ async function getImageFromZip(zipFile, file) {
     )}-${file.substring(0, file.lastIndexOf("."))}.webp`;
     console.log(`LOG: Extracting ${file} from ${zipFile} to ${outputFile}`);
 
-    const encoder = new CWebp(Buffer.from(entry.getData()));
+    const data = await entry.async("nodebuffer");
+    const encoder = new CWebp(data);
     await encoder.lossless().write(`${IMAGE_PATH}/${outputFile}`);
     return "/mods/images/" + outputFile;
 }
