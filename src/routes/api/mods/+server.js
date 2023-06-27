@@ -1,181 +1,190 @@
-// import fs from "fs";
-// import { ModChip } from "../../../db/mongo.js";
+import JSZip from "jszip";
+import { prisma } from "../../../hooks.server";
+import { CWebp } from "cwebp";
+import { json } from "@sveltejs/kit";
+import { MODS_API_KEY } from "$env/static/private";
 
-// const endpoint = "https://www.keristero.xyz";
+import crypto from "crypto";
+import fs from "fs/promises";
+import path from "path";
 
-// const downloadImage = (imageURL) => {
-//     const fileName = imageURL.split("/")[4];
-//     // console.log(`LOG: Downloading "${fileName}"...`);
+// fsPromises.stat annoyingly throws if the file doesn't exist.
+const fileExists = async (path) => !!(await fs.stat(path).catch((e) => false));
 
-//     // const saveFile = await fetch(imageURL);
-//     // const blob = await saveFile.blob();
+const IMAGE_PATH = "static/mods/images";
 
-//     // const buffer = Buffer.from(await blob.arrayBuffer());
-//     // if (fs.existsSync(`static/mods/images/${fileName}`))
-//     //     fs.writeFileSync(`static/mods/images/${fileName}`, buffer);
-//     // console.log(`LOG: Downloading Complete`);
+function jsonWithStatus(status, data) {
+    return new Response(JSON.stringify(data), {
+        status,
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+}
 
-//     return `/mods/images/${fileName}`;
-// };
+async function downloadImpl(url, folder) {
+    const fileName = path.basename(url);
+    // Use a hash of the URL to avoid collisions.
+    const outputFile =
+        crypto.createHash("md5").update(url).digest("hex") +
+        fileName.substring(fileName.lastIndexOf("."));
 
-// const downloadFile = (fileURL) => {
-//     const fileName = fileURL.split("/")[6];
-//     // console.log(`LOG: Downloading "${fileName}"...`);
+    if (await fileExists(`${folder}/${outputFile}`)) {
+        console.log(`LOG: ${url} already exists as ${folder}/${outputFile}`);
 
-//     // const saveFile = await fetch(fileURL);
-//     // const blob = await saveFile.blob();
+        return outputFile;
+    }
 
-//     // const buffer = Buffer.from(await blob.arrayBuffer());
-//     // fs.writeFileSync(`static/mods/files/${fileName}`, buffer);
-//     // console.log(`LOG: Downloading Complete`);
+    console.log(`LOG: Downloading mod "${fileName}" FROM ${url}...`);
 
-//     return `/mods/files/${fileName}`;
-// };
+    const saveFile = await fetch(url);
+    const blob = await saveFile.blob();
 
-// const mapData = (data) =>
-//     Object.values(data).map((mod) => ({
-//         type: mod.data.type,
-//         name:
-//             mod?.data?.name ||
-//             mod?.attachment_data?.thread_name.match(/(?:\[.+\]) *(.+)$/)[1],
-//         shortname: mod?.data?.detail?.props?.shortname || "",
-//         description:
-//             mod?.data?.detail?.props?.long_description ||
-//             mod?.data?.detail?.props?.description,
-//         shortDescription: mod?.data?.description,
-//         previewImageURL: mod?.data?.detail?.preview
-//             ? `${endpoint}/${mod?.data?.detail?.preview.replace("\\", "/")}`
-//             : undefined,
-//         iconImageURL: mod?.data?.detail?.icon
-//             ? `${endpoint}/${mod?.data?.detail?.icon.replace("\\", "/")}`
-//             : undefined,
-//         discordDownloadLink: mod.attachment_data.discord_url,
-//         filePaths: {
-//             mod: downloadFile(mod.attachment_data.discord_url),
-//             preview: mod?.data?.detail?.preview
-//                 ? downloadImage(
-//                       `${endpoint}/${mod?.data?.detail?.preview.replace(
-//                           "\\",
-//                           "/"
-//                       )}`
-//                   )
-//                 : undefined,
-//             icon: mod?.data?.detail?.icon
-//                 ? downloadImage(
-//                       `${endpoint}/${mod?.data?.detail?.icon.replace(
-//                           "\\",
-//                           "/"
-//                       )}`
-//                   )
-//                 : undefined,
-//         },
-//         author: {
-//             authorName: mod.attachment_data.author_name,
-//             authorId: mod.attachment_data.author_id,
-//             threadName: mod.attachment_data.thread_name,
-//             threadId: mod.attachment_data.thread_id,
-//             attachmentId: mod.attachment_data.attachment_id,
-//             channelId: mod.attachment_data.channel_id,
-//         },
-//         chipInformation: {
-//             labelColor: undefined,
-//             chipColor: mod?.data?.detail?.color
-//                 ? mod?.data?.detail?.color.toLowerCase()
-//                 : undefined,
-//             codes: mod?.data?.detail?.codes,
-//             damage: mod?.data?.detail?.props?.damage,
-//             timeFreeze: mod?.data?.detail?.props?.time_freeze,
-//             element: mod?.data?.detail?.props?.element,
-//             secondaryElement: mod?.data?.detail?.props?.secondary_element,
-//             limit: mod?.data?.detail?.props?.limit,
-//             canBoost: mod?.data?.detail?.props?.can_boost,
-//             shape: mod?.data?.detail?.shape,
-//             isProgram: mod?.data?.detail?.is_program,
-//             cardClass: mod?.data?.detail?.props?.card_class,
-//         },
-//         uploadedAt: mod.attachment_data.timestamp,
-//     }));
+    await fs.writeFile(`${folder}/${outputFile}`, blob.stream());
+    console.log(
+        `LOG: Downloading Complete. Written to ${folder}/${outputFile}.`
+    );
 
-// export async function GET() {
-//     // const data = await ModChip.find({});
-//     // const mappedData = JSON.parse(JSON.stringify(data)).map((elem) => ({
-//     //     ...elem,
-//     //     filePaths: JSON.parse(elem.filePaths),
-//     //     author: elem?.author ? JSON.parse(elem.author) : undefined,
-//     //     chipInformation: elem?.chipInformation
-//     //         ? JSON.parse(elem.chipInformation)
-//     //         : undefined,
-//     // }));
+    return outputFile;
+}
 
-//     // return mods - need to add query parameters, filtering, limits, etc.
+async function downloadFile(url) {
+    return "/mods/files/" + (await downloadImpl(url, "static/mods/files"));
+}
 
-   
-//     const mappedData = mapData(data).map((elem) => ({
-//         ...elem,
-//         filePaths: JSON.stringify(elem.filePaths),
-//         chipInformation: JSON.stringify(elem.chipInformation),
-//         author: JSON.stringify(elem.author),
-//     }));
+async function getImageFromZip(zipFile, file) {
+    const zipFileName = path.basename(zipFile);
+    const contents = await fs.readFile(zipFile);
+    const zip = await JSZip.loadAsync(contents);
 
-//     await ModChip.insertMany(mappedData);
+    const entry = zip.file(file);
+    if (!entry) {
+        return null;
+    }
 
-//     console.log("done!");
+    const outputFile = `${zipFileName.substring(
+        0,
+        zipFileName.lastIndexOf(".")
+    )}-${file.substring(0, file.lastIndexOf("."))}.webp`;
+    console.log(`LOG: Extracting ${file} from ${zipFile} to ${outputFile}`);
 
-//     return new Response(
-//         JSON.stringify({ total: mappedData.length, data: mappedData }),
-//         {
-//             headers: {
-//                 "Content-Type": "application/json",
-//             },
-//         }
-//     );
-// }
+    const data = await entry.async("nodebuffer");
+    const encoder = new CWebp(data);
+    await encoder.lossless().write(`${IMAGE_PATH}/${outputFile}`);
+    return "/mods/images/" + outputFile;
+}
 
-// // // export async function PUT({ request }) {
-// // //     const newMod = await request.json();
-// // //     // Add new mod
-// // //     try {
-// // //         const data = new ModChip({
-// // //             ...newMod,
-// // //             author: newMod?.author ? JSON.stringify(newMod.author) : undefined,
-// // //             chipInformation: newMod?.chipInformation
-// // //                 ? JSON.stringify(newMod.chipInformation)
-// // //                 : undefined,
-// // //         });
+export async function GET() {
+    if (request.headers.get("authorization") !== "Bearer " + MODS_API_KEY) {
+        return jsonWithStatus(401, { message: "Invalid API key" });
+    }
 
-// // // const saveFile = await fetch(newMod?.discordDownloadLink);
+    // TODO: need to add query parameters, filtering, limits, etc.
+    const mods = (await prisma.modChip.findMany()).map((mod) => ({
+        ...mod,
+        author: JSON.parse(mod.author),
+        chipInformation: JSON.parse(mod.chipInformation),
+        filePaths: JSON.parse(mod.filePaths),
+    }));
+    return json({ mods });
+}
 
-// // // const fileName = newMod?.discordDownloadLink.split("/")[6];
-// // // const blob = await saveFile.blob();
+export async function PUT({ request }) {
+    if (request.headers.get("authorization") !== "Bearer " + MODS_API_KEY) {
+        return jsonWithStatus(401, { message: "Invalid API key" });
+    }
 
-// // // console.log(`LOG: Downloading mod "${fileName}"...`);
-// // // const buffer = Buffer.from(await blob.arrayBuffer());
-// // // fs.writeFileSync(`static/mods/${fileName}`, buffer);
+    // TODO: Should mod names be unique or something?
+    // If so, then the filename hashing is unnecessary, since they can just be `files/modname.zip`, `images/modname-preview.zip` etc
+    const input = await request.json();
 
-// // //         console.log(`LOG: Downloading completed, saving mod to database...`);
-// // //         await data.save();
-// // //         console.log(`LOG: Mod succesfully downloaded and saved to database.`);
+    if (!input) {
+        return jsonWithStatus(400, { message: "Missing input data" });
+    }
 
-// // //         return new Response(JSON.stringify(newMod), {
-// // //             headers: {
-// // //                 "Content-Type": "application/json",
-// // //             },
-// // //         });
-// // //     } catch (err) {
-// // //         return new Response(
-// // //             JSON.stringify({ message: err.toString() || "Error saving mod" })
-// // //         );
-// // //     }
-// // // }
+    for (let key of ["type", "name", "discordDownloadLink", "author"]) {
+        if (!key in input) {
+            return jsonWithStatus(400, {
+                message: `Missing required key "${key}"`,
+            });
+        }
+    }
 
-// // // export function DELETE() {
-// // //     const modToDelete = {};
+    const existingMod = input.id
+        ? await prisma.modChip.findUniqueOrThrow({ where: { id: input.id } })
+        : null;
 
-// // //     // Delete mod
+    try {
+        const data = {
+            ...input,
+            id: undefined,
+            author: input.author ? JSON.stringify(input.author) : undefined,
+            chipInformation: input.chipInformation
+                ? JSON.stringify(input.chipInformation)
+                : undefined,
+            uploadedAt: new Date(),
+        };
 
-// // //     return new Response(JSON.stringify({ modToDelete }), {
-// // //         headers: {
-// // //             "Content-Type": "application/json",
-// // //         },
-// // //     });
-// // // }
+        const downloadPath = await downloadFile(input.discordDownloadLink);
+
+        const [previewImagePath, iconImagePath] = await Promise.all([
+            getImageFromZip("static" + downloadPath, "preview.png"),
+            getImageFromZip("static" + downloadPath, "icon.png"),
+        ]);
+
+        data.filePaths = JSON.stringify({
+            mod: downloadPath,
+            preview: previewImagePath,
+            icon: iconImagePath,
+        });
+
+        console.log(`LOG: Downloading completed, saving mod to database...`);
+        let mod;
+        if (!existingMod) {
+            mod = await prisma.modChip.create({ data });
+        } else {
+            mod = await prisma.modChip.update({
+                data,
+                where: { id: existingMod.id },
+            });
+        }
+        console.log(
+            `LOG: Mod ${mod.id} successfully downloaded and saved to database.`
+        );
+
+        return json({
+            message: `${existingMod ? "Updated" : "Created"} mod.`,
+            data: mod,
+        });
+    } catch (err) {
+        console.error("Failed to handle mod PUT for input", input, err);
+        return jsonWithStatus(500, {
+            message: err.toString() || "Error saving mod",
+        });
+    }
+}
+
+export async function DELETE({ request }) {
+    if (request.headers.get("authorization") !== "Bearer " + MODS_API_KEY) {
+        return jsonWithStatus(401, { message: "Invalid API key" });
+    }
+
+    const input = await request.json();
+
+    if (!input.id) {
+        return jsonWithStatus(400, {
+            message: 'Missing required input key "id".',
+        });
+    }
+
+    try {
+        const mod = await prisma.modChip.delete({ where: { id: input.id } });
+        return json({ message: `Deleted mod.`, data: mod });
+    } catch (err) {
+        // Record not found.
+        if (err.code === "P2025") {
+            return jsonWithStatus(404, { message: "Mod not found" });
+        }
+        throw err;
+    }
+}
