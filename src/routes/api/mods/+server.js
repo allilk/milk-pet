@@ -74,7 +74,7 @@ async function getImageFromZip(zipFile, file) {
     return "/mods/images/" + outputFile;
 }
 
-export async function GET() {
+export async function GET({ request }) {
     if (request.headers.get("authorization") !== "Bearer " + MODS_API_KEY) {
         return jsonWithStatus(401, { message: "Invalid API key" });
     }
