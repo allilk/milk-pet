@@ -94,8 +94,6 @@ export async function PUT({ request }) {
         return jsonWithStatus(401, { message: "Invalid API key" });
     }
 
-    // TODO: Should mod names be unique or something?
-    // If so, then the filename hashing is unnecessary, since they can just be `files/modname.zip`, `images/modname-preview.zip` etc
     const input = await request.json();
 
     if (!input) {
@@ -118,6 +116,8 @@ export async function PUT({ request }) {
         const data = {
             ...input,
             id: undefined,
+            previewZipPath: undefined,
+            iconZipPath: undefined,
             author: input.author ? JSON.stringify(input.author) : undefined,
             chipInformation: input.chipInformation
                 ? JSON.stringify(input.chipInformation)
@@ -128,8 +128,8 @@ export async function PUT({ request }) {
         const downloadPath = await downloadFile(input.discordDownloadLink);
 
         const [previewImagePath, iconImagePath] = await Promise.all([
-            getImageFromZip("static" + downloadPath, "preview.png"),
-            getImageFromZip("static" + downloadPath, "icon.png"),
+            getImageFromZip("static" + downloadPath, input.previewZipPath ?? "preview.png"),
+            getImageFromZip("static" + downloadPath, input.iconZipPath ?? "icon.png"),
         ]);
 
         data.filePaths = JSON.stringify({
