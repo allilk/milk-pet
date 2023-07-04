@@ -1,6 +1,7 @@
 import JSZip from "jszip";
 import { prisma } from "../../../hooks.server";
 import { CWebp } from "cwebp";
+import cwebpPath from 'cwebp-bin';
 import { json } from "@sveltejs/kit";
 import { MODS_API_KEY } from "$env/static/private";
 
@@ -69,7 +70,7 @@ async function getImageFromZip(zipFile, file) {
     console.log(`LOG: Extracting ${file} from ${zipFile} to ${outputFile}`);
 
     const data = await entry.async("nodebuffer");
-    const encoder = new CWebp(data);
+    const encoder = new CWebp(data, cwebpPath);
     await encoder.lossless().write(`${IMAGE_PATH}/${outputFile}`);
     return "/mods/images/" + outputFile;
 }
