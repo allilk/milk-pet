@@ -1,7 +1,7 @@
 import JSZip from "jszip";
 import { prisma } from "../../../hooks.server";
 import { CWebp } from "cwebp";
-import cwebpPath from 'cwebp-bin';
+import cwebpPath from "cwebp-bin";
 import { json } from "@sveltejs/kit";
 import { MODS_API_KEY } from "$env/static/private";
 
@@ -23,12 +23,14 @@ function jsonWithStatus(status, data) {
     });
 }
 
-async function downloadImpl(url, folder) {
+async function downloadImpl(url, folder, isOld) {
     const fileName = path.basename(url);
     // Use a hash of the URL to avoid collisions.
     const outputFile =
-        crypto.createHash("md5").update(url).digest("hex") +
-        fileName.substring(fileName.lastIndexOf("."));
+        crypto
+            .createHash("md5")
+            .update(isOld ? `/mods/files/${fileName}` : url)
+            .digest("hex") + fileName.substring(fileName.lastIndexOf("."));
 
     if (await fileExists(`${folder}/${outputFile}`)) {
         console.log(`LOG: ${url} already exists as ${folder}/${outputFile}`);
@@ -38,10 +40,11 @@ async function downloadImpl(url, folder) {
 
     console.log(`LOG: Downloading mod "${fileName}" FROM ${url}...`);
 
-    const saveFile = await fetch(url);
+    const saveFile = await fetch(isOld ? `/mods/files/${fileName}` : url);
     const blob = await saveFile.blob();
 
     await fs.writeFile(`${folder}/${outputFile}`, blob.stream());
+
     console.log(
         `LOG: Downloading Complete. Written to ${folder}/${outputFile}.`
     );
@@ -49,16 +52,18 @@ async function downloadImpl(url, folder) {
     return outputFile;
 }
 
-async function downloadFile(url) {
-    return "/mods/files/" + (await downloadImpl(url, "static/mods/files"));
+async function downloadFile(url, isOld) {
+    return (
+        "/mods/files/" + (await downloadImpl(url, "static/mods/files", isOld))
+    );
 }
 
-async function getImageFromZip(zipFile, file) {
+async function getImageFromZip(zipFile, file, regex) {
     const zipFileName = path.basename(zipFile);
     const contents = await fs.readFile(zipFile);
     const zip = await JSZip.loadAsync(contents);
 
-    const entry = zip.file(file);
+    const entry = zip.file(regex)[0];
 
     if (!entry) {
         return null;
@@ -67,7 +72,7 @@ async function getImageFromZip(zipFile, file) {
     const outputFile = `${zipFileName.substring(
         0,
         zipFileName.lastIndexOf(".")
-    )}-${file.substring(0, file.lastIndexOf("."))}.webp`;
+    )}-${file}.webp`;
 
     console.log(`LOG: Extracting ${file} from ${zipFile} to ${outputFile}`);
 
@@ -92,7 +97,7 @@ export async function GET({ request }) {
     return json({ mods });
 }
 
-export async function PUT({ request }) {
+export async function PUT({ request, fetch }) {
     if (request.headers.get("authorization") !== "Bearer " + MODS_API_KEY) {
         return jsonWithStatus(401, { message: "Invalid API key" });
     }
@@ -127,11 +132,23 @@ export async function PUT({ request }) {
                 : undefined,
         };
 
-        const downloadPath = await downloadFile(input.discordDownloadLink);
+        const downloadPath = await downloadFile(
+            input.discordDownloadLink
+            // !!existingMod?.discordDownloadLink,
+            // fetch
+        );
 
         const [previewImagePath, iconImagePath] = await Promise.all([
-            getImageFromZip("static" + downloadPath, input.previewZipPath ?? "preview.png"),
-            getImageFromZip("static" + downloadPath, input.iconZipPath ?? "icon.png"),
+            getImageFromZip(
+                "static" + downloadPath,
+                input.previewZipPath ?? "preview",
+                /^previe.+\.png/g
+            ),
+            getImageFromZip(
+                "static" + downloadPath,
+                input.iconZipPath ?? "icon",
+                /^ico.+\.png/g
+            ),
         ]);
 
         data.filePaths = JSON.stringify({
