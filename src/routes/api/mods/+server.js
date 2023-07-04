@@ -59,6 +59,7 @@ async function getImageFromZip(zipFile, file) {
     const zip = await JSZip.loadAsync(contents);
 
     const entry = zip.file(file);
+
     if (!entry) {
         return null;
     }
@@ -67,6 +68,7 @@ async function getImageFromZip(zipFile, file) {
         0,
         zipFileName.lastIndexOf(".")
     )}-${file.substring(0, file.lastIndexOf("."))}.webp`;
+
     console.log(`LOG: Extracting ${file} from ${zipFile} to ${outputFile}`);
 
     const data = await entry.async("nodebuffer");
@@ -123,7 +125,6 @@ export async function PUT({ request }) {
             chipInformation: input.chipInformation
                 ? JSON.stringify(input.chipInformation)
                 : undefined,
-            uploadedAt: new Date(),
         };
 
         const downloadPath = await downloadFile(input.discordDownloadLink);
@@ -142,7 +143,7 @@ export async function PUT({ request }) {
         console.log(`LOG: Downloading completed, saving mod to database...`);
         let mod;
         if (!existingMod) {
-            mod = await prisma.modChip.create({ data });
+            mod = await prisma.modChip.create({ data, uploadedAt: new Date() });
         } else {
             mod = await prisma.modChip.update({
                 data,
