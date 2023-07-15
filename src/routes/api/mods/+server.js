@@ -123,7 +123,6 @@ export async function PUT({ request, fetch }) {
     try {
         const data = {
             ...input,
-            id: undefined,
             previewZipPath: undefined,
             iconZipPath: undefined,
             author: input.author ? JSON.stringify(input.author) : undefined,
