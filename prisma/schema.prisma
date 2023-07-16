@@ -40,7 +40,7 @@ model Session {
 model User {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
   name          String?
-  email         String?   @unique
+  email         String   @unique
   emailVerified DateTime? @map("email_verified")
   image         String?
   accounts      Account[]
@@ -63,6 +63,7 @@ model VerificationToken {
 
 model ModChip {
   id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  package_id String    @unique
   type       String    
   name       String
   shortname  String?

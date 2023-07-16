@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "dev": "vite dev --host",
-        "build": "vite build",
+        "build": "vite build && npx prisma generate",
         "preview": "vite preview",
         "start": "HOST=127.0.0.1 PORT=4173 node -r dotenv/config build"
     },

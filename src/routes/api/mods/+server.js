@@ -108,7 +108,13 @@ export async function PUT({ request, fetch }) {
         return jsonWithStatus(400, { message: "Missing input data" });
     }
 
-    for (let key of ["type", "name", "discordDownloadLink", "author"]) {
+    for (let key of [
+        "type",
+        "name",
+        "discordDownloadLink",
+        "author",
+        "package_id",
+    ]) {
         if (!key in input) {
             return jsonWithStatus(400, {
                 message: `Missing required key "${key}"`,
@@ -123,8 +129,10 @@ export async function PUT({ request, fetch }) {
     try {
         const data = {
             ...input,
+            id: undefined,
             previewZipPath: undefined,
             iconZipPath: undefined,
+            uploadedAt: undefined,
             author: input.author ? JSON.stringify(input.author) : undefined,
             chipInformation: input.chipInformation
                 ? JSON.stringify(input.chipInformation)
@@ -159,7 +167,7 @@ export async function PUT({ request, fetch }) {
         console.log(`LOG: Downloading completed, saving mod to database...`);
         let mod;
         if (!existingMod) {
-            mod = await prisma.modChip.create({ data, uploadedAt: new Date() });
+            mod = await prisma.modChip.create({ data });
         } else {
             mod = await prisma.modChip.update({
                 data,
