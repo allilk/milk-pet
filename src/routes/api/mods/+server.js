@@ -122,9 +122,12 @@ export async function PUT({ request, fetch }) {
         }
     }
 
-    const existingMod = input.id
-        ? await prisma.modChip.findUniqueOrThrow({ where: { id: input.id } })
-        : null;
+    const existingMod =
+        input?.id || input?.package_id
+            ? await prisma.modChip.findUnique({
+                  where: { id: input?.id, package_id: input?.package_id },
+              })
+            : null;
 
     try {
         const data = {
