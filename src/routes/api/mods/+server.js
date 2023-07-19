@@ -12,7 +12,7 @@ import path from "path";
 // fsPromises.stat annoyingly throws if the file doesn't exist.
 const fileExists = async (path) => !!(await fs.stat(path).catch((e) => false));
 
-const IMAGE_PATH = "static/mods/images";
+const IMAGE_PATH = "public/mods/images";
 
 function jsonWithStatus(status, data) {
     return new Response(JSON.stringify(data), {
@@ -54,7 +54,7 @@ async function downloadImpl(url, folder, isOld) {
 
 async function downloadFile(url, isOld) {
     return (
-        "/mods/files/" + (await downloadImpl(url, "static/mods/files", isOld))
+        "/mods/files/" + (await downloadImpl(url, "public/mods/files", isOld))
     );
 }
 
@@ -150,12 +150,12 @@ export async function PUT({ request, fetch }) {
 
         const [previewImagePath, iconImagePath] = await Promise.all([
             getImageFromZip(
-                "static" + downloadPath,
+                "public" + downloadPath,
                 input.previewZipPath ?? "preview",
                 /^previe.+\.png/g
             ),
             getImageFromZip(
-                "static" + downloadPath,
+                "public" + downloadPath,
                 input.iconZipPath ?? "icon",
                 /^ico.+\.png/g
             ),

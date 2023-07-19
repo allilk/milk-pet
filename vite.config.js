@@ -4,4 +4,5 @@ import { imagetools } from "vite-imagetools";
 
 export default defineConfig({
     plugins: [sveltekit(), imagetools({ force: true })],
+    publicDir: "public",
 });

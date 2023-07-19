@@ -65,7 +65,7 @@
                                 </div>
                                 <div class={"img-container"} bind:this={imgTag}>
                                     <img
-                                        src={`${src}?w=56&format=webp&srcset`}
+                                        src={`${src}`}
                                         loading="lazy"
                                         alt=""
                                         draggable="false"
