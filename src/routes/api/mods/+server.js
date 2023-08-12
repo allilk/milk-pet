@@ -82,19 +82,35 @@ async function getImageFromZip(zipFile, file, regex) {
     return "/mods/images/" + outputFile;
 }
 
-export async function GET({ request }) {
-    if (request.headers.get("authorization") !== "Bearer " + MODS_API_KEY) {
-        return jsonWithStatus(401, { message: "Invalid API key" });
-    }
+export async function GET({ request, url }) {
+    // if (request.headers.get("authorization") !== "Bearer " + MODS_API_KEY) {
+    //     return jsonWithStatus(401, { message: "Invalid API key" });
+    // }
 
-    // TODO: need to add query parameters, filtering, limits, etc.
-    const mods = (await prisma.modChip.findMany()).map((mod) => ({
+    // TODO: need to add query filtering, etc.
+
+    const maxLimit = 100;
+    const page = parseInt(url.searchParams.get("page") || "1");
+    const limit =
+        parseInt(url.searchParams.get("limit")) > maxLimit
+            ? maxLimit
+            : parseInt(url.searchParams.get("limit") || "10");
+    const offset = (page - 1) * limit;
+
+    const mods = (
+        await prisma.modChip.findMany({
+            skip: offset,
+            take: limit,
+        })
+    ).map((mod) => ({
         ...mod,
         author: JSON.parse(mod.author),
         chipInformation: JSON.parse(mod.chipInformation),
         filePaths: JSON.parse(mod.filePaths),
+        page: page,
     }));
-    return json({ mods });
+
+    return json({ total: limit, page, mods });
 }
 
 export async function PUT({ request, fetch }) {
@@ -197,6 +213,12 @@ export async function DELETE({ request }) {
     if (request.headers.get("authorization") !== "Bearer " + MODS_API_KEY) {
         return jsonWithStatus(401, { message: "Invalid API key" });
     }
+
+    if (
+        process.env.HOST !==
+        request.headers.get("origin" && !request.headers.get("authorization"))
+    )
+        return json({ message: "Bad Host" });
 
     const input = await request.json();
 

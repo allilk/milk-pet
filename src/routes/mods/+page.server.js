@@ -8,6 +8,7 @@ export const load = async ({ fetch }) =>
                 include: {
                     likes: true,
                 },
+                take: 100,
             });
             const mappedData = JSON.parse(JSON.stringify(data)).map((elem) => ({
                 ...elem,
@@ -16,6 +17,7 @@ export const load = async ({ fetch }) =>
                 chipInformation: elem?.chipInformation
                     ? JSON.parse(elem.chipInformation)
                     : undefined,
+                page: 1,
             }));
 
             return resolve({ data: JSON.parse(JSON.stringify(mappedData)) });

@@ -19,6 +19,7 @@
     import TiArrowSortedDown from "svelte-icons-pack/ti/TiArrowSortedDown";
     import TiArrowSortedUp from "svelte-icons-pack/ti/TiArrowSortedUp";
     import { onMount } from "svelte";
+    import NewChipGrid from "../../components/NewChipGrid.svelte";
 
     export let data = {};
     toNotDownloadChips.set(data.data);
@@ -189,12 +190,13 @@
     <Loader />
 {:then modList}
     <div class="scroll-container">
-        <ChipsDndContainer
+        <!-- <ChipsDndContainer
             items={modList}
             {likeMod}
             {manuallyAddToFolder}
             {updateChipArrays}
-        />
+        /> -->
+        <NewChipGrid chips={modList} {likeMod} {manuallyAddToFolder} />
     </div>
     {#if $toDownloadChips.length > 0}
         <ChipFolder
