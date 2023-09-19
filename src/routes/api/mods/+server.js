@@ -219,8 +219,8 @@ export async function DELETE({ request }) {
     }
 
     if (
-        process.env.HOST !==
-        request.headers.get("origin" && !request.headers.get("authorization"))
+        process.env.HOST !== request.headers.get("origin") &&
+        !request.headers.get("authorization")
     )
         return json({ message: "Bad Host" });
 
