@@ -1,7 +1,7 @@
 import { writable } from "svelte/store";
 import { browser } from "$app/environment";
 
-export const toNotDownloadChips = writable([]);
+export const listOfMods = writable([]);
 
 export const chipDesign = writable(
     (browser && localStorage.getItem("chipDesign")) || "default"

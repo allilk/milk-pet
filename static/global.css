@@ -1,988 +1,1001 @@
 :root {
-    --OverlayLightBlue: rgb(134, 182, 220, 0.5);
-    --PrimaryButtonBlue: #7baac4;
-    --PrimaryBorderDarkBlue: #177e91;
-    --SecondaryButtonBlue: #3b88a6;
-    --ModalBackground: rgb(164, 204, 204, 0.6);
-    font-family: Orbitron;
+  --OverlayLightBlue: rgb(134, 182, 220, 0.5);
+  --PrimaryButtonBlue: #7baac4;
+  --PrimaryBorderDarkBlue: #177e91;
+  --SecondaryButtonBlue: #3b88a6;
+  --ModalBackground: rgb(164, 204, 204, 0.6);
+  font-family: Orbitron;
 }
 
 @font-face {
-    font-family: "Orbitron";
-    font-style: normal;
-    font-weight: 500;
-    src: url("/fonts/Orbitron-VariableFont_wght.ttf");
-    font-display: swap;
+  font-family: "Orbitron";
+  font-style: normal;
+  font-weight: 500;
+  src: url("/fonts/Orbitron-VariableFont_wght.ttf");
+  font-display: swap;
 }
 @font-face {
-    font-family: "Oswald";
-    font-style: normal;
-    font-weight: 500;
-    src: url("/fonts/Oswald-VariableFont_wght.ttf");
-    font-display: swap;
+  font-family: "Oswald";
+  font-style: normal;
+  font-weight: 500;
+  src: url("/fonts/Oswald-VariableFont_wght.ttf");
+  font-display: swap;
 }
 html,
 body {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 body {
-    background-color: #9ee7e4;
-    background-image: radial-gradient(
-        rgb(145, 145, 145, 0.1) 3px,
-        transparent 0
-    );
-    background-size: 15px 15px;
-    background-position: -19px -19px;
-    color: white;
-    display: flex;
-    justify-content: center;
-    /* border: 2px solid white;
+  background-color: #9ee7e4;
+  background-image: radial-gradient(rgb(145, 145, 145, 0.1) 3px, transparent 0);
+  background-size: 15px 15px;
+  background-position: -19px -19px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  /* border: 2px solid white;
     border-radius: 6px; */
-    height: 100vh;
-    width: 100%;
+  height: 100vh;
+  width: 100%;
 }
 
 button {
-    background: var(--OverlayLightBlue) !important;
-    color: white !important;
-    filter: drop-shadow(9px 4px 3px rgba(23, 126, 145, 1));
+  background: var(--OverlayLightBlue) !important;
+  color: white !important;
+  filter: drop-shadow(9px 4px 3px rgba(23, 126, 145, 1));
 }
 
 small {
-    font-size: 0.7rem;
-    font-variation-settings: "wght" 300;
+  font-size: 0.7rem;
+  font-variation-settings: "wght" 300;
 }
 
 small > span {
-    font-variation-settings: "wght" 600;
+  font-variation-settings: "wght" 600;
 }
 
 .sidebar-icon {
-    background: var(--OverlayLightBlue) !important;
-    color: white !important;
-    clip-path: polygon(
-        50% 0%,
-        121.33% 0px,
-        120.45% 57.15%,
-        68.67% 58.14%,
-        56.11% 100%,
-        0px 100%,
-        0px 0px
-    );
-    width: 90px !important;
-    height: 35px !important;
-    display: flex !important;
-    justify-content: start !important;
-    margin-bottom: 0.75rem !important;
+  background: var(--OverlayLightBlue) !important;
+  color: white !important;
+  clip-path: polygon(
+    50% 0%,
+    121.33% 0px,
+    120.45% 57.15%,
+    68.67% 58.14%,
+    56.11% 100%,
+    0px 100%,
+    0px 0px
+  );
+  width: 90px !important;
+  height: 35px !important;
+  display: flex !important;
+  justify-content: start !important;
+  margin-bottom: 0.75rem !important;
 }
 
 .sidebar-icon svg {
-    margin-left: 1rem;
+  margin-left: 1rem;
 }
 
 .left-sidebar {
-    width: 75px;
-    height: 80vh;
-    background: var(--OverlayLightBlue);
-    clip-path: polygon(
-        2px 4px,
-        99% 3px,
-        98% 7.59%,
-        57.89% 14.37%,
-        57% 30.51%,
-        32% 59.33%,
-        29% 100.2%,
-        0px 100%
-    );
-    border-radius: 8px;
+  width: 75px;
+  height: 80vh;
+  background: var(--OverlayLightBlue);
+  clip-path: polygon(
+    2px 4px,
+    99% 3px,
+    98% 7.59%,
+    57.89% 14.37%,
+    57% 30.51%,
+    32% 59.33%,
+    29% 100.2%,
+    0px 100%
+  );
+  border-radius: 8px;
 }
 
 .left-sidebar-container {
-    display: none;
-    position: absolute;
-    filter: drop-shadow(5px 9px 5px rgba(23, 126, 145, 1));
-    padding-right: 0 !important;
+  display: none;
+  position: absolute;
+  filter: drop-shadow(5px 9px 5px rgba(23, 126, 145, 1));
+  padding-right: 0 !important;
 }
 .right-sidebar-container {
-    position: absolute;
-    right: -1rem;
-    filter: drop-shadow(9px 4px 3px rgba(23, 126, 145, 1));
-    top: 5rem;
-    padding-left: 1rem !important;
+  position: absolute;
+  right: -1rem;
+  filter: drop-shadow(9px 4px 3px rgba(23, 126, 145, 1));
+  top: 5rem;
+  padding-left: 1rem !important;
 }
 
 .header-container {
-    margin-left: 0.25rem;
-    border: 0 !important;
-    width: 100% !important;
-    height: 50px !important;
-    background: none !important;
-    transform: translateZ(0);
-    filter: drop-shadow(5px 9px 5px rgba(23, 126, 145, 1));
+  margin-left: 0.25rem;
+  border: 0 !important;
+  width: 100% !important;
+  height: 50px !important;
+  background: none !important;
+  transform: translateZ(0);
+  filter: drop-shadow(5px 9px 5px rgba(23, 126, 145, 1));
 }
 
 .topbar-container {
-    font-family: "Orbitron";
-    background: var(--OverlayLightBlue) !important;
-    height: 100%;
-    border-radius: 6px;
-    clip-path: polygon(
-        50% 0%,
-        100% 0px,
-        100% 46%,
-        26.17% 49%,
-        21.07% 96%,
-        0px 100%,
-        0px 0px
-    );
-    font-size: 0.75rem;
-    user-select: none;
-    cursor: pointer;
+  font-family: "Orbitron";
+  background: var(--OverlayLightBlue) !important;
+  height: 100%;
+  border-radius: 6px;
+  clip-path: polygon(
+    50% 0%,
+    100% 0px,
+    100% 46%,
+    26.17% 49%,
+    21.07% 96%,
+    0px 100%,
+    0px 0px
+  );
+  font-size: 0.75rem;
+  user-select: none;
+  cursor: pointer;
 }
 
 .topbar {
-    padding: 1rem 0rem;
-    margin-left: -0.65rem !important;
+  padding: 1rem 0rem;
+  margin-left: -0.65rem !important;
 }
 
 .parent-container {
-    /* height: 100vh;
+  /* height: 100vh;
     max-height: 100vh;
     max-width: 1600px;
     position: relative; */
-    z-index: 10;
-    max-width: 1600px;
-    height: 100%;
-    min-height: 100%;
-    box-sizing: border-box !important;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    padding: 8px 0;
+  z-index: 10;
+  max-width: 1600px;
+  height: 100%;
+  min-height: 100%;
+  box-sizing: border-box !important;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  padding: 8px 0;
 }
 
 .body-background {
-    background: rgb(158, 205, 210, 0.75);
-    min-height: 600px;
-    position: absolute;
-    left: 0.5rem;
-    width: 100%;
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-    z-index: -1;
-    bottom: 3rem;
+  background: rgb(158, 205, 210, 0.75);
+  min-height: 600px;
+  position: absolute;
+  left: 0.5rem;
+  width: 100%;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  z-index: -1;
+  bottom: 3rem;
 }
 
 .body-container {
-    width: 100% !important;
-    padding: 0 !important;
-    margin-top: -2rem;
+  width: 100% !important;
+  padding: 0 !important;
+  margin-top: -2rem;
 }
 
 .body-container > .body-background {
-    padding: 3rem 0.25rem !important;
+  padding: 3rem 0.25rem !important;
 }
 
 .body-container > div {
-    padding: 3rem 1rem;
-    position: absolute;
-    right: 0.75rem;
+  padding: 3rem 1rem;
+  position: absolute;
+  right: 0.75rem;
 }
 
 .error-text {
-    color: red;
-    text-decoration: underline;
-    font-size: 3rem;
+  color: red;
+  text-decoration: underline;
+  font-size: 3rem;
 }
 
 .svelteui-Modal-modal {
-    background: var(--ModalBackground) !important;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.47);
-    color: white !important;
-    width: calc(100vw - 54px) !important;
-    padding: 8px !important;
-    /* filter: drop-shadow(0px 17px 3px rgba(23, 126, 145, 1)); */
+  background: var(--ModalBackground) !important;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.47);
+  color: white !important;
+  width: calc(100vw - 54px) !important;
+  padding: 8px !important;
+  /* filter: drop-shadow(0px 17px 3px rgba(23, 126, 145, 1)); */
 }
 
 .modal-second-inner > div {
-    position: relative;
+  position: relative;
 }
 
 .battle-chip-modal-footer {
-    position: absolute;
-    bottom: -0.25rem;
-    right: 0.75rem;
+  position: absolute;
+  bottom: -0.25rem;
+  right: 0.75rem;
 }
 
 .svelteui-Modal-modal::before {
-    content: "\00a0";
-    width: 106%;
-    height: 30px;
-    background: rgba(23, 126, 145, 0.5);
-    position: absolute;
-    top: -1.25rem;
-    left: -0.75rem;
-    clip-path: polygon(
-        0 0,
-        100% 0,
-        100% 100%,
-        95% 100%,
-        95% 68%,
-        5% 68%,
-        5% 100%,
-        0 100%
-    );
-    border-radius: 4px;
-    margin: -1px -2px 0 -2px;
-    filter: blur(6px);
+  content: "\00a0";
+  width: 106%;
+  height: 30px;
+  background: rgba(23, 126, 145, 0.5);
+  position: absolute;
+  top: -1.25rem;
+  left: -0.75rem;
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 100%,
+    95% 100%,
+    95% 68%,
+    5% 68%,
+    5% 100%,
+    0 100%
+  );
+  border-radius: 4px;
+  margin: -1px -2px 0 -2px;
+  filter: blur(6px);
 }
 
 .svelteui-Modal-modal::after {
-    content: "\00a0";
-    width: 105%;
-    height: 20px;
-    background: rgba(23, 126, 145, 0.5);
-    position: absolute;
-    bottom: -0.75rem;
-    left: -0.75rem;
-    transform: scaleY(-1);
-    clip-path: polygon(
-        0 0,
-        100% 0,
-        100% 100%,
-        95% 100%,
-        95% 68%,
-        5% 68%,
-        5% 100%,
-        0 100%
-    );
-    border-radius: 4px;
-    margin: -1px -2px -2px;
-    filter: blur(6px);
+  content: "\00a0";
+  width: 105%;
+  height: 20px;
+  background: rgba(23, 126, 145, 0.5);
+  position: absolute;
+  bottom: -0.75rem;
+  left: -0.75rem;
+  transform: scaleY(-1);
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 100%,
+    95% 100%,
+    95% 68%,
+    5% 68%,
+    5% 100%,
+    0 100%
+  );
+  border-radius: 4px;
+  margin: -1px -2px -2px;
+  filter: blur(6px);
 }
 
 .svelteui-Modal-inner > div {
-    box-shadow: inset 0 0 16px rgba(255, 255, 255, 1);
+  box-shadow: inset 0 0 16px rgba(255, 255, 255, 1);
 }
 
 @keyframes blur {
-    0% {
-        backdrop-filter: blur(0);
-        -webkit-backdrop-filter: blur(0);
-    }
-    100% {
-        backdrop-filter: blur(1px);
-        -webkit-backdrop-filter: blur(1px);
-    }
+  0% {
+    backdrop-filter: blur(0);
+    -webkit-backdrop-filter: blur(0);
+  }
+  100% {
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
+  }
 }
 
 .svelteui-Modal-inner {
-    animation: blur 0.25s ease-in;
-    animation-fill-mode: forwards;
+  animation: blur 0.25s ease-in;
+  animation-fill-mode: forwards;
 }
 
 .modal-second-inner::before {
-    content: "\00a0";
-    width: 107%;
-    height: 30px;
-    background: rgb(255, 255, 255, 0.8);
-    position: absolute;
-    top: -1.5rem;
-    left: -1rem;
-    clip-path: polygon(
-        0 0,
-        100% 0,
-        100% 100%,
-        95% 100%,
-        95% 68%,
-        5% 68%,
-        5% 100%,
-        0 100%
-    );
-    border-radius: 4px;
-    z-index: 2;
+  content: "\00a0";
+  width: 107%;
+  height: 30px;
+  background: rgb(255, 255, 255, 0.8);
+  position: absolute;
+  top: -1.5rem;
+  left: -1rem;
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 100%,
+    95% 100%,
+    95% 68%,
+    5% 68%,
+    5% 100%,
+    0 100%
+  );
+  border-radius: 4px;
+  z-index: 2;
 }
 .modal-second-inner::after {
-    content: "\00a0";
-    width: 106%;
-    height: 20px;
-    background: rgb(255, 255, 255, 0.8);
-    position: absolute;
-    bottom: -1rem;
-    left: -1rem;
-    transform: scaleY(-1);
-    clip-path: polygon(
-        0 0,
-        100% 0,
-        100% 100%,
-        95% 100%,
-        95% 68%,
-        5% 68%,
-        5% 100%,
-        0 100%
-    );
-    border-radius: 4px;
-    z-index: 2;
+  content: "\00a0";
+  width: 106%;
+  height: 20px;
+  background: rgb(255, 255, 255, 0.8);
+  position: absolute;
+  bottom: -1rem;
+  left: -1rem;
+  transform: scaleY(-1);
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 100%,
+    95% 100%,
+    95% 68%,
+    5% 68%,
+    5% 100%,
+    0 100%
+  );
+  border-radius: 4px;
+  z-index: 2;
 }
 
 .battle-chip {
-    content-visibility: auto;
-    background: #365c9a;
-    min-width: 105px;
-    width: 105px;
-    height: 162.5px;
-    clip-path: polygon(
-        0 90%,
-        2% 88%,
-        2% 83%,
-        0 82%,
-        0 3%,
-        7% 0,
-        100% 0,
-        100% 82%,
-        98% 83%,
-        98% 88%,
-        100% 90%,
-        100% 100%,
-        0 100%
-    );
-    margin: 0.15rem;
-    border-radius: 4px;
-    display: flex;
-    justify-content: center;
-    position: relative;
+  content-visibility: auto;
+  background: #365c9a;
+  min-width: 105px;
+  width: 105px;
+  height: 162.5px;
+  clip-path: polygon(
+    0 90%,
+    2% 88%,
+    2% 83%,
+    0 82%,
+    0 3%,
+    7% 0,
+    100% 0,
+    100% 82%,
+    98% 83%,
+    98% 88%,
+    100% 90%,
+    100% 100%,
+    0 100%
+  );
+  margin: 0.15rem;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  position: relative;
 }
 
 .battle-chip-label {
-    background: #a19cb0;
-    width: 75px;
-    height: 98px;
-    margin-left: 0.3rem;
-    display: flex;
-    justify-content: center;
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-    box-shadow: inset 0px -4px 22px -20px black;
-    outline: rgba(0, 0, 0, 0.2) 2px solid;
-    border-top: 0;
+  background: #a19cb0;
+  width: 75px;
+  height: 98px;
+  margin-left: 0.3rem;
+  display: flex;
+  justify-content: center;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  box-shadow: inset 0px -4px 22px -20px black;
+  outline: rgba(0, 0, 0, 0.2) 2px solid;
+  border-top: 0;
 }
 
 .battle-chip-inner-label {
-    background: black;
-    height: 90px;
-    width: 71px;
-    margin-top: 0.25rem;
-    clip-path: polygon(
-        3.84% 0px,
-        95% 0px,
-        100% 3.84%,
-        100% 95%,
-        95% 100%,
-        3.84% 100%,
-        0px 95%,
-        0px 3.84%
-    );
-    position: relative;
+  background: black;
+  height: 90px;
+  width: 71px;
+  margin-top: 0.25rem;
+  clip-path: polygon(
+    3.84% 0px,
+    95% 0px,
+    100% 3.84%,
+    100% 95%,
+    95% 100%,
+    3.84% 100%,
+    0px 95%,
+    0px 3.84%
+  );
+  position: relative;
 }
 .battle-chip-inner-label .img-container {
-    position: absolute;
-    top: 52%;
-    left: 54%;
-    transform: scale(1.1) translate(-50%, -50%);
-    width: 56px;
-    height: 48px;
+  position: absolute;
+  top: 52%;
+  left: 54%;
+  transform: scale(1.1) translate(-50%, -50%);
+  width: 56px;
+  height: 48px;
 }
 
 .img-container img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    object-position: top;
-    user-select: none;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: top;
+  user-select: none;
 }
 
 .battle-chip-label-text {
-    margin-top: 6px;
-    font-weight: 700;
-    font-size: 6px;
-    text-align: center;
-    color: yellow;
-    white-space: nowrap;
-    user-select: none;
-    position: relative;
+  margin-top: 6px;
+  font-weight: 700;
+  font-size: 6px;
+  text-align: center;
+  color: yellow;
+  white-space: nowrap;
+  user-select: none;
+  position: relative;
 }
 
 .battle-chip.default .battle-chip-label-text i {
-    position: absolute;
-    top: 9px;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .battle-chip-contacts {
-    box-shadow: inset 0px 9px 22px -9px black;
-    width: 84%;
-    height: 40px;
-    background: repeating-linear-gradient(
-        to right,
-        #745039 0px,
-        #745039 5px,
-        #ffe373 5px,
-        #ffe373 10px
-    );
-    position: absolute;
-    bottom: 2px;
-    user-select: none;
+  box-shadow: inset 0px 9px 22px -9px black;
+  width: 84%;
+  height: 40px;
+  background: repeating-linear-gradient(
+    to right,
+    #745039 0px,
+    #745039 5px,
+    #ffe373 5px,
+    #ffe373 10px
+  );
+  position: absolute;
+  bottom: 2px;
+  user-select: none;
 }
 
 .battle-chip-label-title {
-    font-weight: 600;
-    position: absolute;
-    bottom: -2px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 10px;
-    font-size: clamp(2px, 8px, 10px);
-    height: 11px;
-    width: 62px;
-    white-space: nowrap;
-    text-align: left;
+  font-weight: 600;
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 10px;
+  font-size: clamp(2px, 8px, 10px);
+  height: 11px;
+  width: 62px;
+  white-space: nowrap;
+  text-align: left;
 }
 
 .battle-chip-label-title img {
-    float: left;
-    filter: contrast(120%);
-    image-rendering: pixelated;
+  float: left;
+  filter: contrast(120%);
+  image-rendering: pixelated;
 }
 
 .battle-chip-label-title i {
-    vertical-align: top;
-    margin-left: 3px;
+  vertical-align: top;
+  margin-left: 3px;
 }
 
 .battle-chip-left-detail {
-    border: rgba(0, 0, 0, 0.2) 2px solid;
-    height: 45px;
-    width: 8px;
-    position: absolute;
-    left: -2px;
-    top: 2.5rem;
-    border-radius: 3px;
-    user-select: none;
+  border: rgba(0, 0, 0, 0.2) 2px solid;
+  height: 45px;
+  width: 8px;
+  position: absolute;
+  left: -2px;
+  top: 2.5rem;
+  border-radius: 3px;
+  user-select: none;
 }
 .battle-chip-bottom-detail {
-    font-size: 6.5px;
-    position: absolute;
-    bottom: 2.85rem;
-    right: 0.55rem;
-    background: #745039;
-    color: #ffe373;
-    border-radius: 3px;
-    border: rgba(0, 0, 0, 0.2) 2px solid;
-    padding: 1px;
-    user-select: none;
+  font-size: 6.5px;
+  position: absolute;
+  bottom: 2.85rem;
+  right: 0.55rem;
+  background: #745039;
+  color: #ffe373;
+  border-radius: 3px;
+  border: rgba(0, 0, 0, 0.2) 2px solid;
+  padding: 1px;
+  user-select: none;
 }
 
 .battle-chip-top-left-detail {
-    height: 6px;
-    width: 6px;
-    border-radius: 50%;
-    position: absolute;
-    top: 1rem;
-    left: 0.2rem;
-    border: rgba(0, 0, 0, 0.2) 2px solid;
-    user-select: none;
+  height: 6px;
+  width: 6px;
+  border-radius: 50%;
+  position: absolute;
+  top: 1rem;
+  left: 0.2rem;
+  border: rgba(0, 0, 0, 0.2) 2px solid;
+  user-select: none;
 }
 
 .battle-chip-modal-title {
-    font-size: 0.9rem;
-    white-space: nowrap;
-    margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  margin-bottom: 0.5rem;
 }
 
 .battle-chip-modal-body {
-    font-size: 0.75rem;
-    font-variation-settings: "wght" 300;
-    height: 250px;
-    position: relative;
+  font-size: 0.75rem;
+  font-variation-settings: "wght" 300;
+  height: 250px;
+  position: relative;
 }
 
 .battle-chip-modal-body-footer {
-    font-size: 0.7rem;
-    position: absolute;
-    bottom: 0;
-    right: 0.75rem;
+  font-size: 0.7rem;
+  position: absolute;
+  bottom: 0;
+  right: 0.75rem;
 }
 
 .battle-chip-modal-body-footer span {
-    color: #ffe373;
-    font-size: 0.85rem;
-    font-variation-settings: "wght" 700;
+  color: #ffe373;
+  font-size: 0.85rem;
+  font-variation-settings: "wght" 700;
 }
 
 .battle-chip-modal-info {
-    margin-top: 0.5rem;
-    width: 100%;
+  margin-top: 0.5rem;
+  width: 100%;
 }
 
 .battle-chip-modal-info hr {
-    color: white;
+  color: white;
 }
 
 .battle-chip-modal-info .bottom-hr {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 .footer {
-    position: absolute;
-    bottom: 1.35rem;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.47);
-    font-size: 0.75rem;
-    cursor: pointer;
+  position: absolute;
+  bottom: 1.35rem;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.47);
+  font-size: 0.75rem;
+  cursor: pointer;
 }
 
 .svelteui-Modal-header {
-    position: absolute;
-    top: -0.9rem;
-    z-index: 10;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  top: -0.9rem;
+  z-index: 10;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .svelteui-Modal-title {
-    font-family: "Orbitron" !important;
-    font-size: 0.9rem !important;
-    color: white !important;
-    text-shadow: 2px 2px 0px turquoise !important;
-    letter-spacing: 2px !important;
+  font-family: "Orbitron" !important;
+  font-size: 0.9rem !important;
+  color: white !important;
+  text-shadow: 2px 2px 0px turquoise !important;
+  letter-spacing: 2px !important;
 }
 
 .page-header {
-    text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.47);
-    position: absolute !important;
-    top: 2rem;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.47);
+  position: absolute !important;
+  top: 2rem;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .custom-paragraph,
 .custom-header {
-    background: var(--OverlayLightBlue) !important;
-    filter: drop-shadow(9px 4px 3px rgba(23, 126, 145, 1));
-    padding: 1rem 2rem !important;
-    border: 1px solid white;
-    border-radius: 3px;
+  background: var(--OverlayLightBlue) !important;
+  filter: drop-shadow(9px 4px 3px rgba(23, 126, 145, 1));
+  padding: 1rem 2rem !important;
+  border: 1px solid white;
+  border-radius: 3px;
 }
 
 .custom-header {
-    letter-spacing: 1px;
+  letter-spacing: 1px;
 }
 .custom-paragraph .svelteui-InputWrapper-label,
 .custom-input .svelteui-InputWrapper-label {
-    font-size: 0.85rem !important;
+  font-size: 0.85rem !important;
 }
 .custom-select > div {
-    width: 50% !important;
+  width: 50% !important;
 }
 
 .custom-input {
-    width: 75%;
-    margin: -1rem 0 0.5rem 0;
+  width: 75%;
+  margin: -1rem 0 0.5rem 0;
 }
 
 .custom-paragraph {
-    font-variation-settings: "wght" 300;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    padding: 1.5rem 2rem !important;
-    height: 100%;
-    width: 100%;
+  font-variation-settings: "wght" 300;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  padding: 1.5rem 2rem !important;
+  height: 100%;
+  width: 100%;
 }
 
 .test-navi {
-    width: 500px;
-    height: 600px;
-    position: absolute;
-    right: 6rem;
+  width: 500px;
+  height: 600px;
+  position: absolute;
+  right: 6rem;
 }
 .test-navi img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 @keyframes scroll-left {
-    0% {
-        transform: translateX(100%);
-    }
-    100% {
-        transform: translateX(-100%);
-    }
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
 .marquee-message {
-    height: 50px;
-    overflow: hidden;
-    position: relative;
+  height: 50px;
+  overflow: hidden;
+  position: relative;
 }
 
 .marquee-message p {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    line-height: 50px;
-    text-align: center;
-    transform: translateX(100%);
-    animation: scroll-left 20s linear infinite;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  line-height: 50px;
+  text-align: center;
+  transform: translateX(100%);
+  animation: scroll-left 20s linear infinite;
 }
 
 .bottom-right-screen-detail-container {
-    position: absolute;
-    bottom: 1.5rem;
-    right: -2rem;
-    display: none;
-    filter: drop-shadow(5px 9px 5px rgba(23, 126, 145, 1));
-    user-select: none;
+  position: absolute;
+  bottom: 1.5rem;
+  right: -2rem;
+  display: none;
+  filter: drop-shadow(5px 9px 5px rgba(23, 126, 145, 1));
+  user-select: none;
 }
 
 .bottom-right-screen-detail {
-    background: var(--OverlayLightBlue);
-    height: 200px;
-    width: 300px;
-    clip-path: polygon(
-        52% 26%,
-        73% 0,
-        100% 0,
-        100% 100%,
-        75% 100%,
-        50% 100%,
-        0 100%,
-        38% 42%,
-        49% 69%,
-        64% 54%
-    );
-    user-select: none;
+  background: var(--OverlayLightBlue);
+  height: 200px;
+  width: 300px;
+  clip-path: polygon(
+    52% 26%,
+    73% 0,
+    100% 0,
+    100% 100%,
+    75% 100%,
+    50% 100%,
+    0 100%,
+    38% 42%,
+    49% 69%,
+    64% 54%
+  );
+  user-select: none;
 }
 
 .top-left-overlay-detail-container {
-    position: absolute;
-    top: 45%;
-    left: 0;
-    transform: translateY(-50%);
-    z-index: 10;
-    filter: drop-shadow(13px 19px 25px white);
-    display: none;
-    user-select: none;
+  position: absolute;
+  top: 45%;
+  left: 0;
+  transform: translateY(-50%);
+  z-index: 10;
+  filter: drop-shadow(13px 19px 25px white);
+  display: none;
+  user-select: none;
 }
 
 .top-left-overlay-detail {
-    background: white;
-    height: 300px;
-    width: 75px;
-    clip-path: polygon(0 0, 4% 0, 5% 76%, 20% 84%, 20% 100%, 0 100%);
-    user-select: none;
+  background: white;
+  height: 300px;
+  width: 75px;
+  clip-path: polygon(0 0, 4% 0, 5% 76%, 20% 84%, 20% 100%, 0 100%);
+  user-select: none;
 }
 
 .scroll-container {
-    height: 75vh !important;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
+  height: 75vh !important;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 .chip-name-search {
-    width: 55% !important;
+  width: 55% !important;
 }
 .sort-by-dropdown {
-    width: 25% !important;
-    margin-left: 0.5rem;
+  width: 25% !important;
+  margin-left: 0.5rem;
 }
 @media screen and (min-width: 750px) {
-    .topbar {
-        margin-right: 2rem;
-        padding: 1rem;
-        margin-left: 0;
-    }
-    .topbar-container {
-        font-size: 1rem !important;
-    }
-    .left-sidebar-container {
-        left: -0.75rem;
-        top: 5rem;
-        display: initial;
-    }
-    .body-container {
-        right: -2rem;
-    }
-    .body-container > .body-background {
-        padding: 4rem 5rem 5.5rem 6rem !important;
-    }
-    .body-container > div {
-        right: 4rem;
-        height: 78%;
-        width: 90%;
-    }
-    .body-container > .body-background {
-        height: initial !important;
-    }
-    .body-background {
-        left: 2rem;
-        bottom: initial;
-    }
-    .header-container {
-        margin-left: 0;
-    }
-    .bottom-right-screen-detail-container,
-    .top-left-overlay-detail-container {
-        display: initial;
-    }
-    .custom-input {
-        margin: -1rem 2rem 0.5rem 2rem;
-    }
-    .custom-paragraph {
-        width: 65%;
-        margin-top: 2rem;
-    }
-    .battle-chip-label-text {
-        font-size: 7px;
-    }
-    .svelteui-Modal-modal {
-        width: 620px !important;
-    }
-    .scroll-container {
-        height: 78vh !important;
-    }
-    .battle-chip.progress .battle-chip-label-text i {
-        font-size: 8px !important;
-    }
-    .chip-name-search {
-        width: 25% !important;
-    }
-    .sort-by-dropdown {
-        width: 15% !important;
-        margin-left: initial;
-    }
-    .battle-chip-label-title i {
-        vertical-align: sub;
-        margin-left: 2px;
-    }
-    .battle-chip-modal-info {
-        margin-left: 0.5rem;
-    }
+  .topbar {
+    margin-right: 2rem;
+    padding: 1rem;
+    margin-left: 0;
+  }
+  .topbar-container {
+    font-size: 1rem !important;
+  }
+  .left-sidebar-container {
+    left: -0.75rem;
+    top: 5rem;
+    display: initial;
+  }
+  .body-container {
+    right: -2rem;
+  }
+  .body-container > .body-background {
+    padding: 4rem 5rem 5.5rem 6rem !important;
+  }
+  .body-container > div {
+    right: 4rem;
+    height: 78%;
+    width: 90%;
+  }
+  .body-container > .body-background {
+    height: initial !important;
+  }
+  .body-background {
+    left: 2rem;
+    bottom: initial;
+  }
+  .header-container {
+    margin-left: 0;
+  }
+  .bottom-right-screen-detail-container,
+  .top-left-overlay-detail-container {
+    display: initial;
+  }
+  .custom-input {
+    margin: -1rem 2rem 0.5rem 2rem;
+  }
+  .custom-paragraph {
+    width: 65%;
+    margin-top: 2rem;
+  }
+  .battle-chip-label-text {
+    font-size: 7px;
+  }
+  .svelteui-Modal-modal {
+    width: 620px !important;
+  }
+  .scroll-container {
+    height: 78vh !important;
+  }
+  .battle-chip.progress .battle-chip-label-text i {
+    font-size: 8px !important;
+  }
+  .chip-name-search {
+    width: 25% !important;
+  }
+  .sort-by-dropdown {
+    width: 15% !important;
+    margin-left: initial;
+  }
+  .battle-chip-label-title i {
+    vertical-align: sub;
+    margin-left: 2px;
+  }
+  .battle-chip-modal-info {
+    margin-left: 0.5rem;
+  }
 }
 .battle-chip.progress {
-    clip-path: polygon(
-        0px 0px,
-        8.72% 0px,
-        11% 3%,
-        17% 3%,
-        19% 0px,
-        100% 0px,
-        100% 100%,
-        43.75% 100%,
-        34.48% 86%,
-        19% 86%,
-        17% 83%,
-        11% 83%,
-        8.72% 86%,
-        0px 86.11%
-    );
-    min-width: 130px;
-    width: 130px;
-    height: 90px;
-    transform: scale(1.1);
-    position: relative;
-    margin: 0.5rem 0.75rem;
-    background: #303030;
-    font-family: Oswald;
+  clip-path: polygon(
+    0px 0px,
+    8.72% 0px,
+    11% 3%,
+    17% 3%,
+    19% 0px,
+    100% 0px,
+    100% 100%,
+    43.75% 100%,
+    34.48% 86%,
+    19% 86%,
+    17% 83%,
+    11% 83%,
+    8.72% 86%,
+    0px 86.11%
+  );
+  min-width: 130px;
+  width: 130px;
+  height: 90px;
+  transform: scale(1.1);
+  position: relative;
+  margin: 0.5rem 0.75rem;
+  background: #303030;
+  font-family: Oswald;
 }
 
 .battle-chip.progress .battle-chip-label {
-    height: 75px;
-    width: 80px;
-    position: absolute;
-    right: 0rem;
-    top: 0.65rem;
-    clip-path: polygon(100% 0px, 100% 100%, 12% 100%, 0px 87.67%, 0px 0px);
-    background: #d2b640;
+  height: 75px;
+  width: 80px;
+  position: absolute;
+  right: 0rem;
+  top: 0.65rem;
+  clip-path: polygon(100% 0px, 100% 100%, 12% 100%, 0px 87.67%, 0px 0px);
+  background: #d2b640;
 }
 
 .battle-chip.progress .battle-chip-label-text {
-    writing-mode: vertical-lr;
-    transform: scale(-1, -1);
-    color: white;
-    margin-top: 4px;
-    margin-left: -3px;
-    font-size: initial !important;
+  writing-mode: vertical-lr;
+  transform: scale(-1, -1);
+  color: white;
+  margin-top: 4px;
+  margin-left: -3px;
+  font-size: initial !important;
 }
 .battle-chip.progress.players .battle-chip-label-text {
-    margin-top: 8px;
+  margin-top: 8px;
 }
 
 .battle-chip.progress .battle-chip-label-text i {
-    font-style: normal;
-    font-size: 8px;
-    font-variation-settings: "wght" 850;
+  font-style: normal;
+  font-size: 8px;
+  font-variation-settings: "wght" 850;
 }
 
 .battle-chip.progress .battle-chip-inner-label {
-    clip-path: none;
-    height: 55px;
-    width: 78px;
-    margin-top: 0.2rem;
-    margin-right: -4px;
-    background: none;
+  clip-path: none;
+  height: 55px;
+  width: 78px;
+  margin-top: 0.2rem;
+  margin-right: -4px;
+  background: none;
 }
 
 .battle-chip.progress .battle-chip-label-title {
-    bottom: -1.125rem;
-    font-size: clamp(2px, 7px, 9px);
-    font-weight: none !important;
+  bottom: -1.125rem;
+  font-size: clamp(2px, 7px, 9px);
+  font-weight: none !important;
 }
 
 .battle-chip.progress .battle-chip-label-title i {
-    font-size: 0.625rem;
-    font-style: initial;
-    text-shadow: none !important;
-    color: black;
-    font-variation-settings: "wght" 350;
-    position: absolute;
-    top: -2px;
+  font-size: 0.625rem;
+  font-style: initial;
+  text-shadow: none !important;
+  color: black;
+  font-variation-settings: "wght" 350;
+  position: absolute;
+  top: -2px;
 }
 
 .battle-chip.progress.players .battle-chip-label-title i {
-    transform: translateX(-50%);
-    left: 50%;
+  transform: translateX(-50%);
+  left: 50%;
 }
 
 .battle-chip.progress .battle-chip-label-inner-container {
-    clip-path: polygon(100% 0px, 100% 100%, 12% 100%, 0px 87.67%, 0px 0px);
-    height: 73px;
-    margin-top: -3px;
-    background: black;
-    margin-left: -1px;
+  clip-path: polygon(100% 0px, 100% 100%, 12% 100%, 0px 87.67%, 0px 0px);
+  height: 73px;
+  margin-top: -3px;
+  background: black;
+  margin-left: -1px;
 }
 
 .battle-chip.progress .battle-chip-label-inner-container > div {
-    background: #d2b640;
-    clip-path: polygon(100% 0px, 100% 100%, 12% 100%, 0px 87.67%, 0px 0px);
-    height: 71px;
-    margin-left: 2px;
-    position: relative;
-    z-index: 5;
+  background: #d2b640;
+  clip-path: polygon(100% 0px, 100% 100%, 12% 100%, 0px 87.67%, 0px 0px);
+  height: 71px;
+  margin-left: 2px;
+  position: relative;
+  z-index: 5;
 }
 
 .battle-chip.progress .battle-chip-label-inner-container > div > div {
-    background: black;
-    position: absolute;
-    top: 4px;
-    z-index: 10;
-    width: 100%;
-    height: 75%;
-    border: white solid 1px;
-    border-left: none;
-    border-right: none;
+  background: black;
+  position: absolute;
+  top: 4px;
+  z-index: 10;
+  width: 100%;
+  height: 75%;
+  border: white solid 1px;
+  border-left: none;
+  border-right: none;
 }
 
 .battle-chip.progress .battle-chip-bottom-detail {
-    writing-mode: vertical-lr;
-    transform: scale(-1, -1);
-    bottom: 1.1rem;
-    right: initial;
-    left: 1.95rem;
+  writing-mode: vertical-lr;
+  transform: scale(-1, -1);
+  bottom: 1.1rem;
+  right: initial;
+  left: 1.95rem;
 }
 
 .battle-chip.progress .img-container {
-    transform: scale(0.95);
-    top: 5%;
-    left: 18%;
-    user-select: none;
+  transform: scale(0.95);
+  top: 5%;
+  left: 18%;
+  user-select: none;
 }
 
 .battle-chip.progress .battle-chip-left-detail {
-    height: 48px;
-    width: 8px;
-    left: 1.9rem;
-    top: 0rem;
-    border-radius: 0 0 2px 2px;
-    border: rgba(0, 0, 0, 0.2) 2px solid;
-    border-top: 0;
-    outline: none;
+  height: 48px;
+  width: 8px;
+  left: 1.9rem;
+  top: 0rem;
+  border-radius: 0 0 2px 2px;
+  border: rgba(0, 0, 0, 0.2) 2px solid;
+  border-top: 0;
+  outline: none;
 }
 
 .battle-chip.progress .battle-chip-top-left-detail {
-    height: 3px;
-    width: 20px;
-    border-radius: 1px;
-    top: 0.125rem;
-    right: 0.45rem;
-    left: initial;
+  height: 3px;
+  width: 20px;
+  border-radius: 1px;
+  top: 0.125rem;
+  right: 0.45rem;
+  left: initial;
 }
 
 .battle-chip.progress .battle-chip-contacts {
-    transform: rotate(90deg) scale(0.625);
-    top: 1.16rem;
-    left: -2.525rem;
-    bottom: initial;
+  transform: rotate(90deg) scale(0.625);
+  top: 1.16rem;
+  left: -2.525rem;
+  bottom: initial;
 }
 
 .svelteui-InputWrapper-label {
-    color: white !important;
+  color: white !important;
 }
 
 .folder-buttons.progress {
-    bottom: -0.25rem !important;
+  bottom: -0.25rem !important;
 }
 
 .marquee-text {
-    position: absolute;
-    bottom: 16rem;
-    margin: 0 !important;
-    z-index: -1;
-    color: rgba(255, 255, 255, 0.3);
+  position: absolute;
+  bottom: 16rem;
+  margin: 0 !important;
+  z-index: -1;
+  color: rgba(255, 255, 255, 0.3);
 }
 
 .no-select {
-    user-select: none !important;
+  user-select: none !important;
 }
 
 .card-section-collection > .battle-chip {
-    transform: scale(0.9);
-    color: white !important;
+  transform: scale(0.9);
+  color: white !important;
 }
 
 .card-section-collection > .battle-chip:first-child {
-    position: absolute;
-    top: 0;
-    left: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .card-section-collection > .battle-chip:nth-child(2) {
-    position: absolute;
-    top: 1rem;
-    left: 2.75rem;
+  position: absolute;
+  top: 1rem;
+  left: 2.75rem;
 }
 .card-section-collection > .battle-chip:nth-child(3) {
-    position: absolute;
-    top: 2rem;
-    left: 5.5rem;
+  position: absolute;
+  top: 2rem;
+  left: 5.5rem;
 }
 
 .card-section-bottom {
-    position: absolute;
-    bottom: 0.25rem;
-    display: flex !important;
-    justify-content: center;
-    flex-direction: column;
-    height: 65%;
-    width: 100%;
-    color: white;
-    right: 1rem;
+  position: absolute;
+  bottom: 0.25rem;
+  display: flex !important;
+  justify-content: center;
+  flex-direction: column;
+  height: 65%;
+  width: 100%;
+  color: white;
+  right: 1rem;
 }
 
 .card-section-bottom button {
-    width: 90% !important;
+  width: 90% !important;
+}
+
+.battlechip-parent {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-x: hidden;
+  justify-content: flex-start;
+}
+
+.battlechip-parent-container {
+  max-height: 100%;
+  overflow-y: auto;
+}
+.layout-container {
+  height: 76%;
 }

@@ -101,6 +101,7 @@ export async function GET({ request, url }) {
         await prisma.modChip.findMany({
             skip: offset,
             take: limit,
+            orderBy: { uploadedAt: "desc" },
         })
     ).map((mod) => ({
         ...mod,
@@ -108,9 +109,12 @@ export async function GET({ request, url }) {
         chipInformation: JSON.parse(mod.chipInformation),
         filePaths: JSON.parse(mod.filePaths),
         page: page,
+        likes: mod?.likes || []
     }));
 
-    return json({ total: limit, page, mods });
+    const totalPages = await prisma.modChip.count();
+
+    return json({ total: limit, page, mods, totalPages: Math.ceil(totalPages / limit) });
 }
 
 export async function PUT({ request, fetch }) {
@@ -141,8 +145,8 @@ export async function PUT({ request, fetch }) {
     const existingMod =
         input?.id || input?.package_id
             ? await prisma.modChip.findUnique({
-                  where: { id: input?.id, package_id: input?.package_id },
-              })
+                where: { id: input?.id, package_id: input?.package_id },
+            })
             : null;
 
     try {
