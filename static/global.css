@@ -184,6 +184,9 @@ small > span {
 .body-container > div {
   padding: 3rem 1rem;
   position: absolute;
+}
+
+.body-container > .homepage {
   right: 0.75rem;
 }
 
@@ -598,7 +601,7 @@ small > span {
   margin-right: 1rem;
   padding: 1.5rem 2rem !important;
   height: 100%;
-  width: 100%;
+  width: 100% ;
 }
 
 .test-navi {
@@ -998,4 +1001,5 @@ small > span {
 }
 .layout-container {
   height: 76%;
+  left: 0;
 }

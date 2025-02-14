@@ -3,7 +3,7 @@
 </script>
 
 <Container
-    class="custom-paragraph"
+    class="custom-paragraph homepage"
     override={{ width: "75%", height: "initial" }}
 >
     <h3>What is <i>MILK-PET</i> ?</h3>
