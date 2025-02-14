@@ -52,5 +52,6 @@
         display: flex;
         flex-wrap: wrap;
         align-content: flex-start;
+        justify-content: center;
     }
 </style>

@@ -85,7 +85,7 @@
       });
 </script>
 
-<Box css={{ display: "flex" }}>
+<Box css={{ display: "flex" }} class="">
   <TextInput
     placeholder="Search for a mod"
     on:input={(e) => {

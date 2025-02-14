@@ -4,7 +4,6 @@
     import { zipAndDownloadMods } from "../../../helpers/zipAndDownloadMods";
     import Modal from "../../../components/Modal.svelte";
     import { writable } from "svelte/store";
-    import { onMount } from "svelte";
 
     export let data;
 

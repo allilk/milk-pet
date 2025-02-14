@@ -13,12 +13,12 @@
     let layoutOptions = ["default", "progress"];
 </script>
 
-<Container class="custom-header" override={{}}>Settings</Container>
+<Container class="custom-header">Settings</Container>
 <br />
 
 <Container
     class="custom-paragraph"
-    override={{ height: "initial", marginTop: "-0.5rem !important", }}
+    override={{ height: "initial", marginTop: "-0.5rem !important" }}
 >
     <Box css={{ marginBottom: "1rem" }}>
         <NativeSelect

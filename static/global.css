@@ -14,6 +14,7 @@
   src: url("/fonts/Orbitron-VariableFont_wght.ttf");
   font-display: swap;
 }
+
 @font-face {
   font-family: "Oswald";
   font-style: normal;
@@ -21,6 +22,7 @@
   src: url("/fonts/Oswald-VariableFont_wght.ttf");
   font-display: swap;
 }
+
 html,
 body {
   padding: 0;
@@ -52,22 +54,20 @@ small {
   font-variation-settings: "wght" 300;
 }
 
-small > span {
+small>span {
   font-variation-settings: "wght" 600;
 }
 
 .sidebar-icon {
   background: var(--OverlayLightBlue) !important;
   color: white !important;
-  clip-path: polygon(
-    50% 0%,
-    121.33% 0px,
-    120.45% 57.15%,
-    68.67% 58.14%,
-    56.11% 100%,
-    0px 100%,
-    0px 0px
-  );
+  clip-path: polygon(50% 0%,
+      121.33% 0px,
+      120.45% 57.15%,
+      68.67% 58.14%,
+      56.11% 100%,
+      0px 100%,
+      0px 0px);
   width: 90px !important;
   height: 35px !important;
   display: flex !important;
@@ -83,16 +83,14 @@ small > span {
   width: 75px;
   height: 80vh;
   background: var(--OverlayLightBlue);
-  clip-path: polygon(
-    2px 4px,
-    99% 3px,
-    98% 7.59%,
-    57.89% 14.37%,
-    57% 30.51%,
-    32% 59.33%,
-    29% 100.2%,
-    0px 100%
-  );
+  clip-path: polygon(2px 4px,
+      99% 3px,
+      98% 7.59%,
+      57.89% 14.37%,
+      57% 30.51%,
+      32% 59.33%,
+      29% 100.2%,
+      0px 100%);
   border-radius: 8px;
 }
 
@@ -102,6 +100,7 @@ small > span {
   filter: drop-shadow(5px 9px 5px rgba(23, 126, 145, 1));
   padding-right: 0 !important;
 }
+
 .right-sidebar-container {
   position: absolute;
   right: -1rem;
@@ -125,15 +124,13 @@ small > span {
   background: var(--OverlayLightBlue) !important;
   height: 100%;
   border-radius: 6px;
-  clip-path: polygon(
-    50% 0%,
-    100% 0px,
-    100% 46%,
-    26.17% 49%,
-    21.07% 96%,
-    0px 100%,
-    0px 0px
-  );
+  clip-path: polygon(50% 0%,
+      100% 0px,
+      100% 46%,
+      26.17% 49%,
+      21.07% 96%,
+      0px 100%,
+      0px 0px);
   font-size: 0.75rem;
   user-select: none;
   cursor: pointer;
@@ -177,16 +174,16 @@ small > span {
   margin-top: -2rem;
 }
 
-.body-container > .body-background {
+.body-container>.body-background {
   padding: 3rem 0.25rem !important;
 }
 
-.body-container > div {
+.body-container>div {
   padding: 3rem 1rem;
   position: absolute;
 }
 
-.body-container > .homepage {
+.body-container>.homepage {
   right: 0.75rem;
 }
 
@@ -207,7 +204,7 @@ small > span {
   /* filter: drop-shadow(0px 17px 3px rgba(23, 126, 145, 1)); */
 }
 
-.modal-second-inner > div {
+.modal-second-inner>div {
   position: relative;
 }
 
@@ -225,16 +222,14 @@ small > span {
   position: absolute;
   top: -1.25rem;
   left: -0.75rem;
-  clip-path: polygon(
-    0 0,
-    100% 0,
-    100% 100%,
-    95% 100%,
-    95% 68%,
-    5% 68%,
-    5% 100%,
-    0 100%
-  );
+  clip-path: polygon(0 0,
+      100% 0,
+      100% 100%,
+      95% 100%,
+      95% 68%,
+      5% 68%,
+      5% 100%,
+      0 100%);
   border-radius: 4px;
   margin: -1px -2px 0 -2px;
   filter: blur(6px);
@@ -249,22 +244,20 @@ small > span {
   bottom: -0.75rem;
   left: -0.75rem;
   transform: scaleY(-1);
-  clip-path: polygon(
-    0 0,
-    100% 0,
-    100% 100%,
-    95% 100%,
-    95% 68%,
-    5% 68%,
-    5% 100%,
-    0 100%
-  );
+  clip-path: polygon(0 0,
+      100% 0,
+      100% 100%,
+      95% 100%,
+      95% 68%,
+      5% 68%,
+      5% 100%,
+      0 100%);
   border-radius: 4px;
   margin: -1px -2px -2px;
   filter: blur(6px);
 }
 
-.svelteui-Modal-inner > div {
+.svelteui-Modal-inner>div {
   box-shadow: inset 0 0 16px rgba(255, 255, 255, 1);
 }
 
@@ -273,6 +266,7 @@ small > span {
     backdrop-filter: blur(0);
     -webkit-backdrop-filter: blur(0);
   }
+
   100% {
     backdrop-filter: blur(1px);
     -webkit-backdrop-filter: blur(1px);
@@ -292,19 +286,18 @@ small > span {
   position: absolute;
   top: -1.5rem;
   left: -1rem;
-  clip-path: polygon(
-    0 0,
-    100% 0,
-    100% 100%,
-    95% 100%,
-    95% 68%,
-    5% 68%,
-    5% 100%,
-    0 100%
-  );
+  clip-path: polygon(0 0,
+      100% 0,
+      100% 100%,
+      95% 100%,
+      95% 68%,
+      5% 68%,
+      5% 100%,
+      0 100%);
   border-radius: 4px;
   z-index: 2;
 }
+
 .modal-second-inner::after {
   content: "\00a0";
   width: 106%;
@@ -314,16 +307,14 @@ small > span {
   bottom: -1rem;
   left: -1rem;
   transform: scaleY(-1);
-  clip-path: polygon(
-    0 0,
-    100% 0,
-    100% 100%,
-    95% 100%,
-    95% 68%,
-    5% 68%,
-    5% 100%,
-    0 100%
-  );
+  clip-path: polygon(0 0,
+      100% 0,
+      100% 100%,
+      95% 100%,
+      95% 68%,
+      5% 68%,
+      5% 100%,
+      0 100%);
   border-radius: 4px;
   z-index: 2;
 }
@@ -334,21 +325,19 @@ small > span {
   min-width: 105px;
   width: 105px;
   height: 162.5px;
-  clip-path: polygon(
-    0 90%,
-    2% 88%,
-    2% 83%,
-    0 82%,
-    0 3%,
-    7% 0,
-    100% 0,
-    100% 82%,
-    98% 83%,
-    98% 88%,
-    100% 90%,
-    100% 100%,
-    0 100%
-  );
+  clip-path: polygon(0 90%,
+      2% 88%,
+      2% 83%,
+      0 82%,
+      0 3%,
+      7% 0,
+      100% 0,
+      100% 82%,
+      98% 83%,
+      98% 88%,
+      100% 90%,
+      100% 100%,
+      0 100%);
   margin: 0.15rem;
   border-radius: 4px;
   display: flex;
@@ -375,18 +364,17 @@ small > span {
   height: 90px;
   width: 71px;
   margin-top: 0.25rem;
-  clip-path: polygon(
-    3.84% 0px,
-    95% 0px,
-    100% 3.84%,
-    100% 95%,
-    95% 100%,
-    3.84% 100%,
-    0px 95%,
-    0px 3.84%
-  );
+  clip-path: polygon(3.84% 0px,
+      95% 0px,
+      100% 3.84%,
+      100% 95%,
+      95% 100%,
+      3.84% 100%,
+      0px 95%,
+      0px 3.84%);
   position: relative;
 }
+
 .battle-chip-inner-label .img-container {
   position: absolute;
   top: 52%;
@@ -426,13 +414,11 @@ small > span {
   box-shadow: inset 0px 9px 22px -9px black;
   width: 84%;
   height: 40px;
-  background: repeating-linear-gradient(
-    to right,
-    #745039 0px,
-    #745039 5px,
-    #ffe373 5px,
-    #ffe373 10px
-  );
+  background: repeating-linear-gradient(to right,
+      #745039 0px,
+      #745039 5px,
+      #ffe373 5px,
+      #ffe373 10px);
   position: absolute;
   bottom: 2px;
   user-select: none;
@@ -473,6 +459,7 @@ small > span {
   border-radius: 3px;
   user-select: none;
 }
+
 .battle-chip-bottom-detail {
   font-size: 6.5px;
   position: absolute;
@@ -582,11 +569,13 @@ small > span {
 .custom-header {
   letter-spacing: 1px;
 }
+
 .custom-paragraph .svelteui-InputWrapper-label,
 .custom-input .svelteui-InputWrapper-label {
   font-size: 0.85rem !important;
 }
-.custom-select > div {
+
+.custom-select>div {
   width: 50% !important;
 }
 
@@ -601,7 +590,7 @@ small > span {
   margin-right: 1rem;
   padding: 1.5rem 2rem !important;
   height: 100%;
-  width: 100% ;
+  width: 100%;
 }
 
 .test-navi {
@@ -610,19 +599,23 @@ small > span {
   position: absolute;
   right: 6rem;
 }
+
 .test-navi img {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
+
 @keyframes scroll-left {
   0% {
     transform: translateX(100%);
   }
+
   100% {
     transform: translateX(-100%);
   }
 }
+
 .marquee-message {
   height: 50px;
   overflow: hidden;
@@ -653,18 +646,16 @@ small > span {
   background: var(--OverlayLightBlue);
   height: 200px;
   width: 300px;
-  clip-path: polygon(
-    52% 26%,
-    73% 0,
-    100% 0,
-    100% 100%,
-    75% 100%,
-    50% 100%,
-    0 100%,
-    38% 42%,
-    49% 69%,
-    64% 54%
-  );
+  clip-path: polygon(52% 26%,
+      73% 0,
+      100% 0,
+      100% 100%,
+      75% 100%,
+      50% 100%,
+      0 100%,
+      38% 42%,
+      49% 69%,
+      64% 54%);
   user-select: none;
 }
 
@@ -693,103 +684,124 @@ small > span {
   overflow-x: hidden;
   scroll-behavior: smooth;
 }
+
 .chip-name-search {
   width: 55% !important;
 }
+
 .sort-by-dropdown {
   width: 25% !important;
   margin-left: 0.5rem;
 }
+
 @media screen and (min-width: 750px) {
   .topbar {
     margin-right: 2rem;
     padding: 1rem;
     margin-left: 0;
   }
+
   .topbar-container {
     font-size: 1rem !important;
   }
+
   .left-sidebar-container {
     left: -0.75rem;
     top: 5rem;
     display: initial;
   }
+
   .body-container {
     right: -2rem;
   }
-  .body-container > .body-background {
+
+  .body-container>.body-background {
     padding: 4rem 5rem 5.5rem 6rem !important;
   }
-  .body-container > div {
+
+  .body-container>div {
     right: 4rem;
     height: 78%;
     width: 90%;
   }
-  .body-container > .body-background {
+
+  .body-container>.body-background {
     height: initial !important;
   }
+
   .body-background {
     left: 2rem;
     bottom: initial;
   }
+
   .header-container {
     margin-left: 0;
   }
+
   .bottom-right-screen-detail-container,
   .top-left-overlay-detail-container {
     display: initial;
   }
+
   .custom-input {
     margin: -1rem 2rem 0.5rem 2rem;
   }
+
   .custom-paragraph {
     width: 65%;
     margin-top: 2rem;
   }
+
   .battle-chip-label-text {
     font-size: 7px;
   }
+
   .svelteui-Modal-modal {
     width: 620px !important;
   }
+
   .scroll-container {
     height: 78vh !important;
   }
+
   .battle-chip.progress .battle-chip-label-text i {
     font-size: 8px !important;
   }
+
   .chip-name-search {
     width: 25% !important;
   }
+
   .sort-by-dropdown {
     width: 15% !important;
     margin-left: initial;
   }
+
   .battle-chip-label-title i {
     vertical-align: sub;
     margin-left: 2px;
   }
+
   .battle-chip-modal-info {
     margin-left: 0.5rem;
   }
 }
+
 .battle-chip.progress {
-  clip-path: polygon(
-    0px 0px,
-    8.72% 0px,
-    11% 3%,
-    17% 3%,
-    19% 0px,
-    100% 0px,
-    100% 100%,
-    43.75% 100%,
-    34.48% 86%,
-    19% 86%,
-    17% 83%,
-    11% 83%,
-    8.72% 86%,
-    0px 86.11%
-  );
+  clip-path: polygon(0px 0px,
+      8.72% 0px,
+      11% 3%,
+      17% 3%,
+      19% 0px,
+      100% 0px,
+      100% 100%,
+      43.75% 100%,
+      34.48% 86%,
+      19% 86%,
+      17% 83%,
+      11% 83%,
+      8.72% 86%,
+      0px 86.11%);
   min-width: 130px;
   width: 130px;
   height: 90px;
@@ -818,6 +830,7 @@ small > span {
   margin-left: -3px;
   font-size: initial !important;
 }
+
 .battle-chip.progress.players .battle-chip-label-text {
   margin-top: 8px;
 }
@@ -866,7 +879,7 @@ small > span {
   margin-left: -1px;
 }
 
-.battle-chip.progress .battle-chip-label-inner-container > div {
+.battle-chip.progress .battle-chip-label-inner-container>div {
   background: #d2b640;
   clip-path: polygon(100% 0px, 100% 100%, 12% 100%, 0px 87.67%, 0px 0px);
   height: 71px;
@@ -875,7 +888,7 @@ small > span {
   z-index: 5;
 }
 
-.battle-chip.progress .battle-chip-label-inner-container > div > div {
+.battle-chip.progress .battle-chip-label-inner-container>div>div {
   background: black;
   position: absolute;
   top: 4px;
@@ -949,23 +962,24 @@ small > span {
   user-select: none !important;
 }
 
-.card-section-collection > .battle-chip {
+.card-section-collection>.battle-chip {
   transform: scale(0.9);
   color: white !important;
 }
 
-.card-section-collection > .battle-chip:first-child {
+.card-section-collection>.battle-chip:first-child {
   position: absolute;
   top: 0;
   left: 0;
 }
 
-.card-section-collection > .battle-chip:nth-child(2) {
+.card-section-collection>.battle-chip:nth-child(2) {
   position: absolute;
   top: 1rem;
   left: 2.75rem;
 }
-.card-section-collection > .battle-chip:nth-child(3) {
+
+.card-section-collection>.battle-chip:nth-child(3) {
   position: absolute;
   top: 2rem;
   left: 5.5rem;
@@ -999,7 +1013,8 @@ small > span {
   max-height: 100%;
   overflow-y: auto;
 }
+
 .layout-container {
   height: 76%;
-  left: 0;
+  /* left: 0; */
 }
